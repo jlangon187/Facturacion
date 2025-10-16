@@ -1,4 +1,5 @@
 ﻿
+using FacturacionDAM.Formularios;
 using MySql.Data.MySqlClient;
 using System.Text.Json;
 
@@ -7,7 +8,7 @@ namespace FacturacionDAM.Modelos {
 
         public ConfiguracionConexion configConexion;        // Objeto con la configuración de la conexión a la BD.
         public EstadoApp estadoApp;                         // Estado de la aplicación en el momento actual.
-        public int idEmisorActivo;                          // Identificador del emisor cuyas facturas se gestionan.
+        public Emisor emisor;                               // Emisor de las facturas.
         public string rutaBase { get; private set; }        // Ruta base de la aplicación.
         public string rutaConfigDB;                         // Ruta al archivo de configuración de la base de datos.
 
@@ -30,6 +31,9 @@ namespace FacturacionDAM.Modelos {
 
             // Instancio el cliente mysql.
             _conexion = new MySqlConnection();
+
+            // Inicializo el objeto emisor.
+            emisor = null;
 
             // Inicializo la aplicación
             InitApp();            

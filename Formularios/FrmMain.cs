@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using FacturacionDAM.Modelos;
 
 namespace FacturacionDAM.Formularios
@@ -34,11 +35,8 @@ namespace FacturacionDAM.Formularios
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            // Actualiza el estado de la barra de herramientas
-            RefreshToolBar();
-
-            // Actualiza la informacion de la barra de estado
-            RefreshStatusBar();
+            // Refresca los controles de la ventana principal
+            RefrescarControles();
         }
 
         private void tsBtnConfig_Click(object sender, EventArgs e)
@@ -138,6 +136,37 @@ namespace FacturacionDAM.Formularios
 
         private void RefreshStatusBar()
         {
+            if (Program.appDAM.emisor == null)
+            {
+                tsslblEmisor.Text = "Sin emisor seleccionado";
+            }
+            else
+            {
+                tsslblEmisor.Text = $"{Program.appDAM.emisor.nombre} - NIF: {Program.appDAM.emisor.nif}";
+            }
+            switch (Program.appDAM.estadoApp)
+            {
+                case EstadoApp.Conectado:
+                    tsslblEstado.Text = "Conectad a la base de datos";
+                    break;
+                case EstadoApp.SinConexion;
+                    tsslblEstado.Text = "Sin conexión a la base de datos";
+                    break;
+                case EstadoApp.ConectadoSinEmisor:
+                    tsslblEstado.Text = "Conectado a la base de datos - Sin emisor seleccionado";
+                    break;
+                case EstadoApp.Error:
+                    if (Program.appDAM.ultimoError != "")
+                        tsslblEstado.Text = "Se ha producido un error, revisa el log";
+                    else
+                        tsslblEstado.Text = "Se ha producido un error";
+                    break;
+            }
+        }
+        private void RefrescarControles()
+        {
+            RefreshToolBar();
+            RefreshStatusBar();
         }
     }
 }
