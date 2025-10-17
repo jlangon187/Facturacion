@@ -19,7 +19,7 @@ namespace FacturacionDAM.Modelos {
 
         private MySqlConnection _conexion = null;           // Cliente MySQL para comunicarnos con la base de datos
 
-        private DebugDAM debug;                          // Objeto para gestionar el log de depuración.
+        private DebugDAM debug;                             // Objeto para gestionar el log de depuración.
 
         /// <summary>
         /// Constructor.
@@ -154,7 +154,5 @@ namespace FacturacionDAM.Modelos {
             string linea = $"{DateTime.Now:dd-MM-yyyy} | {DateTime.Now:HH:mm:ss} | {proceso} | {mensaje}";
             debug.GuardarLog(linea);
         }
-
-
     }
 }

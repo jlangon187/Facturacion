@@ -46,11 +46,11 @@
             tsBtnSalir = new ToolStripButton();
             pnStatus = new Panel();
             statusBar = new StatusStrip();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             tsLbEmisorTitle = new ToolStripStatusLabel();
-            tbLbEstadoTitle = new ToolStripStatusLabel();
-            tbLbEstado = new ToolStripStatusLabel();
             tsLbEmisor = new ToolStripStatusLabel();
+            tbLbEstadoTitle = new ToolStripStatusLabel();
+            tsLbEstado = new ToolStripStatusLabel();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             pnMenu.SuspendLayout();
             pnTools.SuspendLayout();
             tsToolMain.SuspendLayout();
@@ -202,7 +202,7 @@
             // 
             // statusBar
             // 
-            statusBar.Items.AddRange(new ToolStripItem[] { tsLbEmisorTitle, tsLbEmisor, tbLbEstadoTitle, tbLbEstado });
+            statusBar.Items.AddRange(new ToolStripItem[] { tsLbEmisorTitle, tsLbEmisor, tbLbEstadoTitle, tsLbEstado });
             statusBar.Location = new Point(0, 5);
             statusBar.Name = "statusBar";
             statusBar.Size = new Size(843, 22);
@@ -217,6 +217,14 @@
             tsLbEmisorTitle.Text = "Emisor:";
             tsLbEmisorTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tsLbEmisor
+            // 
+            tsLbEmisor.AutoSize = false;
+            tsLbEmisor.Name = "tsLbEmisor";
+            tsLbEmisor.Size = new Size(200, 17);
+            tsLbEmisor.Text = "Aquí la info del emisor";
+            tsLbEmisor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // tbLbEstadoTitle
             // 
             tbLbEstadoTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
@@ -225,20 +233,12 @@
             tbLbEstadoTitle.Text = "Estado:";
             tbLbEstadoTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // tbLbEstado
+            // tsLbEstado
             // 
-            tbLbEstado.Name = "tbLbEstado";
-            tbLbEstado.Size = new Size(125, 17);
-            tbLbEstado.Text = "Aquí la info del estado";
-            tbLbEstado.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // tsLbEmisor
-            // 
-            tsLbEmisor.AutoSize = false;
-            tsLbEmisor.Name = "tsLbEmisor";
-            tsLbEmisor.Size = new Size(200, 17);
-            tsLbEmisor.Text = "Aquí la info del emisor";
-            tsLbEmisor.TextAlign = ContentAlignment.MiddleLeft;
+            tsLbEstado.Name = "tsLbEstado";
+            tsLbEstado.Size = new Size(125, 17);
+            tsLbEstado.Text = "Aquí la info del estado";
+            tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FrmMain
             // 
@@ -289,6 +289,6 @@
         private ToolStripStatusLabel tsLbEmisorTitle;
         private ToolStripStatusLabel tsLbEmisor;
         private ToolStripStatusLabel tbLbEstadoTitle;
-        private ToolStripStatusLabel tbLbEstado;
+        private ToolStripStatusLabel tsLbEstado;
     }
 }

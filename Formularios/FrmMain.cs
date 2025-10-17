@@ -138,28 +138,28 @@ namespace FacturacionDAM.Formularios
         {
             if (Program.appDAM.emisor == null)
             {
-                tsslblEmisor.Text = "Sin emisor seleccionado";
+                tsLbEmisor.Text = "Sin emisor seleccionado";
             }
             else
             {
-                tsslblEmisor.Text = $"{Program.appDAM.emisor.nombre} - NIF: {Program.appDAM.emisor.nif}";
+                tsLbEmisor.Text = $"{Program.appDAM.emisor.nombre} - NIF: {Program.appDAM.emisor.nif}";
             }
             switch (Program.appDAM.estadoApp)
             {
                 case EstadoApp.Conectado:
-                    tsslblEstado.Text = "Conectad a la base de datos";
+                    tsLbEstado.Text = "Conectado a la base de datos";
                     break;
-                case EstadoApp.SinConexion;
-                    tsslblEstado.Text = "Sin conexión a la base de datos";
+                case EstadoApp.SinConexion:
+                    tsLbEstado.Text = "No conectado a la base de datos";
                     break;
                 case EstadoApp.ConectadoSinEmisor:
-                    tsslblEstado.Text = "Conectado a la base de datos - Sin emisor seleccionado";
+                    tsLbEstado.Text = "Conectado a la base de datos - Sin emisor seleccionado";
                     break;
                 case EstadoApp.Error:
                     if (Program.appDAM.ultimoError != "")
-                        tsslblEstado.Text = "Se ha producido un error, revisa el log";
+                        tsLbEstado.Text = "Se ha producido un error, revisa el log";
                     else
-                        tsslblEstado.Text = "Se ha producido un error";
+                        tsLbEstado.Text = "Se ha producido un error";
                     break;
             }
         }
