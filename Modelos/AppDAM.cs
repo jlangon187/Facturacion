@@ -1,6 +1,7 @@
 ﻿
 using FacturacionDAM.Formularios;
 using MySql.Data.MySqlClient;
+using System.Data;
 using System.Text.Json;
 
 namespace FacturacionDAM.Modelos {
@@ -56,6 +57,10 @@ namespace FacturacionDAM.Modelos {
             ConfiguraYConectaDB(rutaConfigDB);
         }
 
+        /// <summary>
+        /// Carga la configuración de la base de datos desde el archivo de configuración
+        /// </summary>
+        /// <param name="aRutaConfig"></param>
         public void ConfiguraYConectaDB(string aRutaConfig)
         {
             // Inicializo el último error
@@ -92,7 +97,6 @@ namespace FacturacionDAM.Modelos {
                     RegistrarLog("ConfiguraYConectaDB", ultimoError);
             }
         }
-
 
         /// <summary>
         /// Carga la configuración de la base de datos en un objeto de la clase "ConfiguracionConexion",
@@ -175,11 +179,20 @@ namespace FacturacionDAM.Modelos {
             estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
         }
 
+        /// <summary>
+        /// Registra una línea en el log de depuración.
+        /// </summary>
+        /// <param name="proceso"></param>
+        /// <param name="mensaje"></param>
         public void RegistrarLog(string proceso, string mensaje)
         {
             string linea = $"{DateTime.Now:dd-MM-yyyy} | {DateTime.Now:HH:mm:ss} | {proceso} | {mensaje}";
             debug.GuardarLog(linea);
         }
 
+        /// <summary>
+        /// Acceso de solo lectura a la conexión MySQL.
+        /// </summary>
+        public MySqlConnection LaConexion => _conexion;
     }
 }

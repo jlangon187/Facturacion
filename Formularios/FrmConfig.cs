@@ -76,8 +76,6 @@ namespace FacturacionDAM.Formularios
             }
         }
 
-
-
         private void SetControlesEstadoConexion(bool enProceso)
         {
             pnData.Enabled = !enProceso;
