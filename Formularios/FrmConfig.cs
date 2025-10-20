@@ -9,53 +9,38 @@ namespace FacturacionDAM.Formularios
         public FrmConfig()
         {
             InitializeComponent();
+            this.Load += FrmConnection_Load;
         }
 
-        private void btnProbarConexion_Click(object sender, EventArgs e)
+        private void btnConexion_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Program.appDAM.estadoApp == EstadoApp.Conectado)
+                SetControlesEstadoConexion(true);
+
+                if (Program.appDAM.conectado)
                 {
-                    SetControlesEstadoConexion(true);
-                    // Cerrar conexión
+                    // Desconecta
                     Program.appDAM.DesconectarDB();
-                    SetControlesEstadoConexion(false);
                 }
                 else
                 {
-                    // Iniciar intento de conexión
-                    SetControlesEstadoConexion(true);
+                    // Actualiza config con los valores del formulario
+                    Program.appDAM.configConexion = new ConfiguracionConexion
+                    {
+                        servidor = txtServidor.Text,
+                        puerto = int.Parse(txtPuerto.Text),
+                        usuario = txtUsuario.Text,
+                        password = txtPassword.Text,
+                        baseDatos = txtBaseDatos.Text
+                    };
+
+                    // Intenta conectar
                     Program.appDAM.ConectarDB();
-
-                    // Tras el intento, actualizo
-                    SetControlesEstadoConexion(false);
                 }
-            }
-            catch (Exception ex)
-            {
-                SetControlesEstadoConexion(false, ex.Message);
-            }
-        }
 
-        private void SetControlesEstadoConexion(bool enProceso, string aError = "")
-        {
-            pnData.Enabled = !enProceso;
-            btnConexion.Enabled = !enProceso;
-            tsProgressBarConexion.Visible = enProceso;
-
-            if (enProceso)
-            {
-                // Mostrar mensajes en la barra de estado.
-                tsStatusLabel.Text = enProceso ? "Conectando ..." : "";
-                tsStatusLabel.ForeColor = Color.Black;
-                tsProgressBarConexion.Style = ProgressBarStyle.Marquee;
-            }
-            else
-            {
-                tsProgressBarConexion.Style = ProgressBarStyle.Blocks;
-
-                if (Program.appDAM.estadoApp == EstadoApp.Conectado)
+                // Refrescar estado visual local
+                if (Program.appDAM.conectado)
                 {
                     tsStatusLabel.Text = "Conexión establecida correctamente.";
                     tsStatusLabel.ForeColor = Color.Green;
@@ -63,19 +48,42 @@ namespace FacturacionDAM.Formularios
                 }
                 else
                 {
-                    if (aError == "")
+                    tsStatusLabel.Text = "Conexión cerrada.";
+                    tsStatusLabel.ForeColor = Color.Black;
+                    btnConexion.Text = "Conectar";
+                }
+
+                // Actualizar el FrmMain si existe
+                FrmMain frmMain = this.MdiParent as FrmMain;
+                if (frmMain != null)
+                {
+                    frmMain.Invoke(new Action(() =>
                     {
-                        tsStatusLabel.Text = "Conexión cerrada.";
-                        tsStatusLabel.ForeColor = Color.Black;
-                        btnConexion.Text = "Conectar";
-                    }
-                    else
-                    {
-                        tsStatusLabel.Text = "Se ha producido un error: " + aError;
-                        tsStatusLabel.ForeColor = Color.Red;
-                    }
+                        frmMain.RefreshToolBar();
+                        frmMain.RefreshStatusBar();
+                    }));
                 }
             }
+            catch (Exception ex)
+            {
+                tsStatusLabel.Text = "Error: " + ex.Message;
+                tsStatusLabel.ForeColor = Color.Red;
+                Program.appDAM.RegistrarLog("FrmConfig.btnConexion_Click", ex.Message);
+            }
+            finally
+            {
+                SetControlesEstadoConexion(false);
+            }
+        }
+
+
+
+        private void SetControlesEstadoConexion(bool enProceso)
+        {
+            pnData.Enabled = !enProceso;
+            btnConexion.Enabled = !enProceso;
+            tsProgressBarConexion.Visible = enProceso;
+            tsProgressBarConexion.Style = enProceso ? ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
         }
 
 
@@ -101,32 +109,43 @@ namespace FacturacionDAM.Formularios
                 Title = "Seleccionar archivo de configuración"
             };
 
-            if (dlg.ShowDialog() == DialogResult.OK) {
-                
-                try {
-                    // Mientras se conecta desactivo controles.
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Desactivar controles mientras carga
                     SetControlesEstadoConexion(true);
 
-                    // Configuro y conecto la base de datos
+                    // Configura la conexión (esto carga el JSON e intenta conectar)
                     Program.appDAM.ConfiguraYConectaDB(dlg.FileName);
 
-                    if (Program.appDAM.estadoApp == EstadoApp.Conectado) {
+                    // Muestra los datos siempre que haya cargado el JSON, aunque no haya conexión
+                    if (Program.appDAM.configConexion != null)
+                    {
                         txtServidor.Text = Program.appDAM.configConexion.servidor;
                         txtPuerto.Text = Program.appDAM.configConexion.puerto.ToString();
                         txtUsuario.Text = Program.appDAM.configConexion.usuario;
                         txtPassword.Text = Program.appDAM.configConexion.password;
                         txtBaseDatos.Text = Program.appDAM.configConexion.baseDatos;
                     }
+                    else
+                    {
+                        MessageBox.Show("No se pudo cargar el archivo de configuración.",
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
-                    // Ajusto controles
+                    // Reactivar controles
                     SetControlesEstadoConexion(false);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al cargar el archivo:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al cargar el archivo: " + ex.Message,
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Program.appDAM.RegistrarLog("Error al cargar el archivo", ex.Message);
                 }
             }
         }
+
 
         private void tsBtnGuardar_Click(object sender, EventArgs e)
         {
@@ -154,14 +173,16 @@ namespace FacturacionDAM.Formularios
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al guardar:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Program.appDAM.RegistrarLog("Error al guardar el archivo", ex.Message);
                 }
             }
         }
 
         private void FrmConnection_Load(object sender, EventArgs e)
         {
-            if (Program.appDAM.estadoApp == EstadoApp.Conectado)
+            // Si hay configuración cargada, la mostramos
+            if (Program.appDAM.configConexion != null)
             {
                 txtServidor.Text = Program.appDAM.configConexion.servidor;
                 txtPuerto.Text = Program.appDAM.configConexion.puerto.ToString();
@@ -169,18 +190,28 @@ namespace FacturacionDAM.Formularios
                 txtPassword.Text = Program.appDAM.configConexion.password;
                 txtBaseDatos.Text = Program.appDAM.configConexion.baseDatos;
             }
+
+            // Muestra el estado actual de la conexión global
+            ActualizarEstadoConexion();
+
+            // Desactiva el indicador de progreso al cargar
+            tsProgressBarConexion.Visible = false;
+        }
+
+        private void ActualizarEstadoConexion()
+        {
+            if (Program.appDAM.conectado)
+            {
+                tsStatusLabel.Text = "Conexión establecida correctamente.";
+                tsStatusLabel.ForeColor = Color.Green;
+                btnConexion.Text = "Cerrar conexión";
+            }
             else
             {
-                txtServidor.Text = "";
-                txtPuerto.Text = "";
-                txtUsuario.Text = "";
-                txtPassword.Text = "";
-                txtBaseDatos.Text = "";
+                tsStatusLabel.Text = "Conexión cerrada.";
+                tsStatusLabel.ForeColor = Color.Black;
+                btnConexion.Text = "Conectar";
             }
-
-            // Ajusto controles
-            SetControlesEstadoConexion(false);
-
         }
     }
 }

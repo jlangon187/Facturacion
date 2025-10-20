@@ -106,35 +106,38 @@ namespace FacturacionDAM.Formularios
             nuevoForm.Show();
         }
 
-        private void RefreshToolBar()
+        public void RefreshToolBar()
         {
-            if (Program.appDAM.estadoApp == EstadoApp.Conectado)
+            foreach (ToolStripItem item in tsToolMain.Items)
             {
-                foreach (ToolStripItem item in tsToolMain.Items)
+                if (item is ToolStripButton btn)
                 {
-                    if (item is ToolStripButton btn)
+                    switch (item.Name)
                     {
-                        switch (item.Name)
-                        {
-                            case "tsBtnConfig":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnSalir":
-                                item.Enabled = true;
-                                break;
-                            case "tsBtnEmisores":
-                                item.Enabled = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor) ? true : false;
-                                break;
-                            default:
-                                item.Enabled = false;
-                                break;
-                        }
+                        case "tsBtnConfig":
+                            item.Enabled = true;
+                            break;
+
+                        case "tsBtnSalir":
+                            item.Enabled = true;
+                            break;
+
+                        case "tsBtnEmisores":
+                            // Habilitado solo si el estado es ConectadoSinEmisor
+                            item.Enabled = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor);
+                            break;
+
+                        default:
+                            // Solo habilitamos otros botones si hay conexión
+                            item.Enabled = (Program.appDAM.estadoApp == EstadoApp.Conectado);
+                            break;
                     }
                 }
             }
         }
 
-        private void RefreshStatusBar()
+
+        public void RefreshStatusBar()
         {
             if (Program.appDAM.emisor == null)
             {
@@ -153,7 +156,7 @@ namespace FacturacionDAM.Formularios
                     tsLbEstado.Text = "No conectado a la base de datos";
                     break;
                 case EstadoApp.ConectadoSinEmisor:
-                    tsLbEstado.Text = "Conectado a la base de datos - Sin emisor seleccionado";
+                    tsLbEstado.Text = "Conectado a la base de datos";
                     break;
                 case EstadoApp.Error:
                     if (Program.appDAM.ultimoError != "")
@@ -167,6 +170,11 @@ namespace FacturacionDAM.Formularios
         {
             RefreshToolBar();
             RefreshStatusBar();
+        }
+
+        private void tsMenuConsola_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmConsola>();
         }
     }
 }

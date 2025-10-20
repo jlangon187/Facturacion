@@ -173,7 +173,7 @@
             btnConexion.TabIndex = 12;
             btnConexion.Text = "Probar conexión";
             btnConexion.UseVisualStyleBackColor = true;
-            btnConexion.Click += btnProbarConexion_Click;
+            btnConexion.Click += btnConexion_Click;
             // 
             // statusStrip1
             // 

@@ -51,7 +51,10 @@
             tbLbEstadoTitle = new ToolStripStatusLabel();
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            tsMenuAyuda = new ToolStripMenuItem();
+            tsMenuConsola = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
+            menuMain.SuspendLayout();
             pnTools.SuspendLayout();
             tsToolMain.SuspendLayout();
             pnStatus.SuspendLayout();
@@ -70,6 +73,7 @@
             // menuMain
             // 
             menuMain.BackColor = Color.Azure;
+            menuMain.Items.AddRange(new ToolStripItem[] { tsMenuAyuda });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
             menuMain.Size = new Size(936, 24);
@@ -240,6 +244,20 @@
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tsMenuAyuda
+            // 
+            tsMenuAyuda.DropDownItems.AddRange(new ToolStripItem[] { tsMenuConsola });
+            tsMenuAyuda.Name = "tsMenuAyuda";
+            tsMenuAyuda.Size = new Size(53, 20);
+            tsMenuAyuda.Text = "&Ayuda";
+            // 
+            // tsMenuConsola
+            // 
+            tsMenuConsola.Name = "tsMenuConsola";
+            tsMenuConsola.Size = new Size(196, 22);
+            tsMenuConsola.Text = "C&onsola de depuración";
+            tsMenuConsola.Click += tsMenuConsola_Click;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -256,6 +274,8 @@
             Load += FrmMain_Load;
             pnMenu.ResumeLayout(false);
             pnMenu.PerformLayout();
+            menuMain.ResumeLayout(false);
+            menuMain.PerformLayout();
             pnTools.ResumeLayout(false);
             pnTools.PerformLayout();
             tsToolMain.ResumeLayout(false);
@@ -290,5 +310,7 @@
         private ToolStripStatusLabel tsLbEmisor;
         private ToolStripStatusLabel tbLbEstadoTitle;
         private ToolStripStatusLabel tsLbEstado;
+        private ToolStripMenuItem tsMenuAyuda;
+        private ToolStripMenuItem tsMenuConsola;
     }
 }

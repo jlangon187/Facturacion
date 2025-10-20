@@ -56,27 +56,43 @@ namespace FacturacionDAM.Modelos {
             ConfiguraYConectaDB(rutaConfigDB);
         }
 
-        public void ConfiguraYConectaDB(string aRutaConfig)  {
-            // Inicializo la variable que guarda el último error
+        public void ConfiguraYConectaDB(string aRutaConfig)
+        {
+            // Inicializo el último error
             ultimoError = "";
 
-            // Cargo los datos de conexión a la base de datos.
+            // Cargo la configuración
             configConexion = CargarConfiguracionDB(aRutaConfig);
 
-            // Intento la conexión a la base de datos
+
             if (configConexion != null)
             {
                 if (ConectarDB())
-                    estadoApp = EstadoApp.Conectado;
+                {
+                    // Si la conexión es correcta, actualizamos el estado pero no registramos en el log
+                    estadoApp = (emisor == null)
+                        ? EstadoApp.ConectadoSinEmisor
+                        : EstadoApp.Conectado;
+                }
                 else
+                {
                     estadoApp = (ultimoError != "") ? EstadoApp.Error : EstadoApp.SinConexion;
-                    RegistrarLog("ConfiguraYConectaDB", $"Estado de la aplicación: {estadoApp.ToString()}");
+
+                    // Solo logueamos si hay error
+                    if (!string.IsNullOrEmpty(ultimoError))
+                        RegistrarLog("ConfiguraYConectaDB", ultimoError);
+                }
             }
             else
+            {
                 estadoApp = (ultimoError != "") ? EstadoApp.Error : EstadoApp.SinConexion;
-                RegistrarLog("ConfiguraYConectaDB", $"Estado de la aplicación: {estadoApp.ToString()}");
 
+                // Solo logueamos si hay error
+                if (!string.IsNullOrEmpty(ultimoError))
+                    RegistrarLog("ConfiguraYConectaDB", ultimoError);
+            }
         }
+
 
         /// <summary>
         /// Carga la configuración de la base de datos en un objeto de la clase "ConfiguracionConexion",
@@ -85,20 +101,28 @@ namespace FacturacionDAM.Modelos {
         /// </summary>
         /// <returns>Retorna el objeto de tipo "ConfiguracionConexion" con la configuración de la base
         /// de datos, null si no lo ha conseguido.</returns>
-        private ConfiguracionConexion CargarConfiguracionDB(string aRuta)  {
-            
+        private ConfiguracionConexion CargarConfiguracionDB(string aRuta)
+        {
             ConfiguracionConexion resultado = null;
-            
-            if (File.Exists(aRuta)) {
-                try {
+
+            if (File.Exists(aRuta))
+            {
+                try
+                {
                     string jsonText = File.ReadAllText(aRuta);
                     resultado = JsonSerializer.Deserialize<ConfiguracionConexion>(jsonText);
                 }
-                catch (Exception ex) {
-                    ultimoError = "Error al cargar archivo de configuración.\n" + ex.Message;
-                    RegistrarLog("CargarConfiguracionDB", ultimoError);
+                catch (Exception ex)
+                {
+                    ultimoError = "Error al cargar archivo de configuración. " + ex.Message;
                 }
             }
+            else
+            {
+                // Establecer mensaje de error si no existe el archivo
+                ultimoError = $"No se encontró el archivo de configuración: {aRuta}";
+            }
+
             return resultado;
         }
 
@@ -122,7 +146,7 @@ namespace FacturacionDAM.Modelos {
                 _conexion.Open();
             }
             catch (Exception ex) {
-                ultimoError = "Error al intentar la conexión a la base de datos.\n" + ex.Message;
+                ultimoError = "Error al intentar la conexión a la base de datos. " + ex.Message;
                 RegistrarLog("ConectarDB", ultimoError);
             }
             estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
@@ -142,7 +166,7 @@ namespace FacturacionDAM.Modelos {
                 }
                 catch (Exception ex)
                 {
-                    ultimoError = "Error al intentar cerrar conexión a la base de datos.\n" + ex.Message;
+                    ultimoError = "Error al intentar cerrar conexión a la base de datos. " + ex.Message;
                     RegistrarLog("DesconectarDB", ultimoError);
                 }
             }
@@ -154,5 +178,6 @@ namespace FacturacionDAM.Modelos {
             string linea = $"{DateTime.Now:dd-MM-yyyy} | {DateTime.Now:HH:mm:ss} | {proceso} | {mensaje}";
             debug.GuardarLog(linea);
         }
+
     }
 }
