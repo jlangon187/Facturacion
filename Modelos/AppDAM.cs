@@ -115,12 +115,14 @@ namespace FacturacionDAM.Modelos {
                 catch (Exception ex)
                 {
                     ultimoError = "Error al cargar archivo de configuración. " + ex.Message;
+                    RegistrarLog("CargarConfiguracionDB", ultimoError);
                 }
             }
             else
             {
                 // Establecer mensaje de error si no existe el archivo
                 ultimoError = $"No se encontró el archivo de configuración: {aRuta}";
+                RegistrarLog("CargarConfiguracionDB", ultimoError);
             }
 
             return resultado;

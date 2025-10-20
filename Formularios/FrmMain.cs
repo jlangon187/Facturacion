@@ -37,6 +37,12 @@ namespace FacturacionDAM.Formularios
         {
             // Refresca los controles de la ventana principal
             RefrescarControles();
+
+        #if DEBUG
+            tsMenuConsola.Visible = true;
+        #else
+                    tsMenuConsola.Visible = false;
+        #endif
         }
 
         private void tsBtnConfig_Click(object sender, EventArgs e)
@@ -174,7 +180,16 @@ namespace FacturacionDAM.Formularios
 
         private void tsMenuConsola_Click(object sender, EventArgs e)
         {
+        #if DEBUG
             AbrirFormularioHijo<FrmConsola>();
+        #else
+
+            // Opcional: mensaje si alguien lo ejecuta de alguna manera
+            MessageBox.Show("Esta consola solo está disponible en modo Depuración.",
+                            "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Program.appDAM.RegistrarLog("FrmMain", "Intento de abrir consola en modo no depuración.");
+        #endif
         }
+
     }
 }

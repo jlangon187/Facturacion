@@ -1,5 +1,6 @@
 ﻿#if DEBUG
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
