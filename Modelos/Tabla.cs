@@ -34,7 +34,7 @@ namespace FacturacionDAM.Modelos
         {
             try
             {
-                _dataAdapter.SelectCommand = new MySqlCommand(sql);
+                _dataAdapter.SelectCommand = new MySqlCommand(sql, _conexion);
                 _commandBuilder = new MySqlCommandBuilder(_dataAdapter);
                 _tabla = new DataTable();
                 _dataAdapter.Fill(_tabla);

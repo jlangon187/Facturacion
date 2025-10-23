@@ -42,6 +42,7 @@ namespace FacturacionDAM.Formularios
 
         private void btnSelection_Click(object sender, EventArgs e)
         {
+
             if (_bsEmisores.Current is DataRowView row)
             {
                 Emisor emisorSeleccionado = new Emisor
@@ -49,14 +50,21 @@ namespace FacturacionDAM.Formularios
                     id = Convert.ToInt32(row["id"]),
                     nifcif = row["nifcif"].ToString(),
                     nombre = row["nombre"].ToString(),
-                    apellidos = row["apellidos"].ToString(),
+                    apellidos = row["apellido"].ToString(),
                     nombreComercial = row["nombrecomercial"].ToString()
                 };
+
                 Program.appDAM.emisor = emisorSeleccionado;
                 Program.appDAM.estadoApp = EstadoApp.Conectado;
+
+                // Refresca directamente la ventana principal si está abierta
+                if (this.Owner is FrmMain frmMain)
+                    frmMain.RefrescarControles();
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+
             else
             {
                 MessageBox.Show("No se ha seleccionado ningún emisor.", "Error",

@@ -53,6 +53,8 @@
             tbLbEstadoTitle = new ToolStripStatusLabel();
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            tsMenuArchivo = new ToolStripMenuItem();
+            seleccionarEmisorToolStripMenuItem = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
             menuMain.SuspendLayout();
             pnTools.SuspendLayout();
@@ -73,7 +75,7 @@
             // menuMain
             // 
             menuMain.BackColor = SystemColors.Control;
-            menuMain.Items.AddRange(new ToolStripItem[] { tsMenuAyuda });
+            menuMain.Items.AddRange(new ToolStripItem[] { tsMenuArchivo, tsMenuAyuda });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
             menuMain.Size = new Size(936, 24);
@@ -85,7 +87,7 @@
             tsMenuAyuda.DropDownItems.AddRange(new ToolStripItem[] { tsMenuConsola });
             tsMenuAyuda.Name = "tsMenuAyuda";
             tsMenuAyuda.Size = new Size(53, 20);
-            tsMenuAyuda.Text = "&Ayuda";
+            tsMenuAyuda.Text = "A&yuda";
             // 
             // tsMenuConsola
             // 
@@ -258,6 +260,20 @@
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // tsMenuArchivo
+            // 
+            tsMenuArchivo.DropDownItems.AddRange(new ToolStripItem[] { seleccionarEmisorToolStripMenuItem });
+            tsMenuArchivo.Name = "tsMenuArchivo";
+            tsMenuArchivo.Size = new Size(60, 20);
+            tsMenuArchivo.Text = "&Archivo";
+            // 
+            // seleccionarEmisorToolStripMenuItem
+            // 
+            seleccionarEmisorToolStripMenuItem.Name = "seleccionarEmisorToolStripMenuItem";
+            seleccionarEmisorToolStripMenuItem.Size = new Size(182, 22);
+            seleccionarEmisorToolStripMenuItem.Text = "&Seleccionar emisor...";
+            seleccionarEmisorToolStripMenuItem.Click += seleccionarEmisorToolStripMenuItem_Click;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -312,5 +328,7 @@
         private ToolStripStatusLabel tsLbEstado;
         private ToolStripMenuItem tsMenuAyuda;
         private ToolStripMenuItem tsMenuConsola;
+        private ToolStripMenuItem tsMenuArchivo;
+        private ToolStripMenuItem seleccionarEmisorToolStripMenuItem;
     }
 }

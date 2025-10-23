@@ -37,12 +37,13 @@ namespace FacturacionDAM.Formularios
         {
             // Refresca los controles de la ventana principal
             RefrescarControles();
+            SeleccionarEmisor();
 
-        #if DEBUG
+#if DEBUG
             tsMenuConsola.Visible = true;
-        #else
+#else
                     tsMenuConsola.Visible = false;
-        #endif
+#endif
         }
 
         private void tsBtnConfig_Click(object sender, EventArgs e)
@@ -130,7 +131,8 @@ namespace FacturacionDAM.Formularios
 
                         case "tsBtnEmisores":
                             // Habilitado solo si el estado es ConectadoSinEmisor
-                            item.Enabled = (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor);
+                            item.Enabled = ((Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor)
+                                || (Program.appDAM.estadoApp == EstadoApp.Conectado));
                             break;
 
                         default:
@@ -172,7 +174,7 @@ namespace FacturacionDAM.Formularios
                     break;
             }
         }
-        private void RefrescarControles()
+        public void RefrescarControles()
         {
             RefreshToolBar();
             RefreshStatusBar();
@@ -180,16 +182,39 @@ namespace FacturacionDAM.Formularios
 
         private void tsMenuConsola_Click(object sender, EventArgs e)
         {
-        #if DEBUG
+#if DEBUG
             AbrirFormularioHijo<FrmConsola>();
-        #else
+#else
 
             // Opcional: mensaje si alguien lo ejecuta de alguna manera
             MessageBox.Show("Esta consola solo está disponible en modo Depuración.",
                             "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Program.appDAM.RegistrarLog("FrmMain", "Intento de abrir consola en modo no depuración.");
-        #endif
+#endif
         }
 
+        private void SeleccionarEmisor()
+        {
+            if (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor || Program.appDAM.estadoApp == EstadoApp.Conectado)
+            {
+                using (var frm = new FrmSeleccionarEmisor())
+                {
+                    frm.Owner = this;
+                    var result = frm.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        Program.appDAM.estadoApp = EstadoApp.Conectado;
+                        RefrescarControles();
+                    }
+                }
+            }
+        }
+
+        private void seleccionarEmisorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarFormulariosHijos();
+            SeleccionarEmisor();
+        }
     }
 }

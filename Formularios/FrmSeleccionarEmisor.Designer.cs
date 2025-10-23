@@ -59,9 +59,10 @@
             // btnSelection
             // 
             btnSelection.Image = (Image)resources.GetObject("btnSelection.Image");
+            btnSelection.ImageAlign = ContentAlignment.MiddleLeft;
             btnSelection.Location = new Point(293, 40);
             btnSelection.Name = "btnSelection";
-            btnSelection.Padding = new Padding(0, 0, 10, 0);
+            btnSelection.Padding = new Padding(10, 0, 10, 0);
             btnSelection.Size = new Size(143, 36);
             btnSelection.TabIndex = 3;
             btnSelection.TabStop = false;
@@ -72,9 +73,11 @@
             // 
             // btnCancelar
             // 
+            btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
+            btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelar.Location = new Point(337, 204);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Padding = new Padding(0, 0, 10, 0);
+            btnCancelar.Padding = new Padding(15, 0, 10, 0);
             btnCancelar.Size = new Size(143, 36);
             btnCancelar.TabIndex = 4;
             btnCancelar.Text = "Cancelar";
