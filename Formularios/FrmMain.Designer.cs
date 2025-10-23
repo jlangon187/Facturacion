@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             pnMenu = new Panel();
             menuMain = new MenuStrip();
+            tsMenuAyuda = new ToolStripMenuItem();
+            tsMenuConsola = new ToolStripMenuItem();
             pnTools = new Panel();
             tsToolMain = new ToolStrip();
             tsBtnVentas = new ToolStripButton();
@@ -51,8 +53,6 @@
             tbLbEstadoTitle = new ToolStripStatusLabel();
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            tsMenuAyuda = new ToolStripMenuItem();
-            tsMenuConsola = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
             menuMain.SuspendLayout();
             pnTools.SuspendLayout();
@@ -72,7 +72,7 @@
             // 
             // menuMain
             // 
-            menuMain.BackColor = Color.Azure;
+            menuMain.BackColor = SystemColors.Control;
             menuMain.Items.AddRange(new ToolStripItem[] { tsMenuAyuda });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
@@ -80,9 +80,23 @@
             menuMain.TabIndex = 0;
             menuMain.Text = "menuStrip1";
             // 
+            // tsMenuAyuda
+            // 
+            tsMenuAyuda.DropDownItems.AddRange(new ToolStripItem[] { tsMenuConsola });
+            tsMenuAyuda.Name = "tsMenuAyuda";
+            tsMenuAyuda.Size = new Size(53, 20);
+            tsMenuAyuda.Text = "&Ayuda";
+            // 
+            // tsMenuConsola
+            // 
+            tsMenuConsola.Name = "tsMenuConsola";
+            tsMenuConsola.Size = new Size(196, 22);
+            tsMenuConsola.Text = "C&onsola de depuración";
+            tsMenuConsola.Click += tsMenuConsola_Click;
+            // 
             // pnTools
             // 
-            pnTools.BackColor = Color.Azure;
+            pnTools.BackColor = SystemColors.Control;
             pnTools.Controls.Add(tsToolMain);
             pnTools.Dock = DockStyle.Left;
             pnTools.Location = new Point(0, 31);
@@ -243,20 +257,6 @@
             tsLbEstado.Size = new Size(125, 17);
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // tsMenuAyuda
-            // 
-            tsMenuAyuda.DropDownItems.AddRange(new ToolStripItem[] { tsMenuConsola });
-            tsMenuAyuda.Name = "tsMenuAyuda";
-            tsMenuAyuda.Size = new Size(53, 20);
-            tsMenuAyuda.Text = "&Ayuda";
-            // 
-            // tsMenuConsola
-            // 
-            tsMenuConsola.Name = "tsMenuConsola";
-            tsMenuConsola.Size = new Size(196, 22);
-            tsMenuConsola.Text = "C&onsola de depuración";
-            tsMenuConsola.Click += tsMenuConsola_Click;
             // 
             // FrmMain
             // 
