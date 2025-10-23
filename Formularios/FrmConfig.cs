@@ -1,6 +1,5 @@
-using MySql.Data.MySqlClient;
-using System.Text.Json;
 using FacturacionDAM.Modelos;
+using System.Text.Json;
 
 namespace FacturacionDAM.Formularios
 {
@@ -22,6 +21,12 @@ namespace FacturacionDAM.Formularios
                 {
                     // Desconecta
                     Program.appDAM.DesconectarDB();
+                    if (Application.OpenForms["FrmMain"] is FrmMain mainForm)
+                    {
+                        mainForm.RefreshToolBar();
+                        mainForm.RefreshStatusBar();
+                    }
+
                 }
                 else
                 {
@@ -37,6 +42,12 @@ namespace FacturacionDAM.Formularios
 
                     // Intenta conectar
                     Program.appDAM.ConectarDB();
+                    if (Application.OpenForms["FrmMain"] is FrmMain mainForm)
+                    {
+                        mainForm.RefreshToolBar();
+                        mainForm.RefreshStatusBar();
+                    }
+
                 }
 
                 // Refrescar estado visual local

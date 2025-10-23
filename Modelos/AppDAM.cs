@@ -138,26 +138,38 @@ namespace FacturacionDAM.Modelos {
         /// en el campo "UltimoError".
         /// </summary>
         /// <returns>True si se ha conectado correctamente, false sino.</returns>
-        public bool ConectarDB () {
-            
-            // Si está conectado me aseguro de cerrar antes de iniciar una nueva conexión.
+        public bool ConectarDB()
+        {
             if (conectado)
                 _conexion.Close();
 
-            // Asigno la cadena de conexión.
             _conexion.ConnectionString = configConexion.CadenaDeConexion();
 
-            // Intento la conexión.
-            try {
+            try
+            {
                 _conexion.Open();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ultimoError = "Error al intentar la conexión a la base de datos. " + ex.Message;
                 RegistrarLog("ConectarDB", ultimoError);
             }
-            estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
+
+            if (conectado)
+            {
+                // Si no hay emisor, marcamos ConectadoSinEmisor
+                estadoApp = (emisor == null)
+                    ? EstadoApp.ConectadoSinEmisor
+                    : EstadoApp.Conectado;
+            }
+            else
+            {
+                estadoApp = EstadoApp.SinConexion;
+            }
+
             return conectado;
         }
+
 
         /// <summary>
         /// Cierra la conexión a la base de datos.
@@ -176,7 +188,8 @@ namespace FacturacionDAM.Modelos {
                     RegistrarLog("DesconectarDB", ultimoError);
                 }
             }
-            estadoApp = (conectado) ? EstadoApp.Conectado : EstadoApp.SinConexion;
+
+            estadoApp = EstadoApp.SinConexion;
         }
 
         /// <summary>
