@@ -76,7 +76,7 @@ namespace FacturacionDAM.Formularios
 
         private void tsBtnEmisores_Click(object sender, EventArgs e)
         {
-            AbrirFormularioHijo<FrmEmisores>();
+            AbrirFormularioHijo<FrmBrowEmisores>();
         }
 
         /*********** METODOS PRIVADOS ***********/

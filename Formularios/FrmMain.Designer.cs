@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             pnMenu = new Panel();
             menuMain = new MenuStrip();
+            tsMenuArchivo = new ToolStripMenuItem();
+            seleccionarEmisorToolStripMenuItem = new ToolStripMenuItem();
             tsMenuAyuda = new ToolStripMenuItem();
             tsMenuConsola = new ToolStripMenuItem();
             pnTools = new Panel();
@@ -53,8 +55,6 @@
             tbLbEstadoTitle = new ToolStripStatusLabel();
             tsLbEstado = new ToolStripStatusLabel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            tsMenuArchivo = new ToolStripMenuItem();
-            seleccionarEmisorToolStripMenuItem = new ToolStripMenuItem();
             pnMenu.SuspendLayout();
             menuMain.SuspendLayout();
             pnTools.SuspendLayout();
@@ -81,6 +81,20 @@
             menuMain.Size = new Size(936, 24);
             menuMain.TabIndex = 0;
             menuMain.Text = "menuStrip1";
+            // 
+            // tsMenuArchivo
+            // 
+            tsMenuArchivo.DropDownItems.AddRange(new ToolStripItem[] { seleccionarEmisorToolStripMenuItem });
+            tsMenuArchivo.Name = "tsMenuArchivo";
+            tsMenuArchivo.Size = new Size(60, 20);
+            tsMenuArchivo.Text = "&Archivo";
+            // 
+            // seleccionarEmisorToolStripMenuItem
+            // 
+            seleccionarEmisorToolStripMenuItem.Name = "seleccionarEmisorToolStripMenuItem";
+            seleccionarEmisorToolStripMenuItem.Size = new Size(182, 22);
+            seleccionarEmisorToolStripMenuItem.Text = "&Seleccionar emisor...";
+            seleccionarEmisorToolStripMenuItem.Click += seleccionarEmisorToolStripMenuItem_Click;
             // 
             // tsMenuAyuda
             // 
@@ -109,6 +123,7 @@
             // 
             // tsToolMain
             // 
+            tsToolMain.AutoSize = false;
             tsToolMain.Dock = DockStyle.Fill;
             tsToolMain.ImageScalingSize = new Size(64, 64);
             tsToolMain.Items.AddRange(new ToolStripItem[] { tsBtnVentas, tsBtnCompras, toolStripSeparator1, tsBtnClientes, tsBtnProveedores, toolStripSeparator2, tsBtnEmisores, toolStripSeparator3, tsBtnConfig, toolStripSeparator4, tsBtnSalir });
@@ -260,20 +275,6 @@
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // tsMenuArchivo
-            // 
-            tsMenuArchivo.DropDownItems.AddRange(new ToolStripItem[] { seleccionarEmisorToolStripMenuItem });
-            tsMenuArchivo.Name = "tsMenuArchivo";
-            tsMenuArchivo.Size = new Size(60, 20);
-            tsMenuArchivo.Text = "&Archivo";
-            // 
-            // seleccionarEmisorToolStripMenuItem
-            // 
-            seleccionarEmisorToolStripMenuItem.Name = "seleccionarEmisorToolStripMenuItem";
-            seleccionarEmisorToolStripMenuItem.Size = new Size(182, 22);
-            seleccionarEmisorToolStripMenuItem.Text = "&Seleccionar emisor...";
-            seleccionarEmisorToolStripMenuItem.Click += seleccionarEmisorToolStripMenuItem_Click;
-            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -293,7 +294,6 @@
             menuMain.ResumeLayout(false);
             menuMain.PerformLayout();
             pnTools.ResumeLayout(false);
-            pnTools.PerformLayout();
             tsToolMain.ResumeLayout(false);
             tsToolMain.PerformLayout();
             pnStatus.ResumeLayout(false);
