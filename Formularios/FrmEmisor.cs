@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacturacionDAM.Modelos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,14 @@ using System.Windows.Forms;
 
 namespace FacturacionDAM.Formularios
 {
-    public partial class FrmEmisores : Form
+    public partial class FrmEmisor : Form
     {
-        public FrmEmisores()
+        private Tabla _tabla;       // Tabla de emisores
+        private BindingSource _bs;  // Para comnunicación con los controles
+        public FrmEmisor()
         {
             InitializeComponent();
+            
         }
     }
 }

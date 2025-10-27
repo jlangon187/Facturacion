@@ -59,7 +59,7 @@
             pnTools.Dock = DockStyle.Top;
             pnTools.Location = new Point(0, 0);
             pnTools.Name = "pnTools";
-            pnTools.Size = new Size(800, 25);
+            pnTools.Size = new Size(984, 25);
             pnTools.TabIndex = 0;
             // 
             // tsHerramientas
@@ -68,7 +68,7 @@
             tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
-            tsHerramientas.Size = new Size(800, 25);
+            tsHerramientas.Size = new Size(984, 25);
             tsHerramientas.TabIndex = 0;
             tsHerramientas.Text = "toolStrip1";
             // 
@@ -158,9 +158,9 @@
             // 
             pnStatus.Controls.Add(StatusStrip);
             pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(0, 428);
+            pnStatus.Location = new Point(0, 539);
             pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(800, 22);
+            pnStatus.Size = new Size(984, 22);
             pnStatus.TabIndex = 1;
             // 
             // StatusStrip
@@ -169,7 +169,7 @@
             StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
             StatusStrip.Location = new Point(0, 0);
             StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(800, 22);
+            StatusStrip.Size = new Size(984, 22);
             StatusStrip.TabIndex = 0;
             StatusStrip.Text = "statusStrip1";
             // 
@@ -181,11 +181,11 @@
             // 
             // pnData
             // 
+            pnData.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnData.Controls.Add(dgTabla);
-            pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 25);
             pnData.Name = "pnData";
-            pnData.Size = new Size(800, 403);
+            pnData.Size = new Size(984, 514);
             pnData.TabIndex = 2;
             // 
             // dgTabla
@@ -197,19 +197,21 @@
             dgTabla.Location = new Point(0, 0);
             dgTabla.Name = "dgTabla";
             dgTabla.ReadOnly = true;
-            dgTabla.Size = new Size(800, 403);
+            dgTabla.Size = new Size(984, 514);
             dgTabla.TabIndex = 0;
             // 
             // FrmBrowEmisores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(984, 561);
             Controls.Add(pnData);
             Controls.Add(pnStatus);
             Controls.Add(pnTools);
+            MinimizeBox = false;
             Name = "FrmBrowEmisores";
             Text = "Gestión de Emisores";
+            WindowState = FormWindowState.Maximized;
             Load += FrmBrowEmisores_Load;
             pnTools.ResumeLayout(false);
             tsHerramientas.ResumeLayout(false);
