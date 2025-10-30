@@ -15,10 +15,11 @@ namespace FacturacionDAM.Formularios
     {
         private Tabla _tabla;       // Tabla de emisores
         private BindingSource _bs;  // Para comnunicación con los controles
-        public FrmEmisor()
+
+        public FrmEmisor(BindingSource bs, Tabla tabla)
         {
-            InitializeComponent();
-            
+            _bs = bs;
+            _tabla = tabla;
         }
     }
 }

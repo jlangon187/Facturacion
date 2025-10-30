@@ -1,13 +1,5 @@
 ﻿using FacturacionDAM.Modelos;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FacturacionDAM.Formularios
 {
@@ -48,28 +40,25 @@ namespace FacturacionDAM.Formularios
         private void btnNew_Click(object sender, EventArgs e)
         {
             _bs.AddNew();
-            /*
+
             FrmEmisor frm = new FrmEmisor(_bs, _tabla);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 _tabla.Refrescar();
                 ActualizarEstado();
             }
-            */
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (_bs.Current is DataRowView row)
             {
-                /*
                 FrmEmisor frm = new FrmEmisor(_bs, _tabla);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     _tabla.Refrescar();
                     ActualizarEstado();
                 }
-                */
             }
         }
 
@@ -79,9 +68,27 @@ namespace FacturacionDAM.Formularios
             {
                 if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    _bs.RemoveCurrent();
-                    _tabla.GuardarDatos();
-                    ActualizarEstado();
+                    // Si el emisor está en uso, no se puede eliminar
+                    try
+                    {
+                        if (_tabla.EmisorEnUso("emisores", "emisor_id", (int)row["id"]))
+                        {
+                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            _bs.RemoveCurrent();
+                            _tabla.GuardarDatos();
+                            ActualizarEstado();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Program.appDAM.RegistrarLog("Error al comprobar si el emisor está en uso", ex.Message);
+                        return;
+                    }
+
                 }
             }
         }

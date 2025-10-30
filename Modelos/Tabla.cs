@@ -78,5 +78,26 @@ namespace FacturacionDAM.Modelos
         /// Acceso al DataTable que contiene los datos de la tabla.
         /// </summary>
         public DataTable LaTabla => _tabla;
+
+        // Emisor que esta en uso
+        public bool EmisorEnUso(string v, string v1, int idEmisor)
+        {
+            try
+            {
+                // Comprueba si el emisor activo en la aplicación es el mismo que intentas borrar
+                if (Program.appDAM.emisor != null && Program.appDAM.emisor.id == idEmisor)
+                {
+                    return true; // Está en uso (activo en la aplicación)
+                }
+
+                return false; // No está en uso
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.EmisorEnUso", ex.Message);
+                return true; // Por seguridad, asumimos que está en uso si hay error
+            }
+        }
+
     }
 }
