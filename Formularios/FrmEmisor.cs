@@ -18,8 +18,68 @@ namespace FacturacionDAM.Formularios
 
         public FrmEmisor(BindingSource bs, Tabla tabla)
         {
+            InitializeComponent();
             _bs = bs;
             _tabla = tabla;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            _bs.EndEdit();                      // Termina la edición en el BindingSource
+            _tabla.GuardarDatos();              // Guarda los datos en la tabla
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            _bs.CancelEdit();                   // Cancela la edición en el BindingSource
+            this.Close();
+        }
+
+        private void FrmEmisor_Load(object sender, EventArgs e)
+        {
+            rTBoxDescripcion.Enter += rTBoxDescripcion_Enter;
+            rTBoxDescripcion.Leave += rTBoxDescripcion_Leave;
+
+            txtNifCif.DataBindings.Add("Text", _bs, "nifcif");
+            txtNombre.DataBindings.Add("Text", _bs, "nombre");
+            txtApellidos.DataBindings.Add("Text", _bs, "apellido");
+            txtDomicilio.DataBindings.Add("Text", _bs, "domicilio");
+            txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
+            txtCodigoPostal.DataBindings.Add("Text", _bs, "codigopostal");
+            cbProvincia.DataBindings.Add("Text", _bs, "idprovincia");
+            txtRazonSocial.DataBindings.Add("Text", _bs, "nombrecomercial");
+            txtTelefono1.DataBindings.Add("Text", _bs, "telefono1");
+            txtTelefono2.DataBindings.Add("Text", _bs, "telefono2");
+            txtEmail.DataBindings.Add("Text", _bs, "email");
+            txtPrefijo.DataBindings.Add("Text", _bs, "prefixfac");
+            txtSiguientenumero.DataBindings.Add("Text", _bs, "nextnumfac");
+            rTBoxDescripcion.DataBindings.Add("Text", _bs, "descripcion");
+
+            // Cargar provincias en el ComboBox
+            Tabla tablaProvincias = new Tabla(Program.appDAM.LaConexion);
+            tablaProvincias.InicializarDatos("SELECT * FROM provincias;");
+            cbProvincia.DataSource = tablaProvincias.LaTabla;
+            cbProvincia.DisplayMember = "nombreprovincia";
+            cbProvincia.ValueMember = "id";
+            cbProvincia.SelectedIndex = 0;
+            cbProvincia.DataBindings.Add("SelectedValue", _bs, "idprovincia");
+        }
+
+        private void rTBoxDescripcion_Enter(object sender, EventArgs e)
+        {
+            this.AcceptButton = null;  // Desactiva el botón aceptar temporalmente
+        }
+
+        private void rTBoxDescripcion_Leave(object sender, EventArgs e)
+        {
+            this.AcceptButton = btnAceptar;  // Lo vuelve a activar al salir
+        }
+
+        private void FrmEmisor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _bs.CancelEdit();                   // Cancela la edición en el BindingSource
         }
     }
 }

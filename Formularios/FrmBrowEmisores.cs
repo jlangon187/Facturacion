@@ -20,11 +20,61 @@ namespace FacturacionDAM.Formularios
             {
                 _bs.DataSource = _tabla.LaTabla;
                 dgTabla.DataSource = _bs;
+                AjustarColumnasPorEncabezadoYContenido();
+
+                // Cambiar títulos de columnas
+                dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
+                dgTabla.Columns["nombre"].HeaderText = "Nombre";
+                dgTabla.Columns["apellido"].HeaderText = "Apellidos";
+                dgTabla.Columns["nombrecomercial"].HeaderText = "Nombre Comercial";
+                dgTabla.Columns["domicilio"].HeaderText = "Dirección";
+                dgTabla.Columns["codigopostal"].HeaderText = "Código Postal";
+                dgTabla.Columns["poblacion"].HeaderText = "Población";
+                dgTabla.Columns["telefono1"].HeaderText = "Teléfono 1";
+                dgTabla.Columns["telefono2"].HeaderText = "Teléfono 2";
+                dgTabla.Columns["email"].HeaderText = "Correo Electrónico";
+                dgTabla.Columns["descripcion"].HeaderText = "Descripción";
+                dgTabla.Columns["nextnumfac"].HeaderText = "Siguiente Nº Factura";
+                dgTabla.Columns["prefixfac"].HeaderText = "Prefijo Factura";
+
+                // Mostrar el nombre de la provincia en lugar del ID
+                // Cambiar el encabezado
+                dgTabla.Columns["idprovincia"].HeaderText = "ID Provincia";
+
+                // Crear una nueva columna para mostrar el nombre
+                if (!dgTabla.Columns.Contains("provinciaNombre"))
+                {
+                    dgTabla.Columns.Add("provinciaNombre", "Provincia");
+                }
+
+                // Cargar la tabla de provincias
+                Tabla tablaProvincias = new Tabla(Program.appDAM.LaConexion);
+                tablaProvincias.InicializarDatos("SELECT id, nombreprovincia FROM provincias;");
+
+                // Rellenar el nombre de provincia
+                foreach (DataGridViewRow row in dgTabla.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    if (int.TryParse(row.Cells["idprovincia"].Value?.ToString(), out int idProvincia))
+                    {
+                        DataRow[] provincia = tablaProvincias.LaTabla.Select($"id = {idProvincia}");
+                        if (provincia.Length > 0)
+                        {
+                            row.Cells["provinciaNombre"].Value = provincia[0]["nombreprovincia"].ToString();
+                        }
+                    }
+                }
+
+                // Ocultar columnas innecesarias
+                dgTabla.Columns["id"].Visible = false;
+                dgTabla.Columns["descripcion"].Visible = false;
+                dgTabla.Columns["idprovincia"].Visible = false;
             }
             else
             {
-                MessageBox.Show("No se han podido cargar los emisores.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
+                MessageBox.Show("No se han podido cargar los emisores.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             ActualizarEstado();
         }
@@ -98,6 +148,33 @@ namespace FacturacionDAM.Formularios
         private void ActualizarEstado()
         {
             tsStatusLabel.Text = $"Nº de Registros: {_bs.Count}";   // Actualiza la barra de estado
+        }
+
+        private void dgTabla_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            btnEdit_Click(sender, e);
+        }
+
+        private void AjustarColumnasPorEncabezadoYContenido()
+        {
+            dgTabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            foreach (DataGridViewColumn col in dgTabla.Columns)
+            {
+                // Ajustar primero según el contenido
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                int anchoContenido = col.Width;
+
+                // Ajustar después según el encabezado
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                int anchoEncabezado = col.Width;
+
+                // Tomar el mayor valor
+                col.Width = Math.Max(anchoContenido, anchoEncabezado);
+
+                // Fijar tamaño final (evita que cambie al cambiar de fila)
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            }
         }
     }
 }

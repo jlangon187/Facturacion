@@ -65,7 +65,7 @@
             txtRazonSocial = new TextBox();
             txtNifCif = new TextBox();
             tbDetalles = new TabPage();
-            rTBox = new RichTextBox();
+            rTBoxDescripcion = new RichTextBox();
             pnButtons.SuspendLayout();
             tbControl.SuspendLayout();
             tbDatos.SuspendLayout();
@@ -98,6 +98,7 @@
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnAceptar
             // 
@@ -111,6 +112,7 @@
             btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // tbControl
             // 
@@ -411,7 +413,7 @@
             // 
             // tbDetalles
             // 
-            tbDetalles.Controls.Add(rTBox);
+            tbDetalles.Controls.Add(rTBoxDescripcion);
             tbDetalles.Location = new Point(4, 24);
             tbDetalles.Name = "tbDetalles";
             tbDetalles.Padding = new Padding(3);
@@ -420,14 +422,14 @@
             tbDetalles.Text = "Otros detalles";
             tbDetalles.UseVisualStyleBackColor = true;
             // 
-            // rTBox
+            // rTBoxDescripcion
             // 
-            rTBox.Dock = DockStyle.Fill;
-            rTBox.Location = new Point(3, 3);
-            rTBox.Name = "rTBox";
-            rTBox.Size = new Size(833, 519);
-            rTBox.TabIndex = 0;
-            rTBox.Text = "";
+            rTBoxDescripcion.Dock = DockStyle.Fill;
+            rTBoxDescripcion.Location = new Point(3, 3);
+            rTBoxDescripcion.Name = "rTBoxDescripcion";
+            rTBoxDescripcion.Size = new Size(833, 519);
+            rTBoxDescripcion.TabIndex = 0;
+            rTBoxDescripcion.Text = "";
             // 
             // FrmEmisor
             // 
@@ -444,6 +446,8 @@
             MinimumSize = new Size(863, 658);
             Name = "FrmEmisor";
             Text = "Datos del Emisor";
+            FormClosing += FrmEmisor_FormClosing;
+            Load += FrmEmisor_Load;
             pnButtons.ResumeLayout(false);
             tbControl.ResumeLayout(false);
             tbDatos.ResumeLayout(false);
@@ -471,7 +475,7 @@
         private TabPage tbDetalles;
         private GroupBox gbFacturacion;
         private GroupBox gbContacto;
-        private RichTextBox rTBox;
+        private RichTextBox rTBoxDescripcion;
         private Label lbEmail;
         private Label lbTelefono2;
         private Label lbTelefono1;

@@ -192,13 +192,14 @@
             // 
             dgTabla.AllowUserToAddRows = false;
             dgTabla.AllowUserToDeleteRows = false;
-            dgTabla.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgTabla.Dock = DockStyle.Fill;
             dgTabla.Location = new Point(0, 0);
             dgTabla.Name = "dgTabla";
             dgTabla.ReadOnly = true;
             dgTabla.Size = new Size(984, 514);
             dgTabla.TabIndex = 0;
+            dgTabla.CellMouseDoubleClick += dgTabla_CellMouseDoubleClick;
             // 
             // FrmBrowEmisores
             // 
