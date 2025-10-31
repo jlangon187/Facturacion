@@ -37,34 +37,20 @@ namespace FacturacionDAM.Formularios
                 dgTabla.Columns["nextnumfac"].HeaderText = "Siguiente Nº Factura";
                 dgTabla.Columns["prefixfac"].HeaderText = "Prefijo Factura";
 
-                // Mostrar el nombre de la provincia en lugar del ID
-                // Cambiar el encabezado
-                dgTabla.Columns["idprovincia"].HeaderText = "ID Provincia";
-
-                // Crear una nueva columna para mostrar el nombre
-                if (!dgTabla.Columns.Contains("provinciaNombre"))
+                // Crear columna Provincia mostrando el nombre en lugar del ID
+                DataGridViewComboBoxColumn provinciaCol = new DataGridViewComboBoxColumn
                 {
-                    dgTabla.Columns.Add("provinciaNombre", "Provincia");
-                }
-
-                // Cargar la tabla de provincias
-                Tabla tablaProvincias = new Tabla(Program.appDAM.LaConexion);
-                tablaProvincias.InicializarDatos("SELECT id, nombreprovincia FROM provincias;");
-
-                // Rellenar el nombre de provincia
-                foreach (DataGridViewRow row in dgTabla.Rows)
-                {
-                    if (row.IsNewRow) continue;
-
-                    if (int.TryParse(row.Cells["idprovincia"].Value?.ToString(), out int idProvincia))
-                    {
-                        DataRow[] provincia = tablaProvincias.LaTabla.Select($"id = {idProvincia}");
-                        if (provincia.Length > 0)
-                        {
-                            row.Cells["provinciaNombre"].Value = provincia[0]["nombreprovincia"].ToString();
-                        }
-                    }
-                }
+                    DataPropertyName = "idprovincia",
+                    HeaderText = "Provincia",
+                    Name = "Provincia",
+                    DataSource = _tabla.ObtenerTablaProvincias(),
+                    DisplayMember = "nombreprovincia",
+                    ValueMember = "id",
+                    Width = 150
+                };
+                dgTabla.Columns.Add(provinciaCol);
+                // Mostrar encabezado de la nueva columna Provincia
+                dgTabla.Columns["Provincia"].Visible = true;
 
                 // Ocultar columnas innecesarias
                 dgTabla.Columns["id"].Visible = false;
@@ -92,6 +78,7 @@ namespace FacturacionDAM.Formularios
             _bs.AddNew();
 
             FrmEmisor frm = new FrmEmisor(_bs, _tabla);
+            frm.edicion = false;
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 _tabla.Refrescar();
@@ -104,6 +91,7 @@ namespace FacturacionDAM.Formularios
             if (_bs.Current is DataRowView row)
             {
                 FrmEmisor frm = new FrmEmisor(_bs, _tabla);
+                frm.edicion = true;
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     _tabla.Refrescar();
@@ -116,14 +104,16 @@ namespace FacturacionDAM.Formularios
         {
             if (_bs.Current is DataRowView row)
             {
-                if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     // Si el emisor está en uso, no se puede eliminar
                     try
                     {
                         if (_tabla.EmisorEnUso("emisores", "emisor_id", (int)row["id"]))
                         {
-                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         else
@@ -176,5 +166,16 @@ namespace FacturacionDAM.Formularios
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             }
         }
+
+        private bool TieneFacturasEmitidas(string nifcif) 
+        {
+            return false;
+        }
+
+        private bool TieneFacturasRecibidas(string nifcif)
+        {
+            return false;
+        }
+
     }
 }

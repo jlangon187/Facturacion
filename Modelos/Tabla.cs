@@ -99,5 +99,20 @@ namespace FacturacionDAM.Modelos
             }
         }
 
+        internal object ObtenerTablaProvincias()
+        {
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, nombreprovincia FROM provincias ORDER BY nombreprovincia;", _conexion);
+                DataTable provinciasTable = new DataTable();
+                da.Fill(provinciasTable);
+                return provinciasTable;
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.ObtenerTablaProvincias", ex.Message);
+                return null;
+            }
+        }
     }
 }
