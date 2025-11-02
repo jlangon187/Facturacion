@@ -136,6 +136,7 @@ namespace FacturacionDAM.Formularios
                         txtUsuario.Text = Program.appDAM.configConexion.usuario;
                         txtPassword.Text = Program.appDAM.configConexion.password;
                         txtBaseDatos.Text = Program.appDAM.configConexion.baseDatos;
+                        tsLbRutaConfig.Text = dlg.FileName;
                     }
                     else
                     {

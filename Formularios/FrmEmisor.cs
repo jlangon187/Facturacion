@@ -97,37 +97,58 @@ namespace FacturacionDAM.Formularios
                 txtNifCif.Focus();
                 return false;
             }
+
             if (string.IsNullOrWhiteSpace(txtRazonSocial.Text))
             {
                 MessageBox.Show("El campo Nombre Comercial no puede estar vacío.");
                 txtRazonSocial.Focus();
                 return false;
             }
+
             // Validar que el email tenga un formato correcto si no está vacío
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
+                bool emailValido = true;
+
                 try
                 {
+                    // Validación general con MailAddress
                     var addr = new System.Net.Mail.MailAddress(txtEmail.Text);
                     if (addr.Address != txtEmail.Text)
-                    {
-                        throw new Exception();
-                    }
+                        emailValido = false;
+
+                    // Validación adicional con expresión regular
+                    string patronEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, patronEmail))
+                        emailValido = false;
                 }
                 catch
                 {
-                    MessageBox.Show("El campo Email no tiene un formato válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    emailValido = false;
+                }
+
+                if (!emailValido)
+                {
+                    MessageBox.Show("El campo Email no tiene un formato válido.",
+                        "Error de validación",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                     txtEmail.Focus();
                     return false;
                 }
             }
+
             // Validar que nif/cif sea único
             if (NifDuplicado(txtNifCif.Text.Trim()))
             {
-                MessageBox.Show("El NIF/CIF ya existe en otro emisor. Debe ser único.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El NIF/CIF ya existe en otro emisor. Debe ser único.",
+                    "Error de validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 txtNifCif.Focus();
                 return false;
             }
+
             return true; // Todos los datos son válidos
         }
 

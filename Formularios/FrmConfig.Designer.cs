@@ -223,7 +223,7 @@
             tsBtnGuardar.ImageTransparentColor = Color.Magenta;
             tsBtnGuardar.Name = "tsBtnGuardar";
             tsBtnGuardar.Size = new Size(23, 22);
-            tsBtnGuardar.Text = "toolStripButton1";
+            tsBtnGuardar.Text = "Guardar archivo de configuración";
             tsBtnGuardar.Click += tsBtnGuardar_Click;
             // 
             // toolStripSeparator1
@@ -235,12 +235,11 @@
             // 
             tsLbRutaConfig.DisplayStyle = ToolStripItemDisplayStyle.Text;
             tsLbRutaConfig.Name = "tsLbRutaConfig";
-            tsLbRutaConfig.Size = new Size(86, 22);
-            tsLbRutaConfig.Text = "toolStripLabel1";
+            tsLbRutaConfig.Size = new Size(0, 22);
             tsLbRutaConfig.TextAlign = ContentAlignment.MiddleLeft;
             tsLbRutaConfig.ToolTipText = "Ruta del archivo de configuración";
             // 
-            // FrmConnection
+            // FrmConfig
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -251,7 +250,11 @@
             Controls.Add(label6);
             Controls.Add(pnData);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "FrmConnection";
+            MaximizeBox = false;
+            MaximumSize = new Size(578, 393);
+            MinimumSize = new Size(578, 393);
+            Name = "FrmConfig";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Conexión a Bases de Datos";
             Load += FrmConnection_Load;
             pnData.ResumeLayout(false);

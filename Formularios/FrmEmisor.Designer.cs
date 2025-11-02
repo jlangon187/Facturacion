@@ -81,9 +81,9 @@
             pnButtons.Controls.Add(btnCancelar);
             pnButtons.Controls.Add(btnAceptar);
             pnButtons.Dock = DockStyle.Bottom;
-            pnButtons.Location = new Point(0, 553);
+            pnButtons.Location = new Point(0, 555);
             pnButtons.Name = "pnButtons";
-            pnButtons.Size = new Size(847, 66);
+            pnButtons.Size = new Size(844, 66);
             pnButtons.TabIndex = 1;
             // 
             // btnCancelar
@@ -102,7 +102,6 @@
             // 
             // btnAceptar
             // 
-            btnAceptar.DialogResult = DialogResult.OK;
             btnAceptar.Image = (Image)resources.GetObject("btnAceptar.Image");
             btnAceptar.ImageAlign = ContentAlignment.MiddleLeft;
             btnAceptar.Location = new Point(264, 16);
@@ -122,7 +121,7 @@
             tbControl.Location = new Point(0, 0);
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(847, 553);
+            tbControl.Size = new Size(844, 555);
             tbControl.TabIndex = 0;
             // 
             // tbDatos
@@ -134,7 +133,7 @@
             tbDatos.Location = new Point(4, 24);
             tbDatos.Name = "tbDatos";
             tbDatos.Padding = new Padding(3);
-            tbDatos.Size = new Size(839, 525);
+            tbDatos.Size = new Size(836, 527);
             tbDatos.TabIndex = 0;
             tbDatos.Text = "Datos";
             tbDatos.UseVisualStyleBackColor = true;
@@ -417,7 +416,7 @@
             tbDetalles.Location = new Point(4, 24);
             tbDetalles.Name = "tbDetalles";
             tbDetalles.Padding = new Padding(3);
-            tbDetalles.Size = new Size(839, 525);
+            tbDetalles.Size = new Size(836, 527);
             tbDetalles.TabIndex = 1;
             tbDetalles.Text = "Otros detalles";
             tbDetalles.UseVisualStyleBackColor = true;
@@ -427,7 +426,7 @@
             rTBoxDescripcion.Dock = DockStyle.Fill;
             rTBoxDescripcion.Location = new Point(3, 3);
             rTBoxDescripcion.Name = "rTBoxDescripcion";
-            rTBoxDescripcion.Size = new Size(833, 519);
+            rTBoxDescripcion.Size = new Size(830, 521);
             rTBoxDescripcion.TabIndex = 0;
             rTBoxDescripcion.Text = "";
             // 
@@ -437,14 +436,15 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(847, 619);
+            ClientSize = new Size(844, 621);
             Controls.Add(tbControl);
             Controls.Add(pnButtons);
             MaximizeBox = false;
-            MaximumSize = new Size(863, 658);
+            MaximumSize = new Size(860, 660);
             MinimizeBox = false;
-            MinimumSize = new Size(863, 658);
+            MinimumSize = new Size(860, 660);
             Name = "FrmEmisor";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Datos del Emisor";
             FormClosing += FrmEmisor_FormClosing;
             Load += FrmEmisor_Load;

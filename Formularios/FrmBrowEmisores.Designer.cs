@@ -59,7 +59,7 @@
             pnTools.Dock = DockStyle.Top;
             pnTools.Location = new Point(0, 0);
             pnTools.Name = "pnTools";
-            pnTools.Size = new Size(984, 25);
+            pnTools.Size = new Size(1484, 25);
             pnTools.TabIndex = 0;
             // 
             // tsHerramientas
@@ -68,7 +68,7 @@
             tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
-            tsHerramientas.Size = new Size(984, 25);
+            tsHerramientas.Size = new Size(1484, 25);
             tsHerramientas.TabIndex = 0;
             tsHerramientas.Text = "toolStrip1";
             // 
@@ -79,7 +79,7 @@
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(23, 22);
-            btnNew.Text = "toolStripButton1";
+            btnNew.Text = "Nuevo Emisor";
             btnNew.Click += btnNew_Click;
             // 
             // btnEdit
@@ -89,7 +89,7 @@
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(23, 22);
-            btnEdit.Text = "toolStripButton2";
+            btnEdit.Text = "Editar Emisor";
             btnEdit.Click += btnEdit_Click;
             // 
             // tsSeparador1
@@ -105,7 +105,7 @@
             btnDelete.ImageTransparentColor = Color.Magenta;
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(23, 22);
-            btnDelete.Text = "toolStripButton3";
+            btnDelete.Text = "Borrar Emisor";
             btnDelete.Click += btnDelete_Click;
             // 
             // tsSeparador2
@@ -121,7 +121,7 @@
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(23, 22);
-            btnFirst.Text = "toolStripButton4";
+            btnFirst.Text = "Primer Emisor";
             btnFirst.Click += btnFirst_Click;
             // 
             // btnPrev
@@ -131,7 +131,7 @@
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(23, 22);
-            btnPrev.Text = "toolStripButton5";
+            btnPrev.Text = "Emisor anterior";
             btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
@@ -141,7 +141,7 @@
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(23, 22);
-            btnNext.Text = "toolStripButton6";
+            btnNext.Text = "Emisor siguiente";
             btnNext.Click += btnNext_Click;
             // 
             // btnLast
@@ -151,16 +151,16 @@
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(23, 22);
-            btnLast.Text = "toolStripButton7";
+            btnLast.Text = "Último Emisor";
             btnLast.Click += btnLast_Click;
             // 
             // pnStatus
             // 
             pnStatus.Controls.Add(StatusStrip);
             pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(0, 539);
+            pnStatus.Location = new Point(0, 839);
             pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(984, 22);
+            pnStatus.Size = new Size(1484, 22);
             pnStatus.TabIndex = 1;
             // 
             // StatusStrip
@@ -169,7 +169,7 @@
             StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
             StatusStrip.Location = new Point(0, 0);
             StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(984, 22);
+            StatusStrip.Size = new Size(1484, 22);
             StatusStrip.TabIndex = 0;
             StatusStrip.Text = "statusStrip1";
             // 
@@ -185,7 +185,7 @@
             pnData.Controls.Add(dgTabla);
             pnData.Location = new Point(0, 25);
             pnData.Name = "pnData";
-            pnData.Size = new Size(984, 514);
+            pnData.Size = new Size(1484, 814);
             pnData.TabIndex = 2;
             // 
             // dgTabla
@@ -197,7 +197,7 @@
             dgTabla.Location = new Point(0, 0);
             dgTabla.Name = "dgTabla";
             dgTabla.ReadOnly = true;
-            dgTabla.Size = new Size(984, 514);
+            dgTabla.Size = new Size(1484, 814);
             dgTabla.TabIndex = 0;
             dgTabla.CellMouseDoubleClick += dgTabla_CellMouseDoubleClick;
             // 
@@ -205,12 +205,13 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(984, 561);
+            ClientSize = new Size(1484, 861);
             Controls.Add(pnData);
             Controls.Add(pnStatus);
             Controls.Add(pnTools);
             MinimizeBox = false;
             Name = "FrmBrowEmisores";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Emisores";
             WindowState = FormWindowState.Maximized;
             Load += FrmBrowEmisores_Load;

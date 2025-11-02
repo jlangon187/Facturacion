@@ -20,7 +20,6 @@ namespace FacturacionDAM.Formularios
             {
                 _bs.DataSource = _tabla.LaTabla;
                 dgTabla.DataSource = _bs;
-                AjustarColumnasPorEncabezadoYContenido();
 
                 // Cambiar títulos de columnas
                 dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
@@ -46,24 +45,32 @@ namespace FacturacionDAM.Formularios
                     DataSource = _tabla.ObtenerTablaProvincias(),
                     DisplayMember = "nombreprovincia",
                     ValueMember = "id",
-                    Width = 150
+                    Width = 150,
+                    DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                    FlatStyle = FlatStyle.Flat
                 };
+
+                // Insertar en posición deseada
                 dgTabla.Columns.Add(provinciaCol);
-                // Mostrar encabezado de la nueva columna Provincia
-                dgTabla.Columns["Provincia"].Visible = true;
+                provinciaCol.DisplayIndex = 8;
 
                 // Ocultar columnas innecesarias
                 dgTabla.Columns["id"].Visible = false;
                 dgTabla.Columns["descripcion"].Visible = false;
                 dgTabla.Columns["idprovincia"].Visible = false;
+
+                // Ajustar columnas al final, después de personalizarlas y añadir la de Provincia
+                this.BeginInvoke((MethodInvoker)(() => AjustarColumnasPorEncabezadoYContenido()));
             }
             else
             {
                 MessageBox.Show("No se han podido cargar los emisores.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             ActualizarEstado();
         }
+
 
         private void btnFirst_Click(object sender, EventArgs e) => _bs.MoveFirst();
 
@@ -147,25 +154,31 @@ namespace FacturacionDAM.Formularios
 
         private void AjustarColumnasPorEncabezadoYContenido()
         {
+            // No envolver texto en encabezados ni celdas
+            dgTabla.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            foreach (DataGridViewColumn c in dgTabla.Columns)
+                c.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // Fijar modo para que no autosizee mientras medimos
             dgTabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            foreach (DataGridViewColumn col in dgTabla.Columns)
+            // 1) Medir por encabezado
+            dgTabla.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+            var anchoPorEncabezado = new Dictionary<string, int>();
+            foreach (DataGridViewColumn c in dgTabla.Columns)
+                anchoPorEncabezado[c.Name] = c.Width;
+
+            // 2) Medir por contenido (sin contar encabezado)
+            dgTabla.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
+            foreach (DataGridViewColumn c in dgTabla.Columns)
             {
-                // Ajustar primero según el contenido
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                int anchoContenido = col.Width;
-
-                // Ajustar después según el encabezado
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                int anchoEncabezado = col.Width;
-
-                // Tomar el mayor valor
-                col.Width = Math.Max(anchoContenido, anchoEncabezado);
-
-                // Fijar tamaño final (evita que cambie al cambiar de fila)
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                int anchoEncabezado = anchoPorEncabezado[c.Name];
+                int anchoContenido = c.Width;
+                c.Width = Math.Max(anchoEncabezado, anchoContenido);
+                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // fijar ancho
             }
         }
+
 
         private bool TieneFacturasEmitidas(string nifcif) 
         {
