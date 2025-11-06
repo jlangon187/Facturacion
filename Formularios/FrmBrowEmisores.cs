@@ -1,5 +1,7 @@
 ﻿using FacturacionDAM.Modelos;
+using MySql.Data.MySqlClient;
 using System.Data;
+using System.Security.Cryptography.Xml;
 
 namespace FacturacionDAM.Formularios
 {
@@ -18,49 +20,9 @@ namespace FacturacionDAM.Formularios
         {
             if (_tabla.InicializarDatos("SELECT * FROM emisores;"))
             {
-                _bs.DataSource = _tabla.LaTabla;
-                dgTabla.DataSource = _bs;
-
-                // Cambiar títulos de columnas
-                dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
-                dgTabla.Columns["nombre"].HeaderText = "Nombre";
-                dgTabla.Columns["apellido"].HeaderText = "Apellidos";
-                dgTabla.Columns["nombrecomercial"].HeaderText = "Nombre Comercial";
-                dgTabla.Columns["domicilio"].HeaderText = "Dirección";
-                dgTabla.Columns["codigopostal"].HeaderText = "Código Postal";
-                dgTabla.Columns["poblacion"].HeaderText = "Población";
-                dgTabla.Columns["telefono1"].HeaderText = "Teléfono 1";
-                dgTabla.Columns["telefono2"].HeaderText = "Teléfono 2";
-                dgTabla.Columns["email"].HeaderText = "Correo Electrónico";
-                dgTabla.Columns["descripcion"].HeaderText = "Descripción";
-                dgTabla.Columns["nextnumfac"].HeaderText = "Siguiente Nº Factura";
-                dgTabla.Columns["prefixfac"].HeaderText = "Prefijo Factura";
-
-                // Crear columna Provincia mostrando el nombre en lugar del ID
-                DataGridViewComboBoxColumn provinciaCol = new DataGridViewComboBoxColumn
-                {
-                    DataPropertyName = "idprovincia",
-                    HeaderText = "Provincia",
-                    Name = "Provincia",
-                    DataSource = _tabla.ObtenerTablaProvincias(),
-                    DisplayMember = "nombreprovincia",
-                    ValueMember = "id",
-                    Width = 150,
-                    DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
-                    FlatStyle = FlatStyle.Flat
-                };
-
-                // Insertar en posición deseada
-                dgTabla.Columns.Add(provinciaCol);
-                provinciaCol.DisplayIndex = 8;
-
-                // Ocultar columnas innecesarias
-                dgTabla.Columns["id"].Visible = false;
-                dgTabla.Columns["descripcion"].Visible = false;
-                dgTabla.Columns["idprovincia"].Visible = false;
-
-                // Ajustar columnas al final, después de personalizarlas y añadir la de Provincia
-                this.BeginInvoke((MethodInvoker)(() => AjustarColumnasPorEncabezadoYContenido()));
+                _bs.DataSource = _tabla.LaTabla;    // Asigna la tabla de datos al BindingSource
+                dgTabla.DataSource = _bs;           // Enlaza el DataGridView al BindingSource
+                personalizarDataGrid();             // Personaliza el DataGridView
             }
             else
             {
@@ -71,6 +33,10 @@ namespace FacturacionDAM.Formularios
             ActualizarEstado();
         }
 
+        private void FrmBrowEmisores_Shown(object sender, EventArgs e)
+        {
+            RestaurarEstadoVentana();
+        }
 
         private void btnFirst_Click(object sender, EventArgs e) => _bs.MoveFirst();
 
@@ -111,7 +77,7 @@ namespace FacturacionDAM.Formularios
         {
             if (_bs.Current is DataRowView row)
             {
-                if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación", 
+                if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     // Si el emisor está en uso, no se puede eliminar
@@ -119,7 +85,7 @@ namespace FacturacionDAM.Formularios
                     {
                         if (_tabla.EmisorEnUso("emisores", "emisor_id", (int)row["id"]))
                         {
-                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error", 
+                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
@@ -140,7 +106,60 @@ namespace FacturacionDAM.Formularios
             }
         }
 
+        /// <summary>
+        /// Evento del cierre del formulario para guardar el estado de la ventana.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmBrowEmisores_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            GuardarEstadoVentana();     // Guardar el estado de la ventana
+        }
+
         /*********** Métodos privados ***********/
+
+        /// <summary>
+        /// Guarda el estado de la ventana (tamaño, posición, columnas, etc.)
+        /// </summary>
+        private void GuardarEstadoVentana()
+        {
+            // Guardar tamaño y posición solo si la ventana está en estado normal
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.BrowEmisoresLocation = this.Location;
+                Properties.Settings.Default.BrowEmisoresSize = this.Size;
+            }
+
+            // Guardar estado de la ventana
+            Properties.Settings.Default.BrowEmisoresState = this.WindowState.ToString();
+
+            // Guarda el estado
+            Properties.Settings.Default.Save();
+        }
+
+        private void RestaurarEstadoVentana()
+        {
+            // Restaurar tamaño y posición
+            string estado = Properties.Settings.Default.BrowEmisoresState;
+            switch (estado)
+            {
+                case "Maximized":
+                    this.WindowState = FormWindowState.Maximized;
+                    break;
+                case "Minimized":
+                    this.WindowState = FormWindowState.Minimized;
+                    break;
+                default:
+                    this.WindowState = FormWindowState.Normal;
+                    break;
+            }
+            // Solo restaurar tamaño y posición si la ventana está en estado normal
+            if (Properties.Settings.Default.BrowEmisoresState == "Normal")
+            {
+                this.Location = Properties.Settings.Default.BrowEmisoresLocation;
+                this.Size = Properties.Settings.Default.BrowEmisoresSize;
+            }
+        }
 
         private void ActualizarEstado()
         {
@@ -152,43 +171,86 @@ namespace FacturacionDAM.Formularios
             btnEdit_Click(sender, e);
         }
 
-        private void AjustarColumnasPorEncabezadoYContenido()
+        /// <summary>
+        /// Metodo para personalizar el DataGridView dgTabla.
+        /// </summary>
+        private void personalizarDataGrid()
         {
-            // No envolver texto en encabezados ni celdas
-            dgTabla.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            foreach (DataGridViewColumn c in dgTabla.Columns)
-                c.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            // Cambiar títulos de columnas
+            dgTabla.Columns["nifcif"].HeaderText = "NIF/CIF";
+            dgTabla.Columns["nifcif"].Width = 100;
+            dgTabla.Columns["nombre"].HeaderText = "Nombre";
+            dgTabla.Columns["nombre"].Width = 120;
+            dgTabla.Columns["apellido"].HeaderText = "Apellidos";
+            dgTabla.Columns["apellido"].Width = 160;
+            dgTabla.Columns["nombrecomercial"].HeaderText = "Razón Social";
+            dgTabla.Columns["nombrecomercial"].Width = 200;
+            dgTabla.Columns["codigopostal"].HeaderText = "Código Postal";
+            dgTabla.Columns["codigopostal"].Width = 140;
+            dgTabla.Columns["poblacion"].HeaderText = "Población";
+            dgTabla.Columns["poblacion"].Width = 100;
+            dgTabla.Columns["telefono1"].HeaderText = "Teléfono";
+            dgTabla.Columns["telefono1"].Width = 100;
+            dgTabla.Columns["email"].HeaderText = "Correo Electrónico";
+            dgTabla.Columns["email"].Width = 350;
 
-            // Fijar modo para que no autosizee mientras medimos
-            dgTabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-
-            // 1) Medir por encabezado
-            dgTabla.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
-            var anchoPorEncabezado = new Dictionary<string, int>();
-            foreach (DataGridViewColumn c in dgTabla.Columns)
-                anchoPorEncabezado[c.Name] = c.Width;
-
-            // 2) Medir por contenido (sin contar encabezado)
-            dgTabla.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
-            foreach (DataGridViewColumn c in dgTabla.Columns)
+            // Crear columna Provincia mostrando el nombre en lugar del ID
+            DataGridViewComboBoxColumn provinciaCol = new DataGridViewComboBoxColumn
             {
-                int anchoEncabezado = anchoPorEncabezado[c.Name];
-                int anchoContenido = c.Width;
-                c.Width = Math.Max(anchoEncabezado, anchoContenido);
-                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.None; // fijar ancho
-            }
+                DataPropertyName = "idprovincia",
+                HeaderText = "Provincia",
+                Name = "Provincia",
+                DataSource = _tabla.ObtenerTablaProvincias(),
+                DisplayMember = "nombreprovincia",
+                ValueMember = "id",
+                Width = 150,
+                DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
+                FlatStyle = FlatStyle.Flat
+            };
+
+            // Insertar en posición deseada
+            dgTabla.Columns.Add(provinciaCol);
+            provinciaCol.DisplayIndex = 8;
+
+            // Ocultar columnas innecesarias
+            dgTabla.Columns["id"].Visible = false;
+            dgTabla.Columns["descripcion"].Visible = false;
+            dgTabla.Columns["idprovincia"].Visible = false;
+            dgTabla.Columns["domicilio"].Visible = false;
+            dgTabla.Columns["telefono2"].Visible = false;
+            dgTabla.Columns["descripcion"].Visible = false;
+            dgTabla.Columns["nextnumfac"].Visible = false;
+            dgTabla.Columns["prefixfac"].Visible = false;
+
+            // Alternamos color de filas
+            dgTabla.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
+
+            // Estilo de los encabezados de las columnas
+            dgTabla.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+            dgTabla.EnableHeadersVisualStyles = false;
+
+            // Tamaño de las letras de los encabezados de las columnas
+            dgTabla.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font(dgTabla.Font.FontFamily, 10, FontStyle.Bold);
         }
 
-
-        private bool TieneFacturasEmitidas(string nifcif) 
+        /// <summary>
+        /// Determina si el emisor tiene facturas emitidas.
+        /// </summary>
+        /// <param name="nifcif"></param>
+        /// <returns>Devuelve true si tiene facturas emitidas, false en caso contrario.</returns>
+        private bool TieneFacturasEmitidas(string nifcif)
         {
             return false;
         }
 
+        /// <summary>
+        /// Determina si el emisor tiene facturas recibidas.
+        /// </summary>
+        /// <param name="nifcif"></param>
+        /// <returns>Devuelve true si tiene facturas recibidas, false en caso contrario.</returns>
         private bool TieneFacturasRecibidas(string nifcif)
         {
             return false;
         }
-
     }
 }

@@ -22,6 +22,7 @@ namespace FacturacionDAM.Formularios
 
         private void FrmSeleccionarEmisor_Load(object sender, EventArgs e)
         {
+            // Cargar los emisores desde la base de datos
             _tablaEmisores = new Tabla(Program.appDAM.LaConexion);
             if (_tablaEmisores.InicializarDatos("SELECT * FROM emisores"))
             {
@@ -40,9 +41,14 @@ namespace FacturacionDAM.Formularios
             }
         }
 
+        /// <summary>
+        /// Metodo que se ejecuta al hacer clic en el botón de selección de emisor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSelection_Click(object sender, EventArgs e)
         {
-
+            // Obtener el emisor seleccionado
             if (_bsEmisores.Current is DataRowView row)
             {
                 Emisor emisorSeleccionado = new Emisor
@@ -72,6 +78,11 @@ namespace FacturacionDAM.Formularios
             }
         }
 
+        /// <summary>
+        /// Metodo que se ejecuta al hacer clic en el botón de cancelar selección de emisor.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Program.appDAM.estadoApp = EstadoApp.ConectadoSinEmisor;

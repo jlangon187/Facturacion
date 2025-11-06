@@ -118,129 +118,138 @@
             pnTools.Location = new Point(0, 31);
             pnTools.Name = "pnTools";
             pnTools.Padding = new Padding(8);
-            pnTools.Size = new Size(93, 637);
+            pnTools.Size = new Size(100, 637);
             pnTools.TabIndex = 4;
             // 
             // tsToolMain
             // 
             tsToolMain.AutoSize = false;
+            tsToolMain.BackColor = SystemColors.Control;
             tsToolMain.Dock = DockStyle.Fill;
+            tsToolMain.GripStyle = ToolStripGripStyle.Hidden;
             tsToolMain.ImageScalingSize = new Size(64, 64);
             tsToolMain.Items.AddRange(new ToolStripItem[] { tsBtnVentas, tsBtnCompras, toolStripSeparator1, tsBtnClientes, tsBtnProveedores, toolStripSeparator2, tsBtnEmisores, toolStripSeparator3, tsBtnConfig, toolStripSeparator4, tsBtnSalir });
             tsToolMain.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             tsToolMain.Location = new Point(8, 8);
             tsToolMain.Name = "tsToolMain";
-            tsToolMain.Size = new Size(77, 621);
+            tsToolMain.Padding = new Padding(0);
+            tsToolMain.Size = new Size(84, 621);
             tsToolMain.TabIndex = 3;
             tsToolMain.Text = "toolStrip1";
             // 
             // tsBtnVentas
             // 
-            tsBtnVentas.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnVentas.Image = (Image)resources.GetObject("tsBtnVentas.Image");
+            tsBtnVentas.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnVentas.ImageTransparentColor = Color.Magenta;
             tsBtnVentas.Name = "tsBtnVentas";
-            tsBtnVentas.Size = new Size(75, 68);
+            tsBtnVentas.Size = new Size(83, 51);
             tsBtnVentas.Text = "Ventas";
             tsBtnVentas.TextAlign = ContentAlignment.BottomCenter;
             tsBtnVentas.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // tsBtnCompras
             // 
-            tsBtnCompras.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnCompras.Image = (Image)resources.GetObject("tsBtnCompras.Image");
+            tsBtnCompras.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnCompras.ImageTransparentColor = Color.Magenta;
             tsBtnCompras.Name = "tsBtnCompras";
-            tsBtnCompras.Size = new Size(75, 68);
+            tsBtnCompras.Size = new Size(83, 51);
             tsBtnCompras.Text = "Compras";
+            tsBtnCompras.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Margin = new Padding(5);
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(65, 6);
+            toolStripSeparator1.Size = new Size(73, 6);
             // 
             // tsBtnClientes
             // 
-            tsBtnClientes.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnClientes.Image = (Image)resources.GetObject("tsBtnClientes.Image");
+            tsBtnClientes.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnClientes.ImageTransparentColor = Color.Magenta;
             tsBtnClientes.Name = "tsBtnClientes";
-            tsBtnClientes.Size = new Size(75, 68);
+            tsBtnClientes.Size = new Size(83, 51);
             tsBtnClientes.Text = "Clientes";
+            tsBtnClientes.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // tsBtnProveedores
             // 
-            tsBtnProveedores.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnProveedores.Image = (Image)resources.GetObject("tsBtnProveedores.Image");
+            tsBtnProveedores.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnProveedores.ImageTransparentColor = Color.Magenta;
             tsBtnProveedores.Name = "tsBtnProveedores";
-            tsBtnProveedores.Size = new Size(75, 68);
+            tsBtnProveedores.Size = new Size(83, 51);
             tsBtnProveedores.Text = "Proveedores";
+            tsBtnProveedores.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Margin = new Padding(5);
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(65, 6);
+            toolStripSeparator2.Size = new Size(73, 6);
             // 
             // tsBtnEmisores
             // 
-            tsBtnEmisores.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnEmisores.Image = (Image)resources.GetObject("tsBtnEmisores.Image");
+            tsBtnEmisores.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnEmisores.ImageTransparentColor = Color.Magenta;
             tsBtnEmisores.Name = "tsBtnEmisores";
-            tsBtnEmisores.Size = new Size(75, 68);
+            tsBtnEmisores.Size = new Size(83, 51);
             tsBtnEmisores.Text = "Emisores";
+            tsBtnEmisores.TextImageRelation = TextImageRelation.ImageAboveText;
             tsBtnEmisores.Click += tsBtnEmisores_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Margin = new Padding(5);
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(65, 6);
+            toolStripSeparator3.Size = new Size(73, 6);
             // 
             // tsBtnConfig
             // 
-            tsBtnConfig.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnConfig.Image = (Image)resources.GetObject("tsBtnConfig.Image");
+            tsBtnConfig.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnConfig.ImageTransparentColor = Color.Magenta;
             tsBtnConfig.Name = "tsBtnConfig";
-            tsBtnConfig.Size = new Size(75, 68);
+            tsBtnConfig.Size = new Size(83, 51);
             tsBtnConfig.Text = "Configuración";
+            tsBtnConfig.TextImageRelation = TextImageRelation.ImageAboveText;
             tsBtnConfig.Click += tsBtnConfig_Click;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Margin = new Padding(5);
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(65, 6);
+            toolStripSeparator4.Size = new Size(73, 6);
             // 
             // tsBtnSalir
             // 
-            tsBtnSalir.DisplayStyle = ToolStripItemDisplayStyle.Image;
             tsBtnSalir.Image = (Image)resources.GetObject("tsBtnSalir.Image");
+            tsBtnSalir.ImageScaling = ToolStripItemImageScaling.None;
             tsBtnSalir.ImageTransparentColor = Color.Magenta;
             tsBtnSalir.Name = "tsBtnSalir";
-            tsBtnSalir.Size = new Size(75, 68);
+            tsBtnSalir.Size = new Size(83, 51);
             tsBtnSalir.Text = "Salir";
+            tsBtnSalir.TextImageRelation = TextImageRelation.ImageAboveText;
             tsBtnSalir.Click += tsBtnSalir_Click;
             // 
             // pnStatus
             // 
             pnStatus.Controls.Add(statusBar);
             pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(93, 641);
+            pnStatus.Location = new Point(100, 641);
             pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(843, 27);
+            pnStatus.Size = new Size(836, 27);
             pnStatus.TabIndex = 5;
             // 
             // statusBar
             // 
             statusBar.Items.AddRange(new ToolStripItem[] { tsLbEmisorTitle, tsLbEmisor, tbLbEstadoTitle, tsLbEstado });
-            statusBar.Location = new Point(0, 5);
+            statusBar.Location = new Point(0, 0);
             statusBar.Name = "statusBar";
-            statusBar.Size = new Size(843, 22);
+            statusBar.Size = new Size(836, 27);
             statusBar.TabIndex = 0;
             statusBar.Text = "statusStrip1";
             // 
@@ -248,7 +257,7 @@
             // 
             tsLbEmisorTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tsLbEmisorTitle.Name = "tsLbEmisorTitle";
-            tsLbEmisorTitle.Size = new Size(47, 17);
+            tsLbEmisorTitle.Size = new Size(47, 22);
             tsLbEmisorTitle.Text = "Emisor:";
             tsLbEmisorTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -256,7 +265,7 @@
             // 
             tsLbEmisor.AutoSize = false;
             tsLbEmisor.Name = "tsLbEmisor";
-            tsLbEmisor.Size = new Size(200, 17);
+            tsLbEmisor.Size = new Size(200, 22);
             tsLbEmisor.Text = "Aquí la info del emisor";
             tsLbEmisor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -264,14 +273,14 @@
             // 
             tbLbEstadoTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tbLbEstadoTitle.Name = "tbLbEstadoTitle";
-            tbLbEstadoTitle.Size = new Size(46, 17);
+            tbLbEstadoTitle.Size = new Size(46, 22);
             tbLbEstadoTitle.Text = "Estado:";
             tbLbEstadoTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tsLbEstado
             // 
             tsLbEstado.Name = "tsLbEstado";
-            tsLbEstado.Size = new Size(125, 17);
+            tsLbEstado.Size = new Size(125, 22);
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 
