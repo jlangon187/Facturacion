@@ -213,6 +213,7 @@
             Name = "FrmBrowEmisores";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión de Emisores";
+            WindowState = FormWindowState.Maximized;
             FormClosing += FrmBrowEmisores_FormClosing;
             Load += FrmBrowEmisores_Load;
             Shown += FrmBrowEmisores_Shown;

@@ -36,6 +36,8 @@ namespace FacturacionDAM.Formularios
         private void FrmMain_Load(object sender, EventArgs e)
         {
             // Refresca los controles de la ventana principal
+
+            menuMain.MdiWindowListItem = ventanasToolStripMenuItem;
             RefrescarControles();
             SeleccionarEmisor();
 
@@ -79,8 +81,56 @@ namespace FacturacionDAM.Formularios
             AbrirFormularioHijo<FrmBrowEmisores>();
         }
 
+        private void tsMenuConsola_Click(object sender, EventArgs e)
+        {
+#if DEBUG
+            AbrirFormularioHijo<FrmConsola>();
+#else
+
+            // Opcional: mensaje si alguien lo ejecuta de alguna manera
+            MessageBox.Show("Esta consola solo está disponible en modo Depuración.",
+                            "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Program.appDAM.RegistrarLog("FrmMain", "Intento de abrir consola en modo no depuración.");
+#endif
+        }
+
+        private void seleccionarEmisorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarFormulariosHijos();
+            SeleccionarEmisor();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void cascadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void mosaicohorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void mosaicoverticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void cerrarTodasLasVentanasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CerrarFormulariosHijos();
+        }
+
         /*********** METODOS PRIVADOS ***********/
 
+
+        /// <summary>
+        /// Metodo que cierra todos los formularios hijos MDI abiertos.
+        /// </summary>
         private void CerrarFormulariosHijos()
         {
             foreach (Form frm in this.MdiChildren)
@@ -113,6 +163,9 @@ namespace FacturacionDAM.Formularios
             nuevoForm.Show();
         }
 
+        /// <summary>
+        /// Metodo que refresca el estado de los botones de la barra de herramientas
+        /// </summary>
         public void RefreshToolBar()
         {
             foreach (ToolStripItem item in tsToolMain.Items)
@@ -145,6 +198,9 @@ namespace FacturacionDAM.Formularios
         }
 
 
+        /// <summary>
+        /// Metodo que refresca el estado de la barra de estado
+        /// </summary>
         public void RefreshStatusBar()
         {
             if (Program.appDAM.emisor == null)
@@ -174,25 +230,19 @@ namespace FacturacionDAM.Formularios
                     break;
             }
         }
+
+        /// <summary>
+        /// Metodo que refresca todos los controles de la ventana principal
+        /// </summary>
         public void RefrescarControles()
         {
             RefreshToolBar();
             RefreshStatusBar();
         }
 
-        private void tsMenuConsola_Click(object sender, EventArgs e)
-        {
-#if DEBUG
-            AbrirFormularioHijo<FrmConsola>();
-#else
-
-            // Opcional: mensaje si alguien lo ejecuta de alguna manera
-            MessageBox.Show("Esta consola solo está disponible en modo Depuración.",
-                            "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Program.appDAM.RegistrarLog("FrmMain", "Intento de abrir consola en modo no depuración.");
-#endif
-        }
-
+        /// <summary>
+        /// Metodo que abre el formulario de selección de emisor
+        /// </summary>
         private void SeleccionarEmisor()
         {
             if (Program.appDAM.estadoApp == EstadoApp.ConectadoSinEmisor || Program.appDAM.estadoApp == EstadoApp.Conectado)
@@ -209,12 +259,6 @@ namespace FacturacionDAM.Formularios
                     }
                 }
             }
-        }
-
-        private void seleccionarEmisorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CerrarFormulariosHijos();
-            SeleccionarEmisor();
         }
     }
 }

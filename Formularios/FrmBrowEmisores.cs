@@ -137,6 +137,10 @@ namespace FacturacionDAM.Formularios
             Properties.Settings.Default.Save();
         }
 
+
+        /// <summary>
+        /// Metodo para restaurar el estado de la ventana (tamaño, posición, columnas, etc.)
+        /// </summary>
         private void RestaurarEstadoVentana()
         {
             // Restaurar tamaño y posición
@@ -231,6 +235,10 @@ namespace FacturacionDAM.Formularios
 
             // Tamaño de las letras de los encabezados de las columnas
             dgTabla.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font(dgTabla.Font.FontFamily, 10, FontStyle.Bold);
+
+            // Aumentar altura del encabezado
+            dgTabla.ColumnHeadersHeight = 40;
+            dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
         }
 
         /// <summary>
