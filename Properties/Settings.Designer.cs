@@ -58,5 +58,41 @@ namespace FacturacionDAM.Properties {
                 this["BrowEmisoresState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size BrowClientesSize {
+            get {
+                return ((global::System.Drawing.Size)(this["BrowClientesSize"]));
+            }
+            set {
+                this["BrowClientesSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point BrowClientesLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["BrowClientesLocation"]));
+            }
+            set {
+                this["BrowClientesLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"Maximized\"")]
+        public string BrowClientesState {
+            get {
+                return ((string)(this["BrowClientesState"]));
+            }
+            set {
+                this["BrowClientesState"] = value;
+            }
+        }
     }
 }

@@ -97,6 +97,7 @@
             // 
             // seleccionarEmisorToolStripMenuItem
             // 
+            seleccionarEmisorToolStripMenuItem.Image = (Image)resources.GetObject("seleccionarEmisorToolStripMenuItem.Image");
             seleccionarEmisorToolStripMenuItem.Name = "seleccionarEmisorToolStripMenuItem";
             seleccionarEmisorToolStripMenuItem.Size = new Size(182, 22);
             seleccionarEmisorToolStripMenuItem.Text = "&Seleccionar emisor...";
@@ -104,6 +105,7 @@
             // 
             // salirToolStripMenuItem
             // 
+            salirToolStripMenuItem.Image = (Image)resources.GetObject("salirToolStripMenuItem.Image");
             salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             salirToolStripMenuItem.Size = new Size(182, 22);
             salirToolStripMenuItem.Text = "&Salir";
@@ -153,6 +155,7 @@
             // 
             // tsMenuConsola
             // 
+            tsMenuConsola.Image = (Image)resources.GetObject("tsMenuConsola.Image");
             tsMenuConsola.Name = "tsMenuConsola";
             tsMenuConsola.Size = new Size(196, 22);
             tsMenuConsola.Text = "C&onsola de depuración";
@@ -221,6 +224,7 @@
             tsBtnClientes.Size = new Size(83, 51);
             tsBtnClientes.Text = "Clientes";
             tsBtnClientes.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsBtnClientes.Click += tsBtnClientes_Click;
             // 
             // tsBtnProveedores
             // 
