@@ -54,7 +54,6 @@ namespace FacturacionDAM.Formularios
             txtDomicilio.DataBindings.Add("Text", _bs, "domicilio");
             txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
             txtCodigoPostal.DataBindings.Add("Text", _bs, "codigopostal");
-            cbProvincia.DataBindings.Add("Text", _bs, "idprovincia");
             txtRazonSocial.DataBindings.Add("Text", _bs, "nombrecomercial");
             txtTelefono1.DataBindings.Add("Text", _bs, "telefono1");
             txtTelefono2.DataBindings.Add("Text", _bs, "telefono2");
@@ -64,9 +63,7 @@ namespace FacturacionDAM.Formularios
             rTBoxDescripcion.DataBindings.Add("Text", _bs, "descripcion");
 
             // Cargar provincias en el ComboBox
-            Tabla tablaProvincias = new Tabla(Program.appDAM.LaConexion);
-            tablaProvincias.InicializarDatos("SELECT * FROM provincias;");
-            cbProvincia.DataSource = tablaProvincias.LaTabla;
+            cbProvincia.DataSource = _tabla.ObtenerTablaProvincias();
             cbProvincia.DisplayMember = "nombreprovincia";
             cbProvincia.ValueMember = "id";
             cbProvincia.SelectedIndex = 0;

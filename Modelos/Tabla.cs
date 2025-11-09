@@ -14,6 +14,7 @@ namespace FacturacionDAM.Modelos
         private MySqlDataAdapter _dataAdapter;       // Adaptador de datos para la tabla
         private MySqlCommandBuilder _commandBuilder; // Objeto que nos facilita la generación de comandos SQL automáticamente
         private DataTable _tabla;                    // Objeto DataTable que contiene los datos de la tabla
+        private static DataTable _cacheProvincias;   // Cache estático para las provincias
 
         /// <summary>
         /// Constructor.
@@ -67,8 +68,8 @@ namespace FacturacionDAM.Modelos
         /// <summary>
         /// Libera los recursos utilizados por la tabla.
         /// </summary>
-        public void Liberar() 
-        { 
+        public void Liberar()
+        {
             _tabla?.Dispose();
             _dataAdapter?.Dispose();
             _commandBuilder = null;
@@ -99,19 +100,29 @@ namespace FacturacionDAM.Modelos
             }
         }
 
+        /// <summary>
+        /// Metodo que devuelve una tabla con las provincias.
+        /// </summary>
+        /// <returns></returns>
         internal object ObtenerTablaProvincias()
         {
             try
             {
+                if (_cacheProvincias != null && _cacheProvincias.Rows.Count > 0)
+                {
+                    return _cacheProvincias;
+                }
                 MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, nombreprovincia FROM provincias ORDER BY nombreprovincia;", _conexion);
                 DataTable provinciasTable = new DataTable();
-                da.Fill(provinciasTable);
-                return provinciasTable;
+                _cacheProvincias = new DataTable();
+                da.Fill(_cacheProvincias);
+
+                return _cacheProvincias;
             }
             catch (Exception ex)
             {
                 Program.appDAM.RegistrarLog("Tabla.ObtenerTablaProvincias", ex.Message);
-                return null;
+                return new DataTable();
             }
         }
     }

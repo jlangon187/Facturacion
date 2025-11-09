@@ -20,7 +20,7 @@ namespace FacturacionDAM.Formularios
             _tabla = tabla;
         }
 
-        /*private void btnAceptar_Click(object sender, EventArgs e)
+        private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatos())
                 return;
@@ -35,30 +35,26 @@ namespace FacturacionDAM.Formularios
         {
             _bs.CancelEdit();
             this.Close();
-        }*/
+        }
 
-        /*private void FrmCliente_Load(object sender, EventArgs e)
+        private void FrmCliente_Load(object sender, EventArgs e)
         {
             txtNifCif.DataBindings.Add("Text", _bs, "nifcif");
             txtNombre.DataBindings.Add("Text", _bs, "nombre");
             txtApellidos.DataBindings.Add("Text", _bs, "apellidos");
-            txtNombreComercial.DataBindings.Add("Text", _bs, "nombrecomercial");
-            txtDireccion.DataBindings.Add("Text", _bs, "direccion");
+            txtRazonSocial.DataBindings.Add("Text", _bs, "nombrecomercial");
+            txtDomicilio.DataBindings.Add("Text", _bs, "direccion");
             txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
             txtCodigoPostal.DataBindings.Add("Text", _bs, "cpostal");
-            cbProvincia.DataBindings.Add("SelectedValue", _bs, "idprovincia");
-            txtTelefono.DataBindings.Add("Text", _bs, "telefono");
+            txtTelefono1.DataBindings.Add("Text", _bs, "telefono");
             txtEmail.DataBindings.Add("Text", _bs, "email");
 
-            // Cargar provincias
-            Tabla tablaProvincias = new Tabla(Program.appDAM.LaConexion);
-            tablaProvincias.InicializarDatos("SELECT * FROM provincias;");
-            cbProvincia.DataSource = tablaProvincias.LaTabla;
+            // Cargar provincias en el ComboBox
+            cbProvincia.DataSource = _tabla.ObtenerTablaProvincias();
             cbProvincia.DisplayMember = "nombreprovincia";
             cbProvincia.ValueMember = "id";
             cbProvincia.SelectedIndex = 0;
-
-            // Desactivar AcceptButton si usas algún campo multilinea (opcional)
+            cbProvincia.DataBindings.Add("SelectedValue", _bs, "idprovincia");
         }
 
         private void FrmCliente_FormClosing(object sender, FormClosingEventArgs e)
@@ -77,10 +73,10 @@ namespace FacturacionDAM.Formularios
             }
 
             // Validar que el nombre comercial no esté vacío
-            if (string.IsNullOrWhiteSpace(txtNombreComercial.Text))
+            if (string.IsNullOrWhiteSpace(txtRazonSocial.Text))
             {
                 MessageBox.Show("El campo Nombre Comercial no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombreComercial.Focus();
+                txtRazonSocial.Focus();
                 return false;
             }
 
@@ -128,6 +124,6 @@ namespace FacturacionDAM.Formularios
 
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             return count > 0;
-        }*/
+        }
     }
 }
