@@ -100,7 +100,7 @@
             seleccionarEmisorToolStripMenuItem.Image = (Image)resources.GetObject("seleccionarEmisorToolStripMenuItem.Image");
             seleccionarEmisorToolStripMenuItem.Name = "seleccionarEmisorToolStripMenuItem";
             seleccionarEmisorToolStripMenuItem.Size = new Size(182, 22);
-            seleccionarEmisorToolStripMenuItem.Text = "&Seleccionar emisor...";
+            seleccionarEmisorToolStripMenuItem.Text = "Seleccionar &emisor...";
             seleccionarEmisorToolStripMenuItem.Click += seleccionarEmisorToolStripMenuItem_Click;
             // 
             // salirToolStripMenuItem
@@ -185,7 +185,7 @@
             tsToolMain.Name = "tsToolMain";
             tsToolMain.Padding = new Padding(0);
             tsToolMain.Size = new Size(84, 621);
-            tsToolMain.TabIndex = 3;
+            tsToolMain.TabIndex = 0;
             tsToolMain.Text = "toolStrip1";
             // 
             // tsBtnVentas

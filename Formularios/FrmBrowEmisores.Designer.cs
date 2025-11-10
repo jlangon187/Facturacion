@@ -70,6 +70,7 @@ namespace FacturacionDAM.Formularios
             // tsHerramientas
             // 
             tsHerramientas.AutoSize = false;
+            tsHerramientas.GripStyle = ToolStripGripStyle.Hidden;
             tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";

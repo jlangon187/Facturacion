@@ -31,14 +31,14 @@ namespace FacturacionDAM.Formularios
             txtConsola.Multiline = true;
             txtConsola.Name = "txtConsola";
             txtConsola.Size = new Size(760, 407);
-            txtConsola.TabIndex = 0;
+            txtConsola.TabIndex = 2;
             // 
             // btnActualizar
             // 
             btnActualizar.Location = new Point(12, 12);
             btnActualizar.Name = "btnActualizar";
             btnActualizar.Size = new Size(100, 23);
-            btnActualizar.TabIndex = 1;
+            btnActualizar.TabIndex = 0;
             btnActualizar.Text = "Actualizar";
             btnActualizar.UseVisualStyleBackColor = true;
             btnActualizar.Click += btnActualizar_Click;
@@ -49,7 +49,7 @@ namespace FacturacionDAM.Formularios
             chkAutoActualizar.Location = new Point(130, 15);
             chkAutoActualizar.Name = "chkAutoActualizar";
             chkAutoActualizar.Size = new Size(175, 19);
-            chkAutoActualizar.TabIndex = 2;
+            chkAutoActualizar.TabIndex = 1;
             chkAutoActualizar.Text = "Actualizar automáticamente";
             chkAutoActualizar.UseVisualStyleBackColor = true;
             chkAutoActualizar.CheckedChanged += chkAutoActualizar_CheckedChanged;

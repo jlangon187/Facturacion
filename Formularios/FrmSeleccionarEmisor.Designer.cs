@@ -64,7 +64,7 @@
             btnSelection.Name = "btnSelection";
             btnSelection.Padding = new Padding(10, 0, 10, 0);
             btnSelection.Size = new Size(143, 36);
-            btnSelection.TabIndex = 3;
+            btnSelection.TabIndex = 1;
             btnSelection.TabStop = false;
             btnSelection.Text = "Seleccionar";
             btnSelection.TextAlign = ContentAlignment.MiddleRight;
@@ -79,7 +79,7 @@
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Padding = new Padding(15, 0, 10, 0);
             btnCancelar.Size = new Size(143, 36);
-            btnCancelar.TabIndex = 4;
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             cbEmisor.Location = new Point(43, 48);
             cbEmisor.Name = "cbEmisor";
             cbEmisor.Size = new Size(223, 23);
-            cbEmisor.TabIndex = 5;
+            cbEmisor.TabIndex = 0;
             // 
             // gbSelection
             // 
@@ -100,7 +100,7 @@
             gbSelection.Location = new Point(44, 79);
             gbSelection.Name = "gbSelection";
             gbSelection.Size = new Size(473, 107);
-            gbSelection.TabIndex = 6;
+            gbSelection.TabIndex = 1;
             gbSelection.TabStop = false;
             gbSelection.Text = "Seleccione un emisor:";
             // 
