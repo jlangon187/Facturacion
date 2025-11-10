@@ -1,4 +1,6 @@
-﻿namespace FacturacionDAM.Formularios
+﻿using System.Windows.Forms;
+
+namespace FacturacionDAM.Formularios
 {
     partial class FrmBrowEmisores
     {
@@ -40,6 +42,9 @@
             btnPrev = new ToolStripButton();
             btnNext = new ToolStripButton();
             btnLast = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnExportCSV = new ToolStripButton();
+            btnExportXML = new ToolStripButton();
             pnStatus = new Panel();
             StatusStrip = new StatusStrip();
             tsStatusLabel = new ToolStripStatusLabel();
@@ -65,7 +70,7 @@
             // tsHerramientas
             // 
             tsHerramientas.AutoSize = false;
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast });
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(1484, 25);
@@ -153,6 +158,33 @@
             btnLast.Size = new Size(23, 22);
             btnLast.Text = "Último Emisor";
             btnLast.Click += btnLast_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
+            // 
+            // btnExportCSV
+            // 
+            btnExportCSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportCSV.Image = (Image)resources.GetObject("btnExportCSV.Image");
+            btnExportCSV.ImageTransparentColor = Color.Magenta;
+            btnExportCSV.Name = "btnExportCSV";
+            btnExportCSV.Size = new Size(23, 22);
+            btnExportCSV.Text = "btnExportCSV";
+            btnExportCSV.ToolTipText = "Exportar a CSV";
+            btnExportCSV.Click += btnExportCSV_Click;
+            // 
+            // btnExportXML
+            // 
+            btnExportXML.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportXML.Image = (Image)resources.GetObject("btnExportXML.Image");
+            btnExportXML.ImageTransparentColor = Color.Magenta;
+            btnExportXML.Name = "btnExportXML";
+            btnExportXML.Size = new Size(23, 22);
+            btnExportXML.Text = "btnExportXML";
+            btnExportXML.ToolTipText = "Exportar a XML";
+            btnExportXML.Click += btnExportXML_Click;
             // 
             // pnStatus
             // 
@@ -246,5 +278,8 @@
         private Panel pnData;
         private DataGridView dgTabla;
         private ToolStripStatusLabel tsStatusLabel;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnExportCSV;
+        private ToolStripButton btnExportXML;
     }
 }
