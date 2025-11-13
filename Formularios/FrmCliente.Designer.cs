@@ -32,11 +32,12 @@
             pnButtons = new Panel();
             btnCancelar = new Button();
             btnAceptar = new Button();
-            tbControl = new TabControl();
-            tbDatos = new TabPage();
+            pnClientes = new Panel();
             gbContacto = new GroupBox();
+            lbTelefono2 = new Label();
+            txtTelefono2 = new TextBox();
             lbEmail = new Label();
-            lbTelefono = new Label();
+            lbTelefono1 = new Label();
             txtEmail = new TextBox();
             txtTelefono1 = new TextBox();
             gbDomicilio = new GroupBox();
@@ -58,8 +59,7 @@
             txtRazonSocial = new TextBox();
             txtNifCif = new TextBox();
             pnButtons.SuspendLayout();
-            tbControl.SuspendLayout();
-            tbDatos.SuspendLayout();
+            pnClientes.SuspendLayout();
             gbContacto.SuspendLayout();
             gbDomicilio.SuspendLayout();
             gbIdentidad.SuspendLayout();
@@ -102,41 +102,47 @@
             btnAceptar.UseVisualStyleBackColor = true;
             btnAceptar.Click += btnAceptar_Click;
             // 
-            // tbControl
+            // pnClientes
             // 
-            tbControl.Controls.Add(tbDatos);
-            tbControl.Dock = DockStyle.Fill;
-            tbControl.Location = new Point(0, 0);
-            tbControl.Name = "tbControl";
-            tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(844, 555);
-            tbControl.TabIndex = 0;
-            // 
-            // tbDatos
-            // 
-            tbDatos.Controls.Add(gbContacto);
-            tbDatos.Controls.Add(gbDomicilio);
-            tbDatos.Controls.Add(gbIdentidad);
-            tbDatos.Location = new Point(4, 24);
-            tbDatos.Name = "tbDatos";
-            tbDatos.Padding = new Padding(3);
-            tbDatos.Size = new Size(836, 527);
-            tbDatos.TabIndex = 0;
-            tbDatos.Text = "Datos";
-            tbDatos.UseVisualStyleBackColor = true;
+            pnClientes.Controls.Add(gbContacto);
+            pnClientes.Controls.Add(gbDomicilio);
+            pnClientes.Controls.Add(gbIdentidad);
+            pnClientes.Dock = DockStyle.Fill;
+            pnClientes.Location = new Point(0, 0);
+            pnClientes.Name = "pnClientes";
+            pnClientes.Size = new Size(844, 555);
+            pnClientes.TabIndex = 2;
             // 
             // gbContacto
             // 
+            gbContacto.Controls.Add(lbTelefono2);
+            gbContacto.Controls.Add(txtTelefono2);
             gbContacto.Controls.Add(lbEmail);
-            gbContacto.Controls.Add(lbTelefono);
+            gbContacto.Controls.Add(lbTelefono1);
             gbContacto.Controls.Add(txtEmail);
             gbContacto.Controls.Add(txtTelefono1);
-            gbContacto.Location = new Point(16, 358);
+            gbContacto.Location = new Point(18, 379);
             gbContacto.Name = "gbContacto";
             gbContacto.Size = new Size(808, 139);
-            gbContacto.TabIndex = 2;
+            gbContacto.TabIndex = 5;
             gbContacto.TabStop = false;
             gbContacto.Text = "Contacto";
+            // 
+            // lbTelefono2
+            // 
+            lbTelefono2.AutoSize = true;
+            lbTelefono2.Location = new Point(328, 40);
+            lbTelefono2.Name = "lbTelefono2";
+            lbTelefono2.Size = new Size(65, 15);
+            lbTelefono2.TabIndex = 4;
+            lbTelefono2.Text = "Teléfono 2:";
+            // 
+            // txtTelefono2
+            // 
+            txtTelefono2.Location = new Point(400, 32);
+            txtTelefono2.Name = "txtTelefono2";
+            txtTelefono2.Size = new Size(180, 23);
+            txtTelefono2.TabIndex = 5;
             // 
             // lbEmail
             // 
@@ -147,14 +153,14 @@
             lbEmail.TabIndex = 2;
             lbEmail.Text = "Email:";
             // 
-            // lbTelefono
+            // lbTelefono1
             // 
-            lbTelefono.AutoSize = true;
-            lbTelefono.Location = new Point(32, 40);
-            lbTelefono.Name = "lbTelefono";
-            lbTelefono.Size = new Size(56, 15);
-            lbTelefono.TabIndex = 0;
-            lbTelefono.Text = "Teléfono:";
+            lbTelefono1.AutoSize = true;
+            lbTelefono1.Location = new Point(32, 40);
+            lbTelefono1.Name = "lbTelefono1";
+            lbTelefono1.Size = new Size(65, 15);
+            lbTelefono1.TabIndex = 0;
+            lbTelefono1.Text = "Teléfono 1:";
             // 
             // txtEmail
             // 
@@ -180,10 +186,10 @@
             gbDomicilio.Controls.Add(txtCodigoPostal);
             gbDomicilio.Controls.Add(txtPoblacion);
             gbDomicilio.Controls.Add(txtDomicilio);
-            gbDomicilio.Location = new Point(16, 213);
+            gbDomicilio.Location = new Point(18, 234);
             gbDomicilio.Name = "gbDomicilio";
             gbDomicilio.Size = new Size(808, 130);
-            gbDomicilio.TabIndex = 1;
+            gbDomicilio.TabIndex = 4;
             gbDomicilio.TabStop = false;
             gbDomicilio.Text = "Domicilio";
             // 
@@ -263,10 +269,10 @@
             gbIdentidad.Controls.Add(txtNombre);
             gbIdentidad.Controls.Add(txtRazonSocial);
             gbIdentidad.Controls.Add(txtNifCif);
-            gbIdentidad.Location = new Point(16, 16);
+            gbIdentidad.Location = new Point(18, 37);
             gbIdentidad.Name = "gbIdentidad";
             gbIdentidad.Size = new Size(808, 180);
-            gbIdentidad.TabIndex = 0;
+            gbIdentidad.TabIndex = 3;
             gbIdentidad.TabStop = false;
             gbIdentidad.Text = "Identidad";
             // 
@@ -341,7 +347,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
             ClientSize = new Size(844, 621);
-            Controls.Add(tbControl);
+            Controls.Add(pnClientes);
             Controls.Add(pnButtons);
             MaximizeBox = false;
             MaximumSize = new Size(860, 660);
@@ -353,8 +359,7 @@
             FormClosing += FrmCliente_FormClosing;
             Load += FrmCliente_Load;
             pnButtons.ResumeLayout(false);
-            tbControl.ResumeLayout(false);
-            tbDatos.ResumeLayout(false);
+            pnClientes.ResumeLayout(false);
             gbContacto.ResumeLayout(false);
             gbContacto.PerformLayout();
             gbDomicilio.ResumeLayout(false);
@@ -369,14 +374,15 @@
         private Panel pnButtons;
         private Button btnCancelar;
         private Button btnAceptar;
-        private TabControl tbControl;
-        private TabPage tbDatos;
-        private GroupBox gbDomicilio;
-        private GroupBox gbIdentidad;
+        private Panel pnClientes;
         private GroupBox gbContacto;
+        private Label lbTelefono2;
+        private TextBox txtTelefono2;
         private Label lbEmail;
-        private Label lbTelefono;
+        private Label lbTelefono1;
+        private TextBox txtEmail;
         private TextBox txtTelefono1;
+        private GroupBox gbDomicilio;
         private Label lbProvincia;
         private Label lbCodigoPostal;
         private Label lbPoblacion;
@@ -385,6 +391,7 @@
         private TextBox txtCodigoPostal;
         private TextBox txtPoblacion;
         private TextBox txtDomicilio;
+        private GroupBox gbIdentidad;
         private Label lbApellidos;
         private Label lbNombre;
         private Label lbNombreComercial;
@@ -393,6 +400,5 @@
         private TextBox txtNombre;
         private TextBox txtRazonSocial;
         private TextBox txtNifCif;
-        private TextBox txtEmail;
     }
 }

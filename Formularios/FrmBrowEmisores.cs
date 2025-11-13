@@ -1,4 +1,5 @@
 ﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Security.Cryptography.Xml;
@@ -36,7 +37,7 @@ namespace FacturacionDAM.Formularios
 
         private void FrmBrowEmisores_Shown(object sender, EventArgs e)
         {
-            RestaurarEstadoVentana();
+            ConfiguracionVentana.Restaurar(this, "BrowEmisores");
         }
 
         private void btnFirst_Click(object sender, EventArgs e) => _bs.MoveFirst();
@@ -114,57 +115,10 @@ namespace FacturacionDAM.Formularios
         /// <param name="e"></param>
         private void FrmBrowEmisores_FormClosing(object sender, FormClosingEventArgs e)
         {
-            GuardarEstadoVentana();     // Guardar el estado de la ventana
+            ConfiguracionVentana.Guardar(this, "BrowEmisores");
         }
 
         /*********** Métodos privados ***********/
-
-        /// <summary>
-        /// Guarda el estado de la ventana (tamaño, posición, columnas, etc.)
-        /// </summary>
-        private void GuardarEstadoVentana()
-        {
-            // Guardar tamaño y posición solo si la ventana está en estado normal
-            if (this.WindowState == FormWindowState.Normal)
-            {
-                Properties.Settings.Default.BrowEmisoresLocation = this.Location;
-                Properties.Settings.Default.BrowEmisoresSize = this.Size;
-            }
-
-            // Guardar estado de la ventana
-            Properties.Settings.Default.BrowEmisoresState = this.WindowState.ToString();
-
-            // Guarda el estado
-            Properties.Settings.Default.Save();
-        }
-
-
-        /// <summary>
-        /// Metodo para restaurar el estado de la ventana (tamaño, posición, columnas, etc.)
-        /// </summary>
-        private void RestaurarEstadoVentana()
-        {
-            // Restaurar tamaño y posición
-            string estado = Properties.Settings.Default.BrowEmisoresState;
-            switch (estado)
-            {
-                case "Maximized":
-                    this.WindowState = FormWindowState.Maximized;
-                    break;
-                case "Minimized":
-                    this.WindowState = FormWindowState.Minimized;
-                    break;
-                default:
-                    this.WindowState = FormWindowState.Normal;
-                    break;
-            }
-            // Solo restaurar tamaño y posición si la ventana está en estado normal
-            if (Properties.Settings.Default.BrowEmisoresState == "Normal")
-            {
-                this.Location = Properties.Settings.Default.BrowEmisoresLocation;
-                this.Size = Properties.Settings.Default.BrowEmisoresSize;
-            }
-        }
 
         private void ActualizarEstado()
         {
@@ -186,8 +140,8 @@ namespace FacturacionDAM.Formularios
             dgTabla.Columns["nifcif"].Width = 100;
             dgTabla.Columns["nombre"].HeaderText = "Nombre";
             dgTabla.Columns["nombre"].Width = 120;
-            dgTabla.Columns["apellido"].HeaderText = "Apellidos";
-            dgTabla.Columns["apellido"].Width = 160;
+            dgTabla.Columns["apellidos"].HeaderText = "Apellidos";
+            dgTabla.Columns["apellidos"].Width = 160;
             dgTabla.Columns["nombrecomercial"].HeaderText = "Razón Social";
             dgTabla.Columns["nombrecomercial"].Width = 200;
             dgTabla.Columns["codigopostal"].HeaderText = "Código Postal";
@@ -263,68 +217,12 @@ namespace FacturacionDAM.Formularios
             return false;
         }
 
-        /// <summary>
-        /// Exporta los datos a un archivo CSV.
-        /// </summary>
-        /// <param name="rutaArchivo">Nombre del archivo de destino.</param>
-        private void Export_A_CSV(string rutaArchivo)
-        {
-            try
-            {
-                DataTable dt = (DataTable)_bs.DataSource;
-                List<string> lines = new List<string>();
-
-                // Encabezados
-                var columns = dt.Columns.Cast<DataColumn>().Select(col => col.ColumnName);
-                lines.Add(string.Join(",", columns));
-                // Filas
-                foreach (DataRow row in dt.Rows)
-                {
-                    // Reemplaza las posibles ; por , para evitar conflictos
-                    var fields = row.ItemArray.Select(field => field?.ToString()?.Replace(";", ","));
-                    lines.Add(string.Join(";", fields));
-                }
-                // Guarda en un archivo CSV
-                System.IO.File.WriteAllLines(rutaArchivo, lines, Encoding.UTF8);
-                MessageBox.Show("Datos exportados a CSV correctamente.", "Éxito",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                Program.appDAM.RegistrarLog("Error al exportar a CSV", ex.Message);
-                MessageBox.Show("Error al exportar los datos a CSV.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Exporta los datos a un archivo XML.
-        /// </summary>
-        /// <param name="rutaArchivo">Nombre del archivo de destino.</param>
-        private void Export_A_XML(string rutaArchivo)
-        {
-            try
-            {
-                DataTable dt = (DataTable)_bs.DataSource;
-                dt.TableName = "Clientes"; // Nombre de la tabla en el XML
-                dt.WriteXml(rutaArchivo, XmlWriteMode.WriteSchema);
-                MessageBox.Show("Datos exportados a XML correctamente", "Éxito",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                Program.appDAM.RegistrarLog("Error al exportar a XML", ex.Message);
-                MessageBox.Show("Error al exportar los datos a XML.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnExportCSV_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                Export_A_CSV(saveFileDialog.FileName);
+                ExportarDatos.ExportarCSV((DataTable)_bs.DataSource, saveFileDialog.FileName);
         }
 
         private void btnExportXML_Click(object sender, EventArgs e)
@@ -332,7 +230,7 @@ namespace FacturacionDAM.Formularios
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "XML files (*.xml)|*.xml";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                Export_A_XML(saveFileDialog.FileName);
+                ExportarDatos.ExportarXML((DataTable)_bs.DataSource, saveFileDialog.FileName, "emisores");
         }
     }
 }

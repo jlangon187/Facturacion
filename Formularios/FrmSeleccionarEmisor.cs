@@ -56,7 +56,7 @@ namespace FacturacionDAM.Formularios
                     id = Convert.ToInt32(row["id"]),
                     nifcif = row["nifcif"].ToString(),
                     nombre = row["nombre"].ToString(),
-                    apellidos = row["apellido"].ToString(),
+                    apellidos = row["apellidos"].ToString(),
                     nombreComercial = row["nombrecomercial"].ToString()
                 };
 

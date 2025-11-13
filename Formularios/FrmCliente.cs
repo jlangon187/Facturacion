@@ -46,7 +46,8 @@ namespace FacturacionDAM.Formularios
             txtDomicilio.DataBindings.Add("Text", _bs, "direccion");
             txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
             txtCodigoPostal.DataBindings.Add("Text", _bs, "cpostal");
-            txtTelefono1.DataBindings.Add("Text", _bs, "telefono");
+            txtTelefono1.DataBindings.Add("Text", _bs, "telefono1");
+            txtTelefono2.DataBindings.Add("Text", _bs, "telefono2");
             txtEmail.DataBindings.Add("Text", _bs, "email");
 
             // Cargar provincias en el ComboBox

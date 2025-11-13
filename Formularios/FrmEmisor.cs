@@ -1,4 +1,5 @@
 ﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace FacturacionDAM.Formularios
 
             txtNifCif.DataBindings.Add("Text", _bs, "nifcif");
             txtNombre.DataBindings.Add("Text", _bs, "nombre");
-            txtApellidos.DataBindings.Add("Text", _bs, "apellido");
+            txtApellidos.DataBindings.Add("Text", _bs, "apellidos");
             txtDomicilio.DataBindings.Add("Text", _bs, "domicilio");
             txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
             txtCodigoPostal.DataBindings.Add("Text", _bs, "codigopostal");
@@ -85,6 +86,7 @@ namespace FacturacionDAM.Formularios
             _bs.CancelEdit();                   // Cancela la edición en el BindingSource
         }
 
+
         private bool ValidarDatos()
         {
             // Validar que Nif/Cif y Nombre Comercial no estén vacíos
@@ -109,15 +111,7 @@ namespace FacturacionDAM.Formularios
 
                 try
                 {
-                    // Validación general con MailAddress
-                    var addr = new System.Net.Mail.MailAddress(txtEmail.Text);
-                    if (addr.Address != txtEmail.Text)
-                        emailValido = false;
-
-                    // Validación adicional con expresión regular
-                    string patronEmail = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-                    if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, patronEmail))
-                        emailValido = false;
+                    Validaciones.EsEmailValido(txtEmail.Text.Trim());
                 }
                 catch
                 {
@@ -136,7 +130,8 @@ namespace FacturacionDAM.Formularios
             }
 
             // Validar que nif/cif sea único
-            if (NifDuplicado(txtNifCif.Text.Trim()))
+            if (Validaciones.EsValorCampoUnico("emisores", "nifcif", txtNifCif.Text.Trim(),
+                edicion && _bs.Current is DataRowView currentRow ? (int?)currentRow["id"] : null) == false)
             {
                 MessageBox.Show("El NIF/CIF ya existe en otro emisor. Debe ser único.",
                     "Error de validación",
@@ -147,20 +142,6 @@ namespace FacturacionDAM.Formularios
             }
 
             return true; // Todos los datos son válidos
-        }
-
-        private bool NifDuplicado(string aNifCif)
-        {
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM emisores WHERE nifcif = @nifcif", Program.appDAM.LaConexion);
-            cmd.Parameters.AddWithValue("@nifcif", aNifCif);
-            if (edicion && _bs.Current is DataRowView currentRow)
-            {
-                int id = (int)currentRow["id"];
-                cmd.CommandText += " AND id <> @id";
-                cmd.Parameters.AddWithValue("@id", id);
-            }
-            int count = Convert.ToInt32(cmd.ExecuteScalar());
-            return (count > 0);
         }
     }
 }
