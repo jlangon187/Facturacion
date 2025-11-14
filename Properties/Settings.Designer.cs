@@ -49,7 +49,7 @@ namespace FacturacionDAM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"Maximized\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
         public string BrowEmisoresState {
             get {
                 return ((string)(this["BrowEmisoresState"]));
@@ -85,13 +85,49 @@ namespace FacturacionDAM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"Maximized\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
         public string BrowClientesState {
             get {
                 return ((string)(this["BrowClientesState"]));
             }
             set {
                 this["BrowClientesState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size BrowTiposDeIVASize {
+            get {
+                return ((global::System.Drawing.Size)(this["BrowTiposDeIVASize"]));
+            }
+            set {
+                this["BrowTiposDeIVASize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point BrowTiposDeIVALocation {
+            get {
+                return ((global::System.Drawing.Point)(this["BrowTiposDeIVALocation"]));
+            }
+            set {
+                this["BrowTiposDeIVALocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public string BrowTiposDeIVAState {
+            get {
+                return ((string)(this["BrowTiposDeIVAState"]));
+            }
+            set {
+                this["BrowTiposDeIVAState"] = value;
             }
         }
     }

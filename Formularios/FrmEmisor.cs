@@ -141,6 +141,17 @@ namespace FacturacionDAM.Formularios
                 return false;
             }
 
+            // Validar código postal es correcto sin comprobar si está vacío
+            if (!Validaciones.CodigoPostalValido(txtCodigoPostal.Text.Trim()))
+            {
+                MessageBox.Show("El código postal no es válido.",
+                    "Error de validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtCodigoPostal.Focus();
+                return false;
+            }
+            
             return true; // Todos los datos son válidos
         }
     }

@@ -34,6 +34,10 @@
             tsMenuArchivo = new ToolStripMenuItem();
             seleccionarEmisorToolStripMenuItem = new ToolStripMenuItem();
             salirToolStripMenuItem = new ToolStripMenuItem();
+            facturaciónToolStripMenuItem = new ToolStripMenuItem();
+            conceptosDeFacturaciónToolStripMenuItem = new ToolStripMenuItem();
+            tiposDeIVAToolStripMenuItem = new ToolStripMenuItem();
+            productosYServiciosToolStripMenuItem = new ToolStripMenuItem();
             ventanasToolStripMenuItem = new ToolStripMenuItem();
             cascadaToolStripMenuItem = new ToolStripMenuItem();
             mosaicohorizontalToolStripMenuItem = new ToolStripMenuItem();
@@ -81,7 +85,7 @@
             // menuMain
             // 
             menuMain.BackColor = SystemColors.Control;
-            menuMain.Items.AddRange(new ToolStripItem[] { tsMenuArchivo, ventanasToolStripMenuItem, tsMenuAyuda });
+            menuMain.Items.AddRange(new ToolStripItem[] { tsMenuArchivo, facturaciónToolStripMenuItem, ventanasToolStripMenuItem, tsMenuAyuda });
             menuMain.Location = new Point(0, 0);
             menuMain.Name = "menuMain";
             menuMain.Size = new Size(936, 24);
@@ -110,6 +114,32 @@
             salirToolStripMenuItem.Size = new Size(182, 22);
             salirToolStripMenuItem.Text = "&Salir";
             salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
+            // 
+            // facturaciónToolStripMenuItem
+            // 
+            facturaciónToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { conceptosDeFacturaciónToolStripMenuItem, tiposDeIVAToolStripMenuItem, productosYServiciosToolStripMenuItem });
+            facturaciónToolStripMenuItem.Name = "facturaciónToolStripMenuItem";
+            facturaciónToolStripMenuItem.Size = new Size(81, 20);
+            facturaciónToolStripMenuItem.Text = "Fa&cturación";
+            // 
+            // conceptosDeFacturaciónToolStripMenuItem
+            // 
+            conceptosDeFacturaciónToolStripMenuItem.Name = "conceptosDeFacturaciónToolStripMenuItem";
+            conceptosDeFacturaciónToolStripMenuItem.Size = new Size(212, 22);
+            conceptosDeFacturaciónToolStripMenuItem.Text = "Conceptos de &Facturación";
+            // 
+            // tiposDeIVAToolStripMenuItem
+            // 
+            tiposDeIVAToolStripMenuItem.Name = "tiposDeIVAToolStripMenuItem";
+            tiposDeIVAToolStripMenuItem.Size = new Size(212, 22);
+            tiposDeIVAToolStripMenuItem.Text = "Tipos de &IVA";
+            tiposDeIVAToolStripMenuItem.Click += tiposDeIVAToolStripMenuItem_Click;
+            // 
+            // productosYServiciosToolStripMenuItem
+            // 
+            productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
+            productosYServiciosToolStripMenuItem.Size = new Size(212, 22);
+            productosYServiciosToolStripMenuItem.Text = "&Productos y Servicios";
             // 
             // ventanasToolStripMenuItem
             // 
@@ -397,5 +427,9 @@
         private ToolStripMenuItem mosaicohorizontalToolStripMenuItem;
         private ToolStripMenuItem mosaicoverticalToolStripMenuItem;
         private ToolStripMenuItem cerrarTodasLasVentanasToolStripMenuItem;
+        private ToolStripMenuItem facturaciónToolStripMenuItem;
+        private ToolStripMenuItem conceptosDeFacturaciónToolStripMenuItem;
+        private ToolStripMenuItem tiposDeIVAToolStripMenuItem;
+        private ToolStripMenuItem productosYServiciosToolStripMenuItem;
     }
 }

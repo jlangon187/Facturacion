@@ -1,4 +1,5 @@
 ﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
@@ -108,7 +109,18 @@ namespace FacturacionDAM.Formularios
                 return false;
             }
 
-            return true;
+            // Validar código postal es correcto sin comprobar si está vacío
+            if (!Validaciones.CodigoPostalValido(txtCodigoPostal.Text.Trim()))
+            {
+                MessageBox.Show("El código postal no es válido.",
+                    "Error de validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtCodigoPostal.Focus();
+                return false;
+            }
+            
+            return true; // Todos los datos son válidos
         }
 
         private bool NifDuplicado(string aNifCif)

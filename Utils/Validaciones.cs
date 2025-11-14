@@ -58,5 +58,17 @@ namespace FacturacionDAM.Utils
 
             return Convert.ToInt32(cmd.ExecuteScalar()) == 0;
         }
+
+        /// <summary>
+        /// Metodo que valida si un código postal es válido según el formato español.
+        /// </summary>
+        /// <param name="codigoPostal"></param>
+        /// <returns></returns>
+        public static bool CodigoPostalValido(string codigoPostal)
+        {
+            // Patrón para códigos postales españoles (5 dígitos)
+            string patronCodigoPostal = @"^\d{5}$";
+            return Regex.IsMatch(codigoPostal, patronCodigoPostal);
+        }
     }
 }

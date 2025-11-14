@@ -111,7 +111,7 @@
             pnClientes.Location = new Point(0, 0);
             pnClientes.Name = "pnClientes";
             pnClientes.Size = new Size(844, 555);
-            pnClientes.TabIndex = 2;
+            pnClientes.TabIndex = 0;
             // 
             // gbContacto
             // 
@@ -124,7 +124,7 @@
             gbContacto.Location = new Point(18, 379);
             gbContacto.Name = "gbContacto";
             gbContacto.Size = new Size(808, 139);
-            gbContacto.TabIndex = 5;
+            gbContacto.TabIndex = 2;
             gbContacto.TabStop = false;
             gbContacto.Text = "Contacto";
             // 
@@ -134,7 +134,7 @@
             lbTelefono2.Location = new Point(328, 40);
             lbTelefono2.Name = "lbTelefono2";
             lbTelefono2.Size = new Size(65, 15);
-            lbTelefono2.TabIndex = 4;
+            lbTelefono2.TabIndex = 2;
             lbTelefono2.Text = "Teléfono 2:";
             // 
             // txtTelefono2
@@ -142,7 +142,7 @@
             txtTelefono2.Location = new Point(400, 32);
             txtTelefono2.Name = "txtTelefono2";
             txtTelefono2.Size = new Size(180, 23);
-            txtTelefono2.TabIndex = 5;
+            txtTelefono2.TabIndex = 3;
             // 
             // lbEmail
             // 
@@ -150,7 +150,7 @@
             lbEmail.Location = new Point(56, 88);
             lbEmail.Name = "lbEmail";
             lbEmail.Size = new Size(39, 15);
-            lbEmail.TabIndex = 2;
+            lbEmail.TabIndex = 4;
             lbEmail.Text = "Email:";
             // 
             // lbTelefono1
@@ -167,7 +167,7 @@
             txtEmail.Location = new Point(104, 80);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(512, 23);
-            txtEmail.TabIndex = 3;
+            txtEmail.TabIndex = 5;
             // 
             // txtTelefono1
             // 
@@ -189,7 +189,7 @@
             gbDomicilio.Location = new Point(18, 234);
             gbDomicilio.Name = "gbDomicilio";
             gbDomicilio.Size = new Size(808, 130);
-            gbDomicilio.TabIndex = 4;
+            gbDomicilio.TabIndex = 1;
             gbDomicilio.TabStop = false;
             gbDomicilio.Text = "Domicilio";
             // 
@@ -208,7 +208,7 @@
             lbCodigoPostal.Location = new Point(608, 40);
             lbCodigoPostal.Name = "lbCodigoPostal";
             lbCodigoPostal.Size = new Size(84, 15);
-            lbCodigoPostal.TabIndex = 4;
+            lbCodigoPostal.TabIndex = 2;
             lbCodigoPostal.Text = "Código Postal:";
             // 
             // lbPoblacion
@@ -217,7 +217,7 @@
             lbPoblacion.Location = new Point(40, 88);
             lbPoblacion.Name = "lbPoblacion";
             lbPoblacion.Size = new Size(63, 15);
-            lbPoblacion.TabIndex = 2;
+            lbPoblacion.TabIndex = 4;
             lbPoblacion.Text = "Población:";
             // 
             // lbDomicilio
@@ -240,16 +240,17 @@
             // txtCodigoPostal
             // 
             txtCodigoPostal.Location = new Point(696, 32);
+            txtCodigoPostal.MaxLength = 5;
             txtCodigoPostal.Name = "txtCodigoPostal";
             txtCodigoPostal.Size = new Size(100, 23);
-            txtCodigoPostal.TabIndex = 5;
+            txtCodigoPostal.TabIndex = 3;
             // 
             // txtPoblacion
             // 
             txtPoblacion.Location = new Point(104, 80);
             txtPoblacion.Name = "txtPoblacion";
             txtPoblacion.Size = new Size(392, 23);
-            txtPoblacion.TabIndex = 3;
+            txtPoblacion.TabIndex = 5;
             // 
             // txtDomicilio
             // 
@@ -272,7 +273,7 @@
             gbIdentidad.Location = new Point(18, 37);
             gbIdentidad.Name = "gbIdentidad";
             gbIdentidad.Size = new Size(808, 180);
-            gbIdentidad.TabIndex = 3;
+            gbIdentidad.TabIndex = 0;
             gbIdentidad.TabStop = false;
             gbIdentidad.Text = "Identidad";
             // 
