@@ -125,5 +125,21 @@ namespace FacturacionDAM.Modelos
                 return new DataTable();
             }
         }
+
+        internal object ObtenerTablaTiposDeIVA()
+        {
+            try
+            {
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, descripcion, porcentaje FROM tiposiva ORDER BY porcentaje;", _conexion);
+                DataTable tiposIVATable = new DataTable();
+                da.Fill(tiposIVATable);
+                return tiposIVATable;
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.ObtenerTablaTiposDeIVA", ex.Message);
+                return new DataTable();
+            }
+        }
     }
 }

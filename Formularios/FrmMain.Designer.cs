@@ -127,6 +127,7 @@
             conceptosDeFacturaciónToolStripMenuItem.Name = "conceptosDeFacturaciónToolStripMenuItem";
             conceptosDeFacturaciónToolStripMenuItem.Size = new Size(212, 22);
             conceptosDeFacturaciónToolStripMenuItem.Text = "Conceptos de &Facturación";
+            conceptosDeFacturaciónToolStripMenuItem.Click += conceptosDeFacturaciónToolStripMenuItem_Click;
             // 
             // tiposDeIVAToolStripMenuItem
             // 
@@ -140,6 +141,7 @@
             productosYServiciosToolStripMenuItem.Name = "productosYServiciosToolStripMenuItem";
             productosYServiciosToolStripMenuItem.Size = new Size(212, 22);
             productosYServiciosToolStripMenuItem.Text = "&Productos y Servicios";
+            productosYServiciosToolStripMenuItem.Click += productosYServiciosToolStripMenuItem_Click;
             // 
             // ventanasToolStripMenuItem
             // 

@@ -70,5 +70,31 @@ namespace FacturacionDAM.Utils
             string patronCodigoPostal = @"^\d{5}$";
             return Regex.IsMatch(codigoPostal, patronCodigoPostal);
         }
+
+        /// <summary>
+        /// Metodo que valida la entrada de un TextBox para que solo acepte números y un solo separador decimal (coma o punto).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void ValidarPrecio(object sender, KeyPressEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            // Permitir teclas de control (como retroceso)
+            if (char.IsControl(e.KeyChar))
+            {
+                return;
+            }
+            // Permitir solo dígitos y un solo separador decimal (coma o punto)
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            {
+                e.Handled = true; // Bloquear la entrada
+                return;
+            }
+            // Verificar si ya hay un separador decimal en el texto
+            if ((e.KeyChar == ',' || e.KeyChar == '.') && (textBox.Text.Contains(',') || textBox.Text.Contains('.')))
+            {
+                e.Handled = true; // Bloquear la entrada
+            }
+        }
     }
 }

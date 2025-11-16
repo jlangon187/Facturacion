@@ -1,6 +1,6 @@
 ﻿namespace FacturacionDAM.Formularios
 {
-    partial class FrmTiposDeIVA
+    partial class FrmConceptosFac
     {
         /// <summary>
         /// Required designer variable.
@@ -28,23 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTiposDeIVA));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConceptosFac));
             pnButtons = new Panel();
             btnCancelar = new Button();
             btnAceptar = new Button();
-            pnTipoIVA = new Panel();
-            gbIdentidad = new GroupBox();
-            lbPorcentaje2 = new Label();
-            cBActivo = new CheckBox();
-            nUDPorcentaje = new NumericUpDown();
-            lbActivo = new Label();
-            lbPorcentaje = new Label();
+            pnConceptoFac = new Panel();
+            gbDatos = new GroupBox();
             lbDescripcion = new Label();
+            lbCodigo = new Label();
             txtDescripcion = new TextBox();
+            txtCodigo = new TextBox();
             pnButtons.SuspendLayout();
-            pnTipoIVA.SuspendLayout();
-            gbIdentidad.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nUDPorcentaje).BeginInit();
+            pnConceptoFac.SuspendLayout();
+            gbDatos.SuspendLayout();
             SuspendLayout();
             // 
             // pnButtons
@@ -84,118 +80,83 @@
             btnAceptar.UseVisualStyleBackColor = true;
             btnAceptar.Click += btnAceptar_Click;
             // 
-            // pnTipoIVA
+            // pnConceptoFac
             // 
-            pnTipoIVA.Controls.Add(gbIdentidad);
-            pnTipoIVA.Dock = DockStyle.Fill;
-            pnTipoIVA.Location = new Point(0, 0);
-            pnTipoIVA.Name = "pnTipoIVA";
-            pnTipoIVA.Size = new Size(393, 227);
-            pnTipoIVA.TabIndex = 0;
+            pnConceptoFac.Controls.Add(gbDatos);
+            pnConceptoFac.Dock = DockStyle.Fill;
+            pnConceptoFac.Location = new Point(0, 0);
+            pnConceptoFac.Name = "pnConceptoFac";
+            pnConceptoFac.Size = new Size(393, 227);
+            pnConceptoFac.TabIndex = 0;
             // 
-            // gbIdentidad
+            // gbDatos
             // 
-            gbIdentidad.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            gbIdentidad.Controls.Add(lbPorcentaje2);
-            gbIdentidad.Controls.Add(cBActivo);
-            gbIdentidad.Controls.Add(nUDPorcentaje);
-            gbIdentidad.Controls.Add(lbActivo);
-            gbIdentidad.Controls.Add(lbPorcentaje);
-            gbIdentidad.Controls.Add(lbDescripcion);
-            gbIdentidad.Controls.Add(txtDescripcion);
-            gbIdentidad.Location = new Point(16, 16);
-            gbIdentidad.Name = "gbIdentidad";
-            gbIdentidad.Size = new Size(357, 192);
-            gbIdentidad.TabIndex = 0;
-            gbIdentidad.TabStop = false;
-            gbIdentidad.Text = "Datos";
-            // 
-            // lbPorcentaje2
-            // 
-            lbPorcentaje2.AutoSize = true;
-            lbPorcentaje2.Font = new Font("Segoe UI", 11F);
-            lbPorcentaje2.Location = new Point(192, 96);
-            lbPorcentaje2.Name = "lbPorcentaje2";
-            lbPorcentaje2.Size = new Size(21, 20);
-            lbPorcentaje2.TabIndex = 4;
-            lbPorcentaje2.Text = "%";
-            // 
-            // cBActivo
-            // 
-            cBActivo.AutoSize = true;
-            cBActivo.Location = new Point(128, 152);
-            cBActivo.Name = "cBActivo";
-            cBActivo.Size = new Size(15, 14);
-            cBActivo.TabIndex = 6;
-            cBActivo.UseVisualStyleBackColor = true;
-            // 
-            // nUDPorcentaje
-            // 
-            nUDPorcentaje.DecimalPlaces = 2;
-            nUDPorcentaje.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            nUDPorcentaje.Location = new Point(128, 96);
-            nUDPorcentaje.Name = "nUDPorcentaje";
-            nUDPorcentaje.Size = new Size(56, 23);
-            nUDPorcentaje.TabIndex = 3;
-            nUDPorcentaje.TextAlign = HorizontalAlignment.Right;
-            // 
-            // lbActivo
-            // 
-            lbActivo.AutoSize = true;
-            lbActivo.Location = new Point(72, 152);
-            lbActivo.Name = "lbActivo";
-            lbActivo.Size = new Size(44, 15);
-            lbActivo.TabIndex = 5;
-            lbActivo.Text = "Activo:";
-            // 
-            // lbPorcentaje
-            // 
-            lbPorcentaje.AutoSize = true;
-            lbPorcentaje.Location = new Point(48, 104);
-            lbPorcentaje.Name = "lbPorcentaje";
-            lbPorcentaje.Size = new Size(66, 15);
-            lbPorcentaje.TabIndex = 2;
-            lbPorcentaje.Text = "Porcentaje:";
+            gbDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            gbDatos.Controls.Add(lbDescripcion);
+            gbDatos.Controls.Add(lbCodigo);
+            gbDatos.Controls.Add(txtDescripcion);
+            gbDatos.Controls.Add(txtCodigo);
+            gbDatos.Location = new Point(16, 16);
+            gbDatos.Name = "gbDatos";
+            gbDatos.Size = new Size(357, 192);
+            gbDatos.TabIndex = 0;
+            gbDatos.TabStop = false;
+            gbDatos.Text = "Datos";
             // 
             // lbDescripcion
             // 
             lbDescripcion.AutoSize = true;
-            lbDescripcion.Location = new Point(40, 48);
+            lbDescripcion.Location = new Point(40, 116);
             lbDescripcion.Name = "lbDescripcion";
             lbDescripcion.Size = new Size(72, 15);
-            lbDescripcion.TabIndex = 0;
+            lbDescripcion.TabIndex = 2;
             lbDescripcion.Text = "Descripción:";
+            // 
+            // lbCodigo
+            // 
+            lbCodigo.AutoSize = true;
+            lbCodigo.Location = new Point(40, 60);
+            lbCodigo.Name = "lbCodigo";
+            lbCodigo.Size = new Size(49, 15);
+            lbCodigo.TabIndex = 0;
+            lbCodigo.Text = "Código:";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(128, 40);
+            txtDescripcion.Location = new Point(128, 108);
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(203, 23);
-            txtDescripcion.TabIndex = 1;
+            txtDescripcion.TabIndex = 3;
             // 
-            // FrmTiposDeIVA
+            // txtCodigo
+            // 
+            txtCodigo.Location = new Point(128, 52);
+            txtCodigo.Name = "txtCodigo";
+            txtCodigo.Size = new Size(203, 23);
+            txtCodigo.TabIndex = 1;
+            // 
+            // FrmConceptosFac
             // 
             AcceptButton = btnAceptar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
             ClientSize = new Size(393, 293);
-            Controls.Add(pnTipoIVA);
+            Controls.Add(pnConceptoFac);
             Controls.Add(pnButtons);
             MaximizeBox = false;
             MaximumSize = new Size(409, 332);
             MinimizeBox = false;
             MinimumSize = new Size(409, 332);
-            Name = "FrmTiposDeIVA";
+            Name = "FrmConceptosFac";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Tipos de IVA";
-            FormClosing += FrmTiposDeIVA_FormClosing;
-            Load += FrmTiposDeIVA_Load;
+            Text = "Concepto de Facturación";
+            FormClosing += FrmConceptosFac_FormClosing;
+            Load += FrmConceptosFac_Load;
             pnButtons.ResumeLayout(false);
-            pnTipoIVA.ResumeLayout(false);
-            gbIdentidad.ResumeLayout(false);
-            gbIdentidad.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nUDPorcentaje).EndInit();
+            pnConceptoFac.ResumeLayout(false);
+            gbDatos.ResumeLayout(false);
+            gbDatos.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -204,10 +165,12 @@
         private Panel pnButtons;
         private Button btnCancelar;
         private Button btnAceptar;
-        private Panel pnTipoIVA;
-        private GroupBox gbIdentidad;
+        private Panel pnConceptoFac;
+        private GroupBox gbDatos;
         private Label lbApellidos;
         private Label lbPorcentaje;
+        private Label lbCodigo;
+        private TextBox txtCodigo;
         private Label lbDescripcion;
         private TextBox txtDescripcion;
         private CheckBox cBActivo;

@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace FacturacionDAM.Formularios
 {
-    public partial class FrmTiposDeIVA : Form
+    public partial class FrmConceptosFac : Form
     {
-        private Tabla _tabla;       // Tabla de Tipos de IVA
+        private Tabla _tabla;       // Tabla de datos asociada
         private BindingSource _bs;  // Para comunicación con los controles
         public bool edicion = false;
 
-        public FrmTiposDeIVA(BindingSource bs, Tabla tabla)
+        public FrmConceptosFac(BindingSource bs, Tabla tabla)
         {
             InitializeComponent();
             _bs = bs;
@@ -35,18 +35,13 @@ namespace FacturacionDAM.Formularios
             this.Close();
         }
 
-        private void FrmTiposDeIVA_Load(object sender, EventArgs e)
+        private void FrmConceptosFac_Load(object sender, EventArgs e)
         {
-            //txtDescripcion.DataBindings.Clear();
-            //nUDPorcentaje.DataBindings.Clear();
-            //cBActivo.DataBindings.Clear();
-
+            txtCodigo.DataBindings.Add("Text", _bs, "codigo");
             txtDescripcion.DataBindings.Add("Text", _bs, "descripcion");
-            nUDPorcentaje.DataBindings.Add("Value", _bs, "porcentaje", true, DataSourceUpdateMode.OnPropertyChanged, 0m);
-            cBActivo.DataBindings.Add("Checked", _bs, "activo", true, DataSourceUpdateMode.OnPropertyChanged, false);
         }
 
-        private void FrmTiposDeIVA_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmConceptosFac_FormClosing(object sender, FormClosingEventArgs e)
         {
             _bs.CancelEdit(); // Cancelar cambios si se cierra con la X
         }

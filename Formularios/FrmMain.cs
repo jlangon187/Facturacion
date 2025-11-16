@@ -135,6 +135,16 @@ namespace FacturacionDAM.Formularios
             AbrirFormularioHijo<FrmBrowTiposDeIVA>();
         }
 
+        private void productosYServiciosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowProducto>();
+        }
+
+        private void conceptosDeFacturaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowConceptosFac>();
+        }
+
         /*********** METODOS PRIVADOS ***********/
 
 
