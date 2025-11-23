@@ -84,16 +84,19 @@ namespace FacturacionDAM.Utils
             {
                 return;
             }
-            // Permitir solo dígitos y un solo separador decimal (coma o punto)
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != '.')
+            // Si se introduce un punto, convertirlo en coma
+            if (e.KeyChar == '.')
             {
-                e.Handled = true; // Bloquear la entrada
-                return;
+                e.KeyChar = ',';
             }
-            // Verificar si ya hay un separador decimal en el texto
-            if ((e.KeyChar == ',' || e.KeyChar == '.') && (textBox.Text.Contains(',') || textBox.Text.Contains('.')))
+            // Permitir solo dígitos y una sola coma
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != ',')
             {
-                e.Handled = true; // Bloquear la entrada
+                e.Handled = true;
+            }
+            else if (e.KeyChar == ',' && textBox.Text.Contains(','))
+            {
+                e.Handled = true;
             }
         }
     }
