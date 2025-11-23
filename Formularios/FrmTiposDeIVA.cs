@@ -23,6 +23,10 @@ namespace FacturacionDAM.Formularios
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (!ValidarCampos())
+            {
+                return; // Si los datos no son válidos, no continuar
+            }
             _bs.EndEdit();             // Termina la edición en el BindingSource
             _tabla.GuardarDatos();     // Guarda los datos en la tabla
             this.DialogResult = DialogResult.OK;
@@ -37,9 +41,11 @@ namespace FacturacionDAM.Formularios
 
         private void FrmTiposDeIVA_Load(object sender, EventArgs e)
         {
-            //txtDescripcion.DataBindings.Clear();
-            //nUDPorcentaje.DataBindings.Clear();
-            //cBActivo.DataBindings.Clear();
+            if (!edicion)
+            {
+                var row = (DataRowView)_bs.Current;
+                row["activo"] = true;
+            }
 
             txtDescripcion.DataBindings.Add("Text", _bs, "descripcion");
             nUDPorcentaje.DataBindings.Add("Value", _bs, "porcentaje", true, DataSourceUpdateMode.OnPropertyChanged, 0m);
@@ -49,6 +55,26 @@ namespace FacturacionDAM.Formularios
         private void FrmTiposDeIVA_FormClosing(object sender, FormClosingEventArgs e)
         {
             _bs.CancelEdit(); // Cancelar cambios si se cierra con la X
+        }
+
+        private bool ValidarCampos()
+        {
+            // Validar que los campos obligatorios no estén vacíos
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                MessageBox.Show("El campo 'Descripción' es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcion.Focus();
+                return false;
+            }
+            // No se repite el porcentaje de IVA
+            int? idActual = edicion ? (int?)Convert.ToInt32(((DataRowView)_bs.Current)["id"]) : null;
+            if (!Validaciones.EsValorCampoUnico("tiposiva", "porcentaje", nUDPorcentaje.Value.ToString(), idActual))
+            {
+                MessageBox.Show("El porcentaje de IVA ya existe. Debe ser único.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nUDPorcentaje.Focus();
+                return false;
+            }
+            return true;
         }
     }
 }

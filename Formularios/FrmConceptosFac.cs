@@ -23,6 +23,10 @@ namespace FacturacionDAM.Formularios
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (!ValidarCampos())
+            {
+                return; // Si los datos no son válidos, no continuar
+            }
             _bs.EndEdit();             // Termina la edición en el BindingSource
             _tabla.GuardarDatos();     // Guarda los datos en la tabla
             this.DialogResult = DialogResult.OK;
@@ -44,6 +48,39 @@ namespace FacturacionDAM.Formularios
         private void FrmConceptosFac_FormClosing(object sender, FormClosingEventArgs e)
         {
             _bs.CancelEdit(); // Cancelar cambios si se cierra con la X
+        }
+
+        private bool ValidarCampos()
+        {
+            // Validar que los campos obligatorios no estén vacíos
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+            {
+                MessageBox.Show("El campo 'Código' es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCodigo.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                MessageBox.Show("El campo 'Descripción' es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcion.Focus();
+                return false;
+            }
+            // Validar que el código sea único
+            int? idActual = edicion ? (int?)Convert.ToInt32(((DataRowView)_bs.Current)["id"]) : null;
+            if (!Validaciones.EsValorCampoUnico("conceptosfac", "codigo", txtCodigo.Text.Trim(), idActual))
+            {
+                MessageBox.Show("El código del concepto de facturación ya existe. Debe ser único.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodigo.Focus();
+                return false;
+            }
+            // El nombre también debe ser único
+            if (!Validaciones.EsValorCampoUnico("conceptosfac", "descripcion", txtDescripcion.Text.Trim(), idActual))
+            {
+                MessageBox.Show("La descripción del concepto de facturación ya existe. Debe ser única.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDescripcion.Focus();
+                return false;
+            }
+            return true;
         }
     }
 }

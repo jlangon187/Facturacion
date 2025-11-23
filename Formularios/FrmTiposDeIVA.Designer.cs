@@ -132,8 +132,9 @@
             // nUDPorcentaje
             // 
             nUDPorcentaje.DecimalPlaces = 2;
-            nUDPorcentaje.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            nUDPorcentaje.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             nUDPorcentaje.Location = new Point(128, 96);
+            nUDPorcentaje.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             nUDPorcentaje.Name = "nUDPorcentaje";
             nUDPorcentaje.Size = new Size(56, 23);
             nUDPorcentaje.TabIndex = 3;
