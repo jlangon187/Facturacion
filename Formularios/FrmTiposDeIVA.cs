@@ -25,6 +25,7 @@ namespace FacturacionDAM.Formularios
         {
             if (!ValidarCampos())
             {
+                ForzarValoresNoNulos();
                 return; // Si los datos no son válidos, no continuar
             }
             _bs.EndEdit();             // Termina la edición en el BindingSource
@@ -75,6 +76,17 @@ namespace FacturacionDAM.Formularios
                 return false;
             }
             return true;
+        }
+
+        private void ForzarValoresNoNulos()
+        {
+            if (_bs.Current is DataRowView row)
+            {
+                if (row["activo"] == DBNull.Value)
+                {
+                    row["activo"] = false;
+                }
+            }
         }
     }
 }

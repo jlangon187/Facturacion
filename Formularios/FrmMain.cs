@@ -145,6 +145,16 @@ namespace FacturacionDAM.Formularios
             AbrirFormularioHijo<FrmBrowConceptosFac>();
         }
 
+        private void tsBtnVentas_Click(object sender, EventArgs e)
+        {
+            if (!Program.appDAM.HayClientes())
+                MessageBox.Show(
+                    "No hay clientes registrador. \n Debe registrar al menos un cliente\n antes de crear facturas emitidas",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                AbrirFormularioHijo<FrmBrowFacemi>();
+        }
+
         /*********** METODOS PRIVADOS ***********/
 
 

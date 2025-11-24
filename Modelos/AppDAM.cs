@@ -207,5 +207,19 @@ namespace FacturacionDAM.Modelos {
         /// Acceso de solo lectura a la conexión MySQL.
         /// </summary>
         public MySqlConnection LaConexion => _conexion;
+
+        /// <summary>
+        /// Método para indicar si hay clientes en la base de datos.
+        /// </summary>
+        /// <returns></returns>
+        public bool HayClientes()
+        {
+            using (var cmd = new MySqlCommand("SELECT COUNT(*) FROM clientes", _conexion))
+            {
+                int n = Convert.ToInt32(cmd.ExecuteScalar());
+                return n > 0;
+            }
+        }
+
     }
 }

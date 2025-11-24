@@ -230,6 +230,7 @@
             tsBtnVentas.Text = "Ventas";
             tsBtnVentas.TextAlign = ContentAlignment.BottomCenter;
             tsBtnVentas.TextImageRelation = TextImageRelation.ImageAboveText;
+            tsBtnVentas.Click += tsBtnVentas_Click;
             // 
             // tsBtnCompras
             // 
@@ -377,6 +378,7 @@
             Controls.Add(pnTools);
             Controls.Add(pnMenu);
             IsMdiContainer = true;
+            MinimumSize = new Size(800, 600);
             Name = "FrmMain";
             Text = "Factura DAM";
             WindowState = FormWindowState.Maximized;
