@@ -13,7 +13,7 @@ namespace FacturacionDAM.Modelos
     {
         public int MinYear { get; private set; }
         public int MaxYear { get; private set; }
-        public int CurrentYear { get; private set; }
+        public int CurrentYear { get; set; }
 
         /// <summary>
         /// Constructor.
@@ -64,7 +64,7 @@ namespace FacturacionDAM.Modelos
         public List<int> GetYearList()
         {
             var list = new List<int>();
-            for (int y = MinYear; y <= MaxYear; y++)
+            for (int y = MaxYear; y >= MinYear; y--)
                 list.Add(y);
             return list;
         }

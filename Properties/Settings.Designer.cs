@@ -202,5 +202,53 @@ namespace FacturacionDAM.Properties {
                 this["BrowConceptosFacState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size BrowFacemiSize {
+            get {
+                return ((global::System.Drawing.Size)(this["BrowFacemiSize"]));
+            }
+            set {
+                this["BrowFacemiSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point BrowFacemiLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["BrowFacemiLocation"]));
+            }
+            set {
+                this["BrowFacemiLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public string BrowFacemiState {
+            get {
+                return ((string)(this["BrowFacemiState"]));
+            }
+            set {
+                this["BrowFacemiState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int UltimoAnhoSeleccionado {
+            get {
+                return ((int)(this["UltimoAnhoSeleccionado"]));
+            }
+            set {
+                this["UltimoAnhoSeleccionado"] = value;
+            }
+        }
     }
 }

@@ -47,5 +47,17 @@
     <Setting Name="BrowConceptosFacState" Type="System.String" Scope="User">
       <Value Profile="(Default)">Maximized</Value>
     </Setting>
+    <Setting Name="BrowFacemiSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="BrowFacemiLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="BrowFacemiState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
+    <Setting Name="UltimoAnhoSeleccionado" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

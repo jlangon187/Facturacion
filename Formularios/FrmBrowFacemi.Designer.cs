@@ -30,10 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBrowFacemi));
             splitContainer1 = new SplitContainer();
-            pngHeadClientes = new Panel();
-            pnGridClientes = new Panel();
-            label1 = new Label();
             dgClientes = new DataGridView();
+            pngHeadClientes = new Panel();
+            label1 = new Label();
+            pnGridClientes = new Panel();
+            dgFacemi = new DataGridView();
+            pnHeadFacemi = new Panel();
+            lbHeadFacemi = new Label();
+            pnStatus = new Panel();
+            StatusStrip = new StatusStrip();
+            tsStatusLabel = new ToolStripStatusLabel();
             pnTools = new Panel();
             tsHerramientas = new ToolStrip();
             btnNew = new ToolStripButton();
@@ -48,28 +54,22 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnExportCSV = new ToolStripButton();
             btnExportXML = new ToolStripButton();
-            pnStatus = new Panel();
-            StatusStrip = new StatusStrip();
-            tsStatusLabel = new ToolStripStatusLabel();
-            pnHeadFacemi = new Panel();
-            lbHeadFacemi = new Label();
-            dgFacemi = new DataGridView();
             toolStripSeparator2 = new ToolStripSeparator();
-            tsCbYear = new ToolStripComboBox();
             tsLbYear = new ToolStripLabel();
+            tsCbYear = new ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgClientes).BeginInit();
             pngHeadClientes.SuspendLayout();
             pnGridClientes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgClientes).BeginInit();
-            pnTools.SuspendLayout();
-            tsHerramientas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgFacemi).BeginInit();
+            pnHeadFacemi.SuspendLayout();
             pnStatus.SuspendLayout();
             StatusStrip.SuspendLayout();
-            pnHeadFacemi.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgFacemi).BeginInit();
+            pnTools.SuspendLayout();
+            tsHerramientas.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer1
@@ -90,6 +90,18 @@
             splitContainer1.SplitterDistance = 293;
             splitContainer1.TabIndex = 0;
             // 
+            // dgClientes
+            // 
+            dgClientes.AllowUserToAddRows = false;
+            dgClientes.AllowUserToDeleteRows = false;
+            dgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgClientes.Dock = DockStyle.Fill;
+            dgClientes.Location = new Point(0, 35);
+            dgClientes.Name = "dgClientes";
+            dgClientes.ReadOnly = true;
+            dgClientes.Size = new Size(293, 633);
+            dgClientes.TabIndex = 1;
+            // 
             // pngHeadClientes
             // 
             pngHeadClientes.Controls.Add(label1);
@@ -98,18 +110,6 @@
             pngHeadClientes.Name = "pngHeadClientes";
             pngHeadClientes.Size = new Size(293, 35);
             pngHeadClientes.TabIndex = 0;
-            // 
-            // pnGridClientes
-            // 
-            pnGridClientes.Controls.Add(dgFacemi);
-            pnGridClientes.Controls.Add(pnHeadFacemi);
-            pnGridClientes.Controls.Add(pnStatus);
-            pnGridClientes.Controls.Add(pnTools);
-            pnGridClientes.Dock = DockStyle.Fill;
-            pnGridClientes.Location = new Point(0, 0);
-            pnGridClientes.Name = "pnGridClientes";
-            pnGridClientes.Size = new Size(646, 668);
-            pnGridClientes.TabIndex = 0;
             // 
             // label1
             // 
@@ -123,14 +123,75 @@
             label1.Text = "CLIENTES";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // dgClientes
+            // pnGridClientes
             // 
-            dgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgClientes.Dock = DockStyle.Fill;
-            dgClientes.Location = new Point(0, 35);
-            dgClientes.Name = "dgClientes";
-            dgClientes.Size = new Size(293, 633);
-            dgClientes.TabIndex = 1;
+            pnGridClientes.Controls.Add(dgFacemi);
+            pnGridClientes.Controls.Add(pnHeadFacemi);
+            pnGridClientes.Controls.Add(pnStatus);
+            pnGridClientes.Controls.Add(pnTools);
+            pnGridClientes.Dock = DockStyle.Fill;
+            pnGridClientes.Location = new Point(0, 0);
+            pnGridClientes.Name = "pnGridClientes";
+            pnGridClientes.Size = new Size(646, 668);
+            pnGridClientes.TabIndex = 0;
+            // 
+            // dgFacemi
+            // 
+            dgFacemi.AllowUserToAddRows = false;
+            dgFacemi.AllowUserToDeleteRows = false;
+            dgFacemi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgFacemi.Dock = DockStyle.Fill;
+            dgFacemi.Location = new Point(0, 72);
+            dgFacemi.Name = "dgFacemi";
+            dgFacemi.ReadOnly = true;
+            dgFacemi.Size = new Size(646, 574);
+            dgFacemi.TabIndex = 4;
+            // 
+            // pnHeadFacemi
+            // 
+            pnHeadFacemi.Controls.Add(lbHeadFacemi);
+            pnHeadFacemi.Dock = DockStyle.Top;
+            pnHeadFacemi.Location = new Point(0, 25);
+            pnHeadFacemi.Name = "pnHeadFacemi";
+            pnHeadFacemi.Size = new Size(646, 47);
+            pnHeadFacemi.TabIndex = 3;
+            // 
+            // lbHeadFacemi
+            // 
+            lbHeadFacemi.BackColor = Color.LightGray;
+            lbHeadFacemi.Dock = DockStyle.Fill;
+            lbHeadFacemi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbHeadFacemi.Location = new Point(0, 0);
+            lbHeadFacemi.Name = "lbHeadFacemi";
+            lbHeadFacemi.Size = new Size(646, 47);
+            lbHeadFacemi.TabIndex = 0;
+            lbHeadFacemi.Text = "Facturas Emitidas del cliente, año 2025";
+            lbHeadFacemi.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pnStatus
+            // 
+            pnStatus.Controls.Add(StatusStrip);
+            pnStatus.Dock = DockStyle.Bottom;
+            pnStatus.Location = new Point(0, 646);
+            pnStatus.Name = "pnStatus";
+            pnStatus.Size = new Size(646, 22);
+            pnStatus.TabIndex = 2;
+            // 
+            // StatusStrip
+            // 
+            StatusStrip.AutoSize = false;
+            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
+            StatusStrip.Location = new Point(0, 0);
+            StatusStrip.Name = "StatusStrip";
+            StatusStrip.Size = new Size(646, 22);
+            StatusStrip.TabIndex = 0;
+            StatusStrip.Text = "statusStrip1";
+            // 
+            // tsStatusLabel
+            // 
+            tsStatusLabel.Name = "tsStatusLabel";
+            tsStatusLabel.Size = new Size(91, 17);
+            tsStatusLabel.Text = "Nº de Registros:";
             // 
             // pnTools
             // 
@@ -199,6 +260,7 @@
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(23, 22);
             btnFirst.Text = "Primer Cliente";
+            btnFirst.Click += btnFirst_Click;
             // 
             // btnPrev
             // 
@@ -208,6 +270,7 @@
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(23, 22);
             btnPrev.Text = "Cliente anterior";
+            btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
             // 
@@ -217,6 +280,7 @@
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(23, 22);
             btnNext.Text = "Cliente siguiente";
+            btnNext.Click += btnNext_Click;
             // 
             // btnLast
             // 
@@ -226,6 +290,7 @@
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(23, 22);
             btnLast.Text = "Último Cliente";
+            btnLast.Click += btnLast_Click;
             // 
             // toolStripSeparator1
             // 
@@ -241,6 +306,7 @@
             btnExportCSV.Size = new Size(23, 22);
             btnExportCSV.Text = "btnExportCSV";
             btnExportCSV.ToolTipText = "Exportar a CSV";
+            btnExportCSV.Click += btnExportCSV_Click;
             // 
             // btnExportXML
             // 
@@ -251,64 +317,7 @@
             btnExportXML.Size = new Size(23, 22);
             btnExportXML.Text = "btnExportXML";
             btnExportXML.ToolTipText = "Exportar a XML";
-            // 
-            // pnStatus
-            // 
-            pnStatus.Controls.Add(StatusStrip);
-            pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(0, 646);
-            pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(646, 22);
-            pnStatus.TabIndex = 2;
-            // 
-            // StatusStrip
-            // 
-            StatusStrip.AutoSize = false;
-            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
-            StatusStrip.Location = new Point(0, 0);
-            StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(646, 22);
-            StatusStrip.TabIndex = 0;
-            StatusStrip.Text = "statusStrip1";
-            // 
-            // tsStatusLabel
-            // 
-            tsStatusLabel.Name = "tsStatusLabel";
-            tsStatusLabel.Size = new Size(91, 17);
-            tsStatusLabel.Text = "Nº de Registros:";
-            // 
-            // pnHeadFacemi
-            // 
-            pnHeadFacemi.Controls.Add(lbHeadFacemi);
-            pnHeadFacemi.Dock = DockStyle.Top;
-            pnHeadFacemi.Location = new Point(0, 25);
-            pnHeadFacemi.Name = "pnHeadFacemi";
-            pnHeadFacemi.Size = new Size(646, 47);
-            pnHeadFacemi.TabIndex = 3;
-            // 
-            // lbHeadFacemi
-            // 
-            lbHeadFacemi.BackColor = Color.LightGray;
-            lbHeadFacemi.Dock = DockStyle.Fill;
-            lbHeadFacemi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lbHeadFacemi.Location = new Point(0, 0);
-            lbHeadFacemi.Name = "lbHeadFacemi";
-            lbHeadFacemi.Size = new Size(646, 47);
-            lbHeadFacemi.TabIndex = 0;
-            lbHeadFacemi.Text = "Facturas Emitidas del cliente, año 2025";
-            lbHeadFacemi.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // dgFacemi
-            // 
-            dgFacemi.AllowUserToAddRows = false;
-            dgFacemi.AllowUserToDeleteRows = false;
-            dgFacemi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgFacemi.Dock = DockStyle.Fill;
-            dgFacemi.Location = new Point(0, 72);
-            dgFacemi.Name = "dgFacemi";
-            dgFacemi.ReadOnly = true;
-            dgFacemi.Size = new Size(646, 574);
-            dgFacemi.TabIndex = 4;
+            btnExportXML.Click += btnExportXML_Click;
             // 
             // toolStripSeparator2
             // 
@@ -316,16 +325,18 @@
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 25);
             // 
-            // tsCbYear
-            // 
-            tsCbYear.Name = "tsCbYear";
-            tsCbYear.Size = new Size(75, 25);
-            // 
             // tsLbYear
             // 
             tsLbYear.Name = "tsLbYear";
             tsLbYear.Size = new Size(32, 22);
             tsLbYear.Text = "Año:";
+            // 
+            // tsCbYear
+            // 
+            tsCbYear.BackColor = Color.AntiqueWhite;
+            tsCbYear.Name = "tsCbYear";
+            tsCbYear.Size = new Size(75, 25);
+            tsCbYear.SelectedIndexChanged += tsCbYear_SelectedIndexChanged;
             // 
             // FrmBrowFacemi
             // 
@@ -335,21 +346,24 @@
             Controls.Add(splitContainer1);
             Name = "FrmBrowFacemi";
             Text = "Gestión de Facturas Emitidas";
+            FormClosing += FrmBrowFacemi_FormClosing;
+            Load += FrmBrowFacemi_Load;
+            Shown += FrmBrowFacemi_Shown;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgClientes).EndInit();
             pngHeadClientes.ResumeLayout(false);
             pnGridClientes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgClientes).EndInit();
-            pnTools.ResumeLayout(false);
-            tsHerramientas.ResumeLayout(false);
-            tsHerramientas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgFacemi).EndInit();
+            pnHeadFacemi.ResumeLayout(false);
             pnStatus.ResumeLayout(false);
             StatusStrip.ResumeLayout(false);
             StatusStrip.PerformLayout();
-            pnHeadFacemi.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgFacemi).EndInit();
+            pnTools.ResumeLayout(false);
+            tsHerramientas.ResumeLayout(false);
+            tsHerramientas.PerformLayout();
             ResumeLayout(false);
         }
 
