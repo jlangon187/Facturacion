@@ -98,6 +98,16 @@ namespace FacturacionDAM.Formularios
 
         private void btnLast_Click(object sender, EventArgs e) => _bsFacturas.MoveLast();
 
+        /// <summary>
+        /// Evento al cambiar la seleccion del cliente en el datagrid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            CargarFacturasClienteYAnho(_year.CurrentYear);
+        }
+
         /************* METODOS PRIVADOS *************/
 
         /// <summary>
@@ -156,7 +166,7 @@ namespace FacturacionDAM.Formularios
                             AND YEAR(fecha) = {aAnho}
                             ORDER BY fecha DESC";
             _tablaFacturas = new Tabla(Program.appDAM.LaConexion);
-            if (_tablaFacturas.InicializarDatos(mSql)) 
+            if (_tablaFacturas.InicializarDatos(mSql))
             {
                 try
                 {
@@ -175,7 +185,7 @@ namespace FacturacionDAM.Formularios
                     Program.appDAM.RegistrarLog("Cargando facturas emitidas", ex.Message);
                     MessageBox.Show(
                         "No se pudieron cargar las facturas",
-                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                        "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     tsStatusLabel.Text = "Facturas: 0";
                 }

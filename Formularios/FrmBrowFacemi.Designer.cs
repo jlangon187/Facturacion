@@ -99,8 +99,10 @@
             dgClientes.Location = new Point(0, 35);
             dgClientes.Name = "dgClientes";
             dgClientes.ReadOnly = true;
+            dgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgClientes.Size = new Size(293, 633);
             dgClientes.TabIndex = 1;
+            dgClientes.SelectionChanged += dgClientes_SelectionChanged;
             // 
             // pngHeadClientes
             // 
@@ -144,6 +146,7 @@
             dgFacemi.Location = new Point(0, 72);
             dgFacemi.Name = "dgFacemi";
             dgFacemi.ReadOnly = true;
+            dgFacemi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgFacemi.Size = new Size(646, 574);
             dgFacemi.TabIndex = 4;
             // 
@@ -220,7 +223,7 @@
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(23, 22);
-            btnNew.Text = "Nuevo Cliente";
+            btnNew.Text = "Nueva Factura";
             // 
             // btnEdit
             // 
@@ -229,7 +232,7 @@
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(23, 22);
-            btnEdit.Text = "Editar Cliente";
+            btnEdit.Text = "Editar Factura";
             // 
             // tsSeparador1
             // 
@@ -244,7 +247,7 @@
             btnDelete.ImageTransparentColor = Color.Magenta;
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(23, 22);
-            btnDelete.Text = "Borrar Cliente";
+            btnDelete.Text = "Borrar Factura";
             // 
             // tsSeparador2
             // 
@@ -259,7 +262,7 @@
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(23, 22);
-            btnFirst.Text = "Primer Cliente";
+            btnFirst.Text = "Primera Factura";
             btnFirst.Click += btnFirst_Click;
             // 
             // btnPrev
@@ -269,7 +272,7 @@
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(23, 22);
-            btnPrev.Text = "Cliente anterior";
+            btnPrev.Text = "Factura anterior";
             btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
@@ -279,7 +282,7 @@
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(23, 22);
-            btnNext.Text = "Cliente siguiente";
+            btnNext.Text = "Siguiente Factura";
             btnNext.Click += btnNext_Click;
             // 
             // btnLast
@@ -289,7 +292,7 @@
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(23, 22);
-            btnLast.Text = "Último Cliente";
+            btnLast.Text = "Última Factura";
             btnLast.Click += btnLast_Click;
             // 
             // toolStripSeparator1

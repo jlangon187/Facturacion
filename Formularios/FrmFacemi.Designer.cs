@@ -1,0 +1,794 @@
+﻿namespace FacturacionDAM.Formularios
+{
+    partial class FrmFacemi
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFacemi));
+            pnButtons = new Panel();
+            btnCancelar = new Button();
+            btnAceptar = new Button();
+            tbControl = new TabControl();
+            tabData = new TabPage();
+            tabNotas = new TabPage();
+            txtNotas = new RichTextBox();
+            pnFacemi = new Panel();
+            gbTotales = new GroupBox();
+            lbRetencion = new Label();
+            lbTotal = new Label();
+            lbCuota = new Label();
+            lbBase = new Label();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            gbEmisorCliente = new GroupBox();
+            lbNombreCliente = new Label();
+            lbNombreEmisor = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            lbNIFCIFCliente = new Label();
+            lbNIFCIFEmisor = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            gbFacemi = new GroupBox();
+            tipoRetencion = new NumericUpDown();
+            label8 = new Label();
+            checkBox1 = new CheckBox();
+            chkPagada = new CheckBox();
+            fechaFactura = new DateTimePicker();
+            label7 = new Label();
+            lbCodigoPostal = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            cbConceptFac = new ComboBox();
+            txtDescripcion = new TextBox();
+            txtNumero = new TextBox();
+            pnFacemiLin = new Panel();
+            pnTools = new Panel();
+            tsHerramientas = new ToolStrip();
+            btnNew = new ToolStripButton();
+            btnEdit = new ToolStripButton();
+            tsSeparador1 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
+            tsSeparador2 = new ToolStripSeparator();
+            btnFirst = new ToolStripButton();
+            btnPrev = new ToolStripButton();
+            btnNext = new ToolStripButton();
+            btnLast = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnExportCSV = new ToolStripButton();
+            btnExportXML = new ToolStripButton();
+            pnStatus = new Panel();
+            StatusStrip = new StatusStrip();
+            tsStatusLabel = new ToolStripStatusLabel();
+            pnData = new Panel();
+            dgTabla = new DataGridView();
+            pnButtons.SuspendLayout();
+            tbControl.SuspendLayout();
+            tabData.SuspendLayout();
+            tabNotas.SuspendLayout();
+            pnFacemi.SuspendLayout();
+            gbTotales.SuspendLayout();
+            gbEmisorCliente.SuspendLayout();
+            gbFacemi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tipoRetencion).BeginInit();
+            pnFacemiLin.SuspendLayout();
+            pnTools.SuspendLayout();
+            tsHerramientas.SuspendLayout();
+            pnStatus.SuspendLayout();
+            StatusStrip.SuspendLayout();
+            pnData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgTabla).BeginInit();
+            SuspendLayout();
+            // 
+            // pnButtons
+            // 
+            pnButtons.Controls.Add(btnCancelar);
+            pnButtons.Controls.Add(btnAceptar);
+            pnButtons.Dock = DockStyle.Bottom;
+            pnButtons.Location = new Point(0, 540);
+            pnButtons.Name = "pnButtons";
+            pnButtons.Size = new Size(843, 66);
+            pnButtons.TabIndex = 2;
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.DialogResult = DialogResult.Cancel;
+            btnCancelar.Image = (Image)resources.GetObject("btnCancelar.Image");
+            btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCancelar.Location = new Point(456, 16);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Padding = new Padding(20, 0, 0, 0);
+            btnCancelar.Size = new Size(128, 32);
+            btnCancelar.TabIndex = 1;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            // 
+            // btnAceptar
+            // 
+            btnAceptar.Image = (Image)resources.GetObject("btnAceptar.Image");
+            btnAceptar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAceptar.Location = new Point(264, 16);
+            btnAceptar.Name = "btnAceptar";
+            btnAceptar.Padding = new Padding(20, 0, 0, 0);
+            btnAceptar.Size = new Size(128, 32);
+            btnAceptar.TabIndex = 0;
+            btnAceptar.Text = "Aceptar";
+            btnAceptar.UseVisualStyleBackColor = true;
+            // 
+            // tbControl
+            // 
+            tbControl.Controls.Add(tabData);
+            tbControl.Controls.Add(tabNotas);
+            tbControl.Dock = DockStyle.Fill;
+            tbControl.Location = new Point(0, 0);
+            tbControl.Name = "tbControl";
+            tbControl.SelectedIndex = 0;
+            tbControl.Size = new Size(843, 540);
+            tbControl.TabIndex = 3;
+            // 
+            // tabData
+            // 
+            tabData.Controls.Add(pnFacemiLin);
+            tabData.Controls.Add(pnFacemi);
+            tabData.Location = new Point(4, 24);
+            tabData.Name = "tabData";
+            tabData.Padding = new Padding(3);
+            tabData.Size = new Size(835, 512);
+            tabData.TabIndex = 0;
+            tabData.Text = "Datos";
+            tabData.UseVisualStyleBackColor = true;
+            // 
+            // tabNotas
+            // 
+            tabNotas.Controls.Add(txtNotas);
+            tabNotas.Location = new Point(4, 24);
+            tabNotas.Name = "tabNotas";
+            tabNotas.Padding = new Padding(3);
+            tabNotas.Size = new Size(835, 512);
+            tabNotas.TabIndex = 1;
+            tabNotas.Text = "Notas";
+            tabNotas.UseVisualStyleBackColor = true;
+            // 
+            // txtNotas
+            // 
+            txtNotas.Dock = DockStyle.Fill;
+            txtNotas.Location = new Point(3, 3);
+            txtNotas.Name = "txtNotas";
+            txtNotas.Size = new Size(829, 506);
+            txtNotas.TabIndex = 0;
+            txtNotas.Text = "";
+            // 
+            // pnFacemi
+            // 
+            pnFacemi.Controls.Add(gbTotales);
+            pnFacemi.Controls.Add(gbEmisorCliente);
+            pnFacemi.Controls.Add(gbFacemi);
+            pnFacemi.Dock = DockStyle.Top;
+            pnFacemi.Location = new Point(3, 3);
+            pnFacemi.Name = "pnFacemi";
+            pnFacemi.Size = new Size(829, 333);
+            pnFacemi.TabIndex = 5;
+            // 
+            // gbTotales
+            // 
+            gbTotales.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            gbTotales.BackColor = Color.Gainsboro;
+            gbTotales.Controls.Add(lbRetencion);
+            gbTotales.Controls.Add(lbTotal);
+            gbTotales.Controls.Add(lbCuota);
+            gbTotales.Controls.Add(lbBase);
+            gbTotales.Controls.Add(label12);
+            gbTotales.Controls.Add(label11);
+            gbTotales.Controls.Add(label10);
+            gbTotales.Controls.Add(label9);
+            gbTotales.Location = new Point(10, 256);
+            gbTotales.Name = "gbTotales";
+            gbTotales.Size = new Size(808, 64);
+            gbTotales.TabIndex = 7;
+            gbTotales.TabStop = false;
+            gbTotales.Text = "Totales";
+            // 
+            // lbRetencion
+            // 
+            lbRetencion.AutoSize = true;
+            lbRetencion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbRetencion.Location = new Point(656, 32);
+            lbRetencion.Name = "lbRetencion";
+            lbRetencion.Size = new Size(55, 15);
+            lbRetencion.TabIndex = 7;
+            lbRetencion.Text = "150,00 €";
+            // 
+            // lbTotal
+            // 
+            lbTotal.AutoSize = true;
+            lbTotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbTotal.Location = new Point(416, 32);
+            lbTotal.Name = "lbTotal";
+            lbTotal.Size = new Size(62, 15);
+            lbTotal.TabIndex = 6;
+            lbTotal.Text = "1121,00 €";
+            // 
+            // lbCuota
+            // 
+            lbCuota.AutoSize = true;
+            lbCuota.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbCuota.Location = new Point(232, 32);
+            lbCuota.Name = "lbCuota";
+            lbCuota.Size = new Size(55, 15);
+            lbCuota.TabIndex = 5;
+            lbCuota.Text = "121,00 €";
+            // 
+            // lbBase
+            // 
+            lbBase.AutoSize = true;
+            lbBase.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbBase.Location = new Point(48, 32);
+            lbBase.Name = "lbBase";
+            lbBase.Size = new Size(62, 15);
+            lbBase.TabIndex = 4;
+            lbBase.Text = "1000,00 €";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(376, 32);
+            label12.Name = "label12";
+            label12.Size = new Size(36, 15);
+            label12.TabIndex = 3;
+            label12.Text = "Total:";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(592, 32);
+            label11.Name = "label11";
+            label11.Size = new Size(63, 15);
+            label11.TabIndex = 2;
+            label11.Text = "Retención:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(192, 32);
+            label10.Name = "label10";
+            label10.Size = new Size(42, 15);
+            label10.TabIndex = 1;
+            label10.Text = "Cuota:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(14, 32);
+            label9.Name = "label9";
+            label9.Size = new Size(34, 15);
+            label9.TabIndex = 0;
+            label9.Text = "Base:";
+            // 
+            // gbEmisorCliente
+            // 
+            gbEmisorCliente.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            gbEmisorCliente.Controls.Add(lbNombreCliente);
+            gbEmisorCliente.Controls.Add(lbNombreEmisor);
+            gbEmisorCliente.Controls.Add(label3);
+            gbEmisorCliente.Controls.Add(label4);
+            gbEmisorCliente.Controls.Add(lbNIFCIFCliente);
+            gbEmisorCliente.Controls.Add(lbNIFCIFEmisor);
+            gbEmisorCliente.Controls.Add(label2);
+            gbEmisorCliente.Controls.Add(label1);
+            gbEmisorCliente.Location = new Point(10, 8);
+            gbEmisorCliente.Name = "gbEmisorCliente";
+            gbEmisorCliente.Size = new Size(808, 96);
+            gbEmisorCliente.TabIndex = 6;
+            gbEmisorCliente.TabStop = false;
+            gbEmisorCliente.Text = "Emisor y Cliente";
+            // 
+            // lbNombreCliente
+            // 
+            lbNombreCliente.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lbNombreCliente.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbNombreCliente.ForeColor = Color.DarkGoldenrod;
+            lbNombreCliente.Location = new Point(368, 64);
+            lbNombreCliente.Name = "lbNombreCliente";
+            lbNombreCliente.Size = new Size(1008, 15);
+            lbNombreCliente.TabIndex = 8;
+            lbNombreCliente.Text = "Nombre Cliente";
+            lbNombreCliente.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lbNombreEmisor
+            // 
+            lbNombreEmisor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lbNombreEmisor.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbNombreEmisor.ForeColor = Color.RoyalBlue;
+            lbNombreEmisor.Location = new Point(368, 32);
+            lbNombreEmisor.Name = "lbNombreEmisor";
+            lbNombreEmisor.Size = new Size(1008, 15);
+            lbNombreEmisor.TabIndex = 7;
+            lbNombreEmisor.Text = "Nombre Emisor";
+            lbNombreEmisor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(272, 64);
+            label3.Name = "label3";
+            label3.Size = new Size(94, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Nombre Cliente:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(272, 32);
+            label4.Name = "label4";
+            label4.Size = new Size(93, 15);
+            label4.TabIndex = 5;
+            label4.Text = "Nombre Emisor:";
+            // 
+            // lbNIFCIFCliente
+            // 
+            lbNIFCIFCliente.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbNIFCIFCliente.ForeColor = Color.DarkGoldenrod;
+            lbNIFCIFCliente.Location = new Point(112, 64);
+            lbNIFCIFCliente.Name = "lbNIFCIFCliente";
+            lbNIFCIFCliente.Size = new Size(145, 15);
+            lbNIFCIFCliente.TabIndex = 4;
+            lbNIFCIFCliente.Text = "NIF/CIF Cliente";
+            lbNIFCIFCliente.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lbNIFCIFEmisor
+            // 
+            lbNIFCIFEmisor.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbNIFCIFEmisor.ForeColor = Color.RoyalBlue;
+            lbNIFCIFEmisor.Location = new Point(112, 32);
+            lbNIFCIFEmisor.Name = "lbNIFCIFEmisor";
+            lbNIFCIFEmisor.Size = new Size(145, 15);
+            lbNIFCIFEmisor.TabIndex = 3;
+            lbNIFCIFEmisor.Text = "NIF/CIF Emisor";
+            lbNIFCIFEmisor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(14, 64);
+            label2.Name = "label2";
+            label2.Size = new Size(90, 15);
+            label2.TabIndex = 2;
+            label2.Text = "NIF/CIF Cliente:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(14, 32);
+            label1.Name = "label1";
+            label1.Size = new Size(89, 15);
+            label1.TabIndex = 0;
+            label1.Text = "NIF/CIF Emisor:";
+            // 
+            // gbFacemi
+            // 
+            gbFacemi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            gbFacemi.Controls.Add(tipoRetencion);
+            gbFacemi.Controls.Add(label8);
+            gbFacemi.Controls.Add(checkBox1);
+            gbFacemi.Controls.Add(chkPagada);
+            gbFacemi.Controls.Add(fechaFactura);
+            gbFacemi.Controls.Add(label7);
+            gbFacemi.Controls.Add(lbCodigoPostal);
+            gbFacemi.Controls.Add(label6);
+            gbFacemi.Controls.Add(label5);
+            gbFacemi.Controls.Add(cbConceptFac);
+            gbFacemi.Controls.Add(txtDescripcion);
+            gbFacemi.Controls.Add(txtNumero);
+            gbFacemi.Location = new Point(10, 112);
+            gbFacemi.Name = "gbFacemi";
+            gbFacemi.Size = new Size(808, 136);
+            gbFacemi.TabIndex = 5;
+            gbFacemi.TabStop = false;
+            gbFacemi.Text = "Datos de la Factura";
+            // 
+            // tipoRetencion
+            // 
+            tipoRetencion.DecimalPlaces = 2;
+            tipoRetencion.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            tipoRetencion.Location = new Point(472, 103);
+            tipoRetencion.Name = "tipoRetencion";
+            tipoRetencion.Size = new Size(64, 23);
+            tipoRetencion.TabIndex = 0;
+            tipoRetencion.Value = new decimal(new int[] { 15, 0, 0, 0 });
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(360, 106);
+            label8.Name = "label8";
+            label8.Size = new Size(103, 15);
+            label8.TabIndex = 11;
+            label8.Text = "Tipo de retención:";
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(192, 106);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(135, 19);
+            checkBox1.TabIndex = 10;
+            checkBox1.Text = "¿Se aplica retención?";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // chkPagada
+            // 
+            chkPagada.AutoSize = true;
+            chkPagada.Location = new Point(88, 106);
+            chkPagada.Name = "chkPagada";
+            chkPagada.Size = new Size(75, 19);
+            chkPagada.TabIndex = 9;
+            chkPagada.Text = "¿Pagada?";
+            chkPagada.UseVisualStyleBackColor = true;
+            // 
+            // fechaFactura
+            // 
+            fechaFactura.Format = DateTimePickerFormat.Short;
+            fechaFactura.Location = new Point(248, 36);
+            fechaFactura.Name = "fechaFactura";
+            fechaFactura.Size = new Size(93, 23);
+            fechaFactura.TabIndex = 8;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(360, 40);
+            label7.Name = "label7";
+            label7.Size = new Size(62, 15);
+            label7.TabIndex = 6;
+            label7.Text = "Concepto:";
+            // 
+            // lbCodigoPostal
+            // 
+            lbCodigoPostal.AutoSize = true;
+            lbCodigoPostal.Location = new Point(203, 40);
+            lbCodigoPostal.Name = "lbCodigoPostal";
+            lbCodigoPostal.Size = new Size(41, 15);
+            lbCodigoPostal.TabIndex = 4;
+            lbCodigoPostal.Text = "Fecha:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(14, 72);
+            label6.Name = "label6";
+            label6.Size = new Size(72, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Descripción:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(30, 40);
+            label5.Name = "label5";
+            label5.Size = new Size(54, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Número:";
+            // 
+            // cbConceptFac
+            // 
+            cbConceptFac.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cbConceptFac.FormattingEnabled = true;
+            cbConceptFac.Location = new Point(424, 36);
+            cbConceptFac.Name = "cbConceptFac";
+            cbConceptFac.Size = new Size(376, 23);
+            cbConceptFac.TabIndex = 7;
+            // 
+            // txtDescripcion
+            // 
+            txtDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtDescripcion.Location = new Point(88, 68);
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.Size = new Size(712, 23);
+            txtDescripcion.TabIndex = 3;
+            // 
+            // txtNumero
+            // 
+            txtNumero.Location = new Point(88, 36);
+            txtNumero.Name = "txtNumero";
+            txtNumero.Size = new Size(88, 23);
+            txtNumero.TabIndex = 1;
+            // 
+            // pnFacemiLin
+            // 
+            pnFacemiLin.Controls.Add(pnData);
+            pnFacemiLin.Controls.Add(pnStatus);
+            pnFacemiLin.Controls.Add(pnTools);
+            pnFacemiLin.Dock = DockStyle.Fill;
+            pnFacemiLin.Location = new Point(3, 336);
+            pnFacemiLin.Name = "pnFacemiLin";
+            pnFacemiLin.Size = new Size(829, 173);
+            pnFacemiLin.TabIndex = 6;
+            // 
+            // pnTools
+            // 
+            pnTools.Controls.Add(tsHerramientas);
+            pnTools.Dock = DockStyle.Top;
+            pnTools.Location = new Point(0, 0);
+            pnTools.Name = "pnTools";
+            pnTools.Size = new Size(829, 25);
+            pnTools.TabIndex = 1;
+            // 
+            // tsHerramientas
+            // 
+            tsHerramientas.AutoSize = false;
+            tsHerramientas.GripStyle = ToolStripGripStyle.Hidden;
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
+            tsHerramientas.Location = new Point(0, 0);
+            tsHerramientas.Name = "tsHerramientas";
+            tsHerramientas.Size = new Size(829, 25);
+            tsHerramientas.TabIndex = 0;
+            tsHerramientas.Text = "toolStrip1";
+            // 
+            // btnNew
+            // 
+            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNew.Image = (Image)resources.GetObject("btnNew.Image");
+            btnNew.ImageTransparentColor = Color.Magenta;
+            btnNew.Name = "btnNew";
+            btnNew.Size = new Size(23, 22);
+            btnNew.Text = "Nuevo Emisor";
+            // 
+            // btnEdit
+            // 
+            btnEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
+            btnEdit.ImageTransparentColor = Color.Magenta;
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(23, 22);
+            btnEdit.Text = "Editar Emisor";
+            // 
+            // tsSeparador1
+            // 
+            tsSeparador1.Margin = new Padding(10, 0, 10, 0);
+            tsSeparador1.Name = "tsSeparador1";
+            tsSeparador1.Size = new Size(6, 25);
+            // 
+            // btnDelete
+            // 
+            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnDelete.Image = (Image)resources.GetObject("btnDelete.Image");
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(23, 22);
+            btnDelete.Text = "Borrar Emisor";
+            // 
+            // tsSeparador2
+            // 
+            tsSeparador2.Margin = new Padding(10, 0, 10, 0);
+            tsSeparador2.Name = "tsSeparador2";
+            tsSeparador2.Size = new Size(6, 25);
+            // 
+            // btnFirst
+            // 
+            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
+            btnFirst.ImageTransparentColor = Color.Magenta;
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(23, 22);
+            btnFirst.Text = "Primer Emisor";
+            // 
+            // btnPrev
+            // 
+            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
+            btnPrev.ImageTransparentColor = Color.Magenta;
+            btnPrev.Name = "btnPrev";
+            btnPrev.Size = new Size(23, 22);
+            btnPrev.Text = "Emisor anterior";
+            // 
+            // btnNext
+            // 
+            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
+            btnNext.ImageTransparentColor = Color.Magenta;
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(23, 22);
+            btnNext.Text = "Emisor siguiente";
+            // 
+            // btnLast
+            // 
+            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
+            btnLast.ImageTransparentColor = Color.Magenta;
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(23, 22);
+            btnLast.Text = "Último Emisor";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
+            // 
+            // btnExportCSV
+            // 
+            btnExportCSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportCSV.Image = (Image)resources.GetObject("btnExportCSV.Image");
+            btnExportCSV.ImageTransparentColor = Color.Magenta;
+            btnExportCSV.Name = "btnExportCSV";
+            btnExportCSV.Size = new Size(23, 22);
+            btnExportCSV.Text = "btnExportCSV";
+            btnExportCSV.ToolTipText = "Exportar a CSV";
+            // 
+            // btnExportXML
+            // 
+            btnExportXML.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportXML.Image = (Image)resources.GetObject("btnExportXML.Image");
+            btnExportXML.ImageTransparentColor = Color.Magenta;
+            btnExportXML.Name = "btnExportXML";
+            btnExportXML.Size = new Size(23, 22);
+            btnExportXML.Text = "btnExportXML";
+            btnExportXML.ToolTipText = "Exportar a XML";
+            // 
+            // pnStatus
+            // 
+            pnStatus.Controls.Add(StatusStrip);
+            pnStatus.Dock = DockStyle.Bottom;
+            pnStatus.Location = new Point(0, 151);
+            pnStatus.Name = "pnStatus";
+            pnStatus.Size = new Size(829, 22);
+            pnStatus.TabIndex = 2;
+            // 
+            // StatusStrip
+            // 
+            StatusStrip.AutoSize = false;
+            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
+            StatusStrip.Location = new Point(0, 0);
+            StatusStrip.Name = "StatusStrip";
+            StatusStrip.Size = new Size(829, 22);
+            StatusStrip.TabIndex = 0;
+            StatusStrip.Text = "statusStrip1";
+            // 
+            // tsStatusLabel
+            // 
+            tsStatusLabel.Name = "tsStatusLabel";
+            tsStatusLabel.Size = new Size(91, 17);
+            tsStatusLabel.Text = "Nº de Registros:";
+            // 
+            // pnData
+            // 
+            pnData.Controls.Add(dgTabla);
+            pnData.Dock = DockStyle.Fill;
+            pnData.Location = new Point(0, 25);
+            pnData.Name = "pnData";
+            pnData.Size = new Size(829, 126);
+            pnData.TabIndex = 3;
+            // 
+            // dgTabla
+            // 
+            dgTabla.AllowUserToAddRows = false;
+            dgTabla.AllowUserToDeleteRows = false;
+            dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgTabla.Dock = DockStyle.Fill;
+            dgTabla.Location = new Point(0, 0);
+            dgTabla.Name = "dgTabla";
+            dgTabla.ReadOnly = true;
+            dgTabla.Size = new Size(829, 126);
+            dgTabla.TabIndex = 0;
+            // 
+            // FrmFacemi
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(843, 606);
+            Controls.Add(tbControl);
+            Controls.Add(pnButtons);
+            Name = "FrmFacemi";
+            Text = "Factura Emitida";
+            pnButtons.ResumeLayout(false);
+            tbControl.ResumeLayout(false);
+            tabData.ResumeLayout(false);
+            tabNotas.ResumeLayout(false);
+            pnFacemi.ResumeLayout(false);
+            gbTotales.ResumeLayout(false);
+            gbTotales.PerformLayout();
+            gbEmisorCliente.ResumeLayout(false);
+            gbEmisorCliente.PerformLayout();
+            gbFacemi.ResumeLayout(false);
+            gbFacemi.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tipoRetencion).EndInit();
+            pnFacemiLin.ResumeLayout(false);
+            pnTools.ResumeLayout(false);
+            tsHerramientas.ResumeLayout(false);
+            tsHerramientas.PerformLayout();
+            pnStatus.ResumeLayout(false);
+            StatusStrip.ResumeLayout(false);
+            StatusStrip.PerformLayout();
+            pnData.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgTabla).EndInit();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private Panel pnButtons;
+        private Button btnCancelar;
+        private Button btnAceptar;
+        private TabControl tbControl;
+        private TabPage tabData;
+        private TabPage tabNotas;
+        private RichTextBox txtNotas;
+        private Panel pnFacemiLin;
+        private Panel pnFacemi;
+        private GroupBox gbTotales;
+        private Label lbRetencion;
+        private Label lbTotal;
+        private Label lbCuota;
+        private Label lbBase;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private GroupBox gbEmisorCliente;
+        private Label lbNombreCliente;
+        private Label lbNombreEmisor;
+        private Label label3;
+        private Label label4;
+        private Label lbNIFCIFCliente;
+        private Label lbNIFCIFEmisor;
+        private Label label2;
+        private Label label1;
+        private GroupBox gbFacemi;
+        private NumericUpDown tipoRetencion;
+        private Label label8;
+        private CheckBox checkBox1;
+        private CheckBox chkPagada;
+        private DateTimePicker fechaFactura;
+        private Label label7;
+        private Label lbCodigoPostal;
+        private Label label6;
+        private Label label5;
+        private ComboBox cbConceptFac;
+        private TextBox txtDescripcion;
+        private TextBox txtNumero;
+        private Panel pnTools;
+        private ToolStrip tsHerramientas;
+        private ToolStripButton btnNew;
+        private ToolStripButton btnEdit;
+        private ToolStripSeparator tsSeparador1;
+        private ToolStripButton btnDelete;
+        private ToolStripSeparator tsSeparador2;
+        private ToolStripButton btnFirst;
+        private ToolStripButton btnPrev;
+        private ToolStripButton btnNext;
+        private ToolStripButton btnLast;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnExportCSV;
+        private ToolStripButton btnExportXML;
+        private Panel pnStatus;
+        private StatusStrip StatusStrip;
+        private ToolStripStatusLabel tsStatusLabel;
+        private Panel pnData;
+        private DataGridView dgTabla;
+    }
+}
