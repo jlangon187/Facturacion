@@ -5,6 +5,7 @@ public class Emisor
     public string apellidos { get; set; }
     public string nifcif { get; set; }
     public string nombreComercial { get; set; }
+    public int nextNumFac { get; set; }
     public Emisor()
     {
         id = -1;

@@ -22,6 +22,8 @@ namespace FacturacionDAM.Formularios
 
         private YearManager _year;
 
+        private int _idClienteSeleccionado = -1;
+
         public FrmBrowFacemi()
         {
             InitializeComponent();
@@ -98,6 +100,41 @@ namespace FacturacionDAM.Formularios
 
         private void btnLast_Click(object sender, EventArgs e) => _bsFacturas.MoveLast();
 
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            _bsFacturas.AddNew();
+            FrmFacemi frm = new FrmFacemi(_bsFacturas, _tablaFacturas, Program.appDAM.emisor.id,
+                _idClienteSeleccionado, _year.CurrentYear);
+
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                _tablaFacturas.Refrescar();
+                CargarFacturasClienteYAnho(_year.CurrentYear);
+            }
+            else
+            {
+                _bsFacturas.CancelEdit();
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (!(_bsFacturas.Current is DataRowView))
+            {
+                DataRowView row = (DataRowView)_bsFacturas.Current;
+                int idFactura = Convert.ToInt32(row["id"]);
+
+                FrmFacemi frm = new FrmFacemi(_bsFacturas, _tablaFacturas, Program.appDAM.emisor.id,
+                    _idClienteSeleccionado, _year.CurrentYear, idFactura);
+
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    _tablaFacturas.Refrescar();
+                    CargarFacturasClienteYAnho(_year.CurrentYear);
+                }
+            }
+        }
+
         /// <summary>
         /// Evento al cambiar la seleccion del cliente en el datagrid.
         /// </summary>
@@ -158,11 +195,11 @@ namespace FacturacionDAM.Formularios
                 return;
             }
 
-            int idCliente = Convert.ToInt32(cli["id"]);
+            _idClienteSeleccionado = Convert.ToInt32(cli["id"]);
 
-            String mSql = $@"SELECT id, numero, fecha, descripcion, base, cuota, total, retencion, pagada
+            String mSql = $@"SELECT *
                             FROM facemi
-                            WHERE idcliente = {idCliente}
+                            WHERE idcliente = {_idClienteSeleccionado}
                             AND YEAR(fecha) = {aAnho}
                             ORDER BY fecha DESC";
             _tablaFacturas = new Tabla(Program.appDAM.LaConexion);
@@ -174,6 +211,51 @@ namespace FacturacionDAM.Formularios
                     dgFacemi.DataSource = _bsFacturas;
 
                     dgFacemi.Columns["id"].Visible = false;
+                    dgFacemi.Columns["idemisor"].Visible = false;
+                    dgFacemi.Columns["idcliente"].Visible = false;
+                    dgFacemi.Columns["idconceptofac"].Visible = false;
+                    dgFacemi.Columns["notas"].Visible = false;
+                    dgFacemi.Columns["tiporet"].Visible = false;
+                    dgFacemi.Columns["aplicaret"].Visible = false;
+
+                    dgFacemi.Columns["numero"].HeaderText = "Nº";
+                    dgFacemi.Columns["numero"].Width = 70;
+                    dgFacemi.Columns["numero"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["numero"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["fecha"].HeaderText = "Fecha";
+                    dgFacemi.Columns["fecha"].Width = 125;
+                    dgFacemi.Columns["fecha"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["fecha"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["descripcion"].HeaderText = "Descripción";
+                    dgFacemi.Columns["descripcion"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dgFacemi.Columns["base"].HeaderText = "Base";
+                    dgFacemi.Columns["base"].Width = 100;
+                    dgFacemi.Columns["base"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["base"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["base"].DefaultCellStyle.Padding = new Padding(0, 0, 10, 0);
+                    dgFacemi.Columns["cuota"].HeaderText = "Cuota";
+                    dgFacemi.Columns["cuota"].Width = 100;
+                    dgFacemi.Columns["cuota"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["cuota"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["cuota"].DefaultCellStyle.Padding = new Padding(0, 0, 10, 0);
+                    dgFacemi.Columns["total"].HeaderText = "Total";
+                    dgFacemi.Columns["total"].Width = 100;
+                    dgFacemi.Columns["total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["total"].DefaultCellStyle.Padding = new Padding(0, 0, 10, 0);
+                    dgFacemi.Columns["retencion"].HeaderText = "Retención";
+                    dgFacemi.Columns["retencion"].Width = 100;
+                    dgFacemi.Columns["retencion"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["retencion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgFacemi.Columns["retencion"].DefaultCellStyle.Padding = new Padding(0, 0, 10, 0);
+                    dgFacemi.Columns["pagada"].HeaderText = "Pagada";
+                    dgFacemi.Columns["pagada"].Width = 100;
+                    dgFacemi.Columns["pagada"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["pagada"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgFacemi.Columns["pagada"].ReadOnly = true;
+
+                    dgFacemi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dgFacemi.MultiSelect = false;
 
                     String nombreCliente = cli["nombrecomercial"].ToString();
 
@@ -217,5 +299,6 @@ namespace FacturacionDAM.Formularios
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName, "Facturas Emitidas");
         }
+
     }
 }

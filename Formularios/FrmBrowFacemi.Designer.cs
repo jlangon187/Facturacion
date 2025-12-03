@@ -224,6 +224,7 @@
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(23, 22);
             btnNew.Text = "Nueva Factura";
+            btnNew.Click += btnNew_Click;
             // 
             // btnEdit
             // 
@@ -233,6 +234,7 @@
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(23, 22);
             btnEdit.Text = "Editar Factura";
+            btnEdit.Click += btnEdit_Click;
             // 
             // tsSeparador1
             // 

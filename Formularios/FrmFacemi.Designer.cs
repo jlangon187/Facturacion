@@ -34,8 +34,26 @@
             btnAceptar = new Button();
             tbControl = new TabControl();
             tabData = new TabPage();
-            tabNotas = new TabPage();
-            txtNotas = new RichTextBox();
+            pnFacemiLin = new Panel();
+            pnData = new Panel();
+            dgTabla = new DataGridView();
+            pnStatus = new Panel();
+            StatusStrip = new StatusStrip();
+            tsStatusLabel = new ToolStripStatusLabel();
+            pnTools = new Panel();
+            tsHerramientas = new ToolStrip();
+            btnNew = new ToolStripButton();
+            btnEdit = new ToolStripButton();
+            tsSeparador1 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
+            tsSeparador2 = new ToolStripSeparator();
+            btnFirst = new ToolStripButton();
+            btnPrev = new ToolStripButton();
+            btnNext = new ToolStripButton();
+            btnLast = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnExportCSV = new ToolStripButton();
+            btnExportXML = new ToolStripButton();
             pnFacemi = new Panel();
             gbTotales = new GroupBox();
             lbRetencion = new Label();
@@ -68,42 +86,24 @@
             cbConceptFac = new ComboBox();
             txtDescripcion = new TextBox();
             txtNumero = new TextBox();
-            pnFacemiLin = new Panel();
-            pnTools = new Panel();
-            tsHerramientas = new ToolStrip();
-            btnNew = new ToolStripButton();
-            btnEdit = new ToolStripButton();
-            tsSeparador1 = new ToolStripSeparator();
-            btnDelete = new ToolStripButton();
-            tsSeparador2 = new ToolStripSeparator();
-            btnFirst = new ToolStripButton();
-            btnPrev = new ToolStripButton();
-            btnNext = new ToolStripButton();
-            btnLast = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            btnExportCSV = new ToolStripButton();
-            btnExportXML = new ToolStripButton();
-            pnStatus = new Panel();
-            StatusStrip = new StatusStrip();
-            tsStatusLabel = new ToolStripStatusLabel();
-            pnData = new Panel();
-            dgTabla = new DataGridView();
+            tabNotas = new TabPage();
+            txtNotas = new RichTextBox();
             pnButtons.SuspendLayout();
             tbControl.SuspendLayout();
             tabData.SuspendLayout();
-            tabNotas.SuspendLayout();
+            pnFacemiLin.SuspendLayout();
+            pnData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgTabla).BeginInit();
+            pnStatus.SuspendLayout();
+            StatusStrip.SuspendLayout();
+            pnTools.SuspendLayout();
+            tsHerramientas.SuspendLayout();
             pnFacemi.SuspendLayout();
             gbTotales.SuspendLayout();
             gbEmisorCliente.SuspendLayout();
             gbFacemi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tipoRetencion).BeginInit();
-            pnFacemiLin.SuspendLayout();
-            pnTools.SuspendLayout();
-            tsHerramientas.SuspendLayout();
-            pnStatus.SuspendLayout();
-            StatusStrip.SuspendLayout();
-            pnData.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgTabla).BeginInit();
+            tabNotas.SuspendLayout();
             SuspendLayout();
             // 
             // pnButtons
@@ -164,25 +164,182 @@
             tabData.Text = "Datos";
             tabData.UseVisualStyleBackColor = true;
             // 
-            // tabNotas
+            // pnFacemiLin
             // 
-            tabNotas.Controls.Add(txtNotas);
-            tabNotas.Location = new Point(4, 24);
-            tabNotas.Name = "tabNotas";
-            tabNotas.Padding = new Padding(3);
-            tabNotas.Size = new Size(835, 512);
-            tabNotas.TabIndex = 1;
-            tabNotas.Text = "Notas";
-            tabNotas.UseVisualStyleBackColor = true;
+            pnFacemiLin.Controls.Add(pnData);
+            pnFacemiLin.Controls.Add(pnStatus);
+            pnFacemiLin.Controls.Add(pnTools);
+            pnFacemiLin.Dock = DockStyle.Fill;
+            pnFacemiLin.Location = new Point(3, 336);
+            pnFacemiLin.Name = "pnFacemiLin";
+            pnFacemiLin.Size = new Size(829, 173);
+            pnFacemiLin.TabIndex = 6;
             // 
-            // txtNotas
+            // pnData
             // 
-            txtNotas.Dock = DockStyle.Fill;
-            txtNotas.Location = new Point(3, 3);
-            txtNotas.Name = "txtNotas";
-            txtNotas.Size = new Size(829, 506);
-            txtNotas.TabIndex = 0;
-            txtNotas.Text = "";
+            pnData.Controls.Add(dgTabla);
+            pnData.Dock = DockStyle.Fill;
+            pnData.Location = new Point(0, 25);
+            pnData.Name = "pnData";
+            pnData.Size = new Size(829, 126);
+            pnData.TabIndex = 3;
+            // 
+            // dgTabla
+            // 
+            dgTabla.AllowUserToAddRows = false;
+            dgTabla.AllowUserToDeleteRows = false;
+            dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgTabla.Dock = DockStyle.Fill;
+            dgTabla.Location = new Point(0, 0);
+            dgTabla.Name = "dgTabla";
+            dgTabla.ReadOnly = true;
+            dgTabla.Size = new Size(829, 126);
+            dgTabla.TabIndex = 0;
+            // 
+            // pnStatus
+            // 
+            pnStatus.Controls.Add(StatusStrip);
+            pnStatus.Dock = DockStyle.Bottom;
+            pnStatus.Location = new Point(0, 151);
+            pnStatus.Name = "pnStatus";
+            pnStatus.Size = new Size(829, 22);
+            pnStatus.TabIndex = 2;
+            // 
+            // StatusStrip
+            // 
+            StatusStrip.AutoSize = false;
+            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
+            StatusStrip.Location = new Point(0, 0);
+            StatusStrip.Name = "StatusStrip";
+            StatusStrip.Size = new Size(829, 22);
+            StatusStrip.TabIndex = 0;
+            StatusStrip.Text = "statusStrip1";
+            // 
+            // tsStatusLabel
+            // 
+            tsStatusLabel.Name = "tsStatusLabel";
+            tsStatusLabel.Size = new Size(91, 17);
+            tsStatusLabel.Text = "Nº de Registros:";
+            // 
+            // pnTools
+            // 
+            pnTools.Controls.Add(tsHerramientas);
+            pnTools.Dock = DockStyle.Top;
+            pnTools.Location = new Point(0, 0);
+            pnTools.Name = "pnTools";
+            pnTools.Size = new Size(829, 25);
+            pnTools.TabIndex = 1;
+            // 
+            // tsHerramientas
+            // 
+            tsHerramientas.AutoSize = false;
+            tsHerramientas.GripStyle = ToolStripGripStyle.Hidden;
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
+            tsHerramientas.Location = new Point(0, 0);
+            tsHerramientas.Name = "tsHerramientas";
+            tsHerramientas.Size = new Size(829, 25);
+            tsHerramientas.TabIndex = 0;
+            tsHerramientas.Text = "toolStrip1";
+            // 
+            // btnNew
+            // 
+            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNew.Image = (Image)resources.GetObject("btnNew.Image");
+            btnNew.ImageTransparentColor = Color.Magenta;
+            btnNew.Name = "btnNew";
+            btnNew.Size = new Size(23, 22);
+            btnNew.Text = "Nuevo Emisor";
+            // 
+            // btnEdit
+            // 
+            btnEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
+            btnEdit.ImageTransparentColor = Color.Magenta;
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(23, 22);
+            btnEdit.Text = "Editar Emisor";
+            // 
+            // tsSeparador1
+            // 
+            tsSeparador1.Margin = new Padding(10, 0, 10, 0);
+            tsSeparador1.Name = "tsSeparador1";
+            tsSeparador1.Size = new Size(6, 25);
+            // 
+            // btnDelete
+            // 
+            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnDelete.Image = (Image)resources.GetObject("btnDelete.Image");
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(23, 22);
+            btnDelete.Text = "Borrar Emisor";
+            // 
+            // tsSeparador2
+            // 
+            tsSeparador2.Margin = new Padding(10, 0, 10, 0);
+            tsSeparador2.Name = "tsSeparador2";
+            tsSeparador2.Size = new Size(6, 25);
+            // 
+            // btnFirst
+            // 
+            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
+            btnFirst.ImageTransparentColor = Color.Magenta;
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(23, 22);
+            btnFirst.Text = "Primer Emisor";
+            // 
+            // btnPrev
+            // 
+            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
+            btnPrev.ImageTransparentColor = Color.Magenta;
+            btnPrev.Name = "btnPrev";
+            btnPrev.Size = new Size(23, 22);
+            btnPrev.Text = "Emisor anterior";
+            // 
+            // btnNext
+            // 
+            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
+            btnNext.ImageTransparentColor = Color.Magenta;
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(23, 22);
+            btnNext.Text = "Emisor siguiente";
+            // 
+            // btnLast
+            // 
+            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
+            btnLast.ImageTransparentColor = Color.Magenta;
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(23, 22);
+            btnLast.Text = "Último Emisor";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
+            // 
+            // btnExportCSV
+            // 
+            btnExportCSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportCSV.Image = (Image)resources.GetObject("btnExportCSV.Image");
+            btnExportCSV.ImageTransparentColor = Color.Magenta;
+            btnExportCSV.Name = "btnExportCSV";
+            btnExportCSV.Size = new Size(23, 22);
+            btnExportCSV.Text = "btnExportCSV";
+            btnExportCSV.ToolTipText = "Exportar a CSV";
+            // 
+            // btnExportXML
+            // 
+            btnExportXML.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnExportXML.Image = (Image)resources.GetObject("btnExportXML.Image");
+            btnExportXML.ImageTransparentColor = Color.Magenta;
+            btnExportXML.Name = "btnExportXML";
+            btnExportXML.Size = new Size(23, 22);
+            btnExportXML.Text = "btnExportXML";
+            btnExportXML.ToolTipText = "Exportar a XML";
             // 
             // pnFacemi
             // 
@@ -519,182 +676,25 @@
             txtNumero.Size = new Size(88, 23);
             txtNumero.TabIndex = 1;
             // 
-            // pnFacemiLin
+            // tabNotas
             // 
-            pnFacemiLin.Controls.Add(pnData);
-            pnFacemiLin.Controls.Add(pnStatus);
-            pnFacemiLin.Controls.Add(pnTools);
-            pnFacemiLin.Dock = DockStyle.Fill;
-            pnFacemiLin.Location = new Point(3, 336);
-            pnFacemiLin.Name = "pnFacemiLin";
-            pnFacemiLin.Size = new Size(829, 173);
-            pnFacemiLin.TabIndex = 6;
+            tabNotas.Controls.Add(txtNotas);
+            tabNotas.Location = new Point(4, 24);
+            tabNotas.Name = "tabNotas";
+            tabNotas.Padding = new Padding(3);
+            tabNotas.Size = new Size(835, 512);
+            tabNotas.TabIndex = 1;
+            tabNotas.Text = "Notas";
+            tabNotas.UseVisualStyleBackColor = true;
             // 
-            // pnTools
+            // txtNotas
             // 
-            pnTools.Controls.Add(tsHerramientas);
-            pnTools.Dock = DockStyle.Top;
-            pnTools.Location = new Point(0, 0);
-            pnTools.Name = "pnTools";
-            pnTools.Size = new Size(829, 25);
-            pnTools.TabIndex = 1;
-            // 
-            // tsHerramientas
-            // 
-            tsHerramientas.AutoSize = false;
-            tsHerramientas.GripStyle = ToolStripGripStyle.Hidden;
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
-            tsHerramientas.Location = new Point(0, 0);
-            tsHerramientas.Name = "tsHerramientas";
-            tsHerramientas.Size = new Size(829, 25);
-            tsHerramientas.TabIndex = 0;
-            tsHerramientas.Text = "toolStrip1";
-            // 
-            // btnNew
-            // 
-            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnNew.Image = (Image)resources.GetObject("btnNew.Image");
-            btnNew.ImageTransparentColor = Color.Magenta;
-            btnNew.Name = "btnNew";
-            btnNew.Size = new Size(23, 22);
-            btnNew.Text = "Nuevo Emisor";
-            // 
-            // btnEdit
-            // 
-            btnEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
-            btnEdit.ImageTransparentColor = Color.Magenta;
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(23, 22);
-            btnEdit.Text = "Editar Emisor";
-            // 
-            // tsSeparador1
-            // 
-            tsSeparador1.Margin = new Padding(10, 0, 10, 0);
-            tsSeparador1.Name = "tsSeparador1";
-            tsSeparador1.Size = new Size(6, 25);
-            // 
-            // btnDelete
-            // 
-            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnDelete.Image = (Image)resources.GetObject("btnDelete.Image");
-            btnDelete.ImageTransparentColor = Color.Magenta;
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(23, 22);
-            btnDelete.Text = "Borrar Emisor";
-            // 
-            // tsSeparador2
-            // 
-            tsSeparador2.Margin = new Padding(10, 0, 10, 0);
-            tsSeparador2.Name = "tsSeparador2";
-            tsSeparador2.Size = new Size(6, 25);
-            // 
-            // btnFirst
-            // 
-            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
-            btnFirst.ImageTransparentColor = Color.Magenta;
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(23, 22);
-            btnFirst.Text = "Primer Emisor";
-            // 
-            // btnPrev
-            // 
-            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
-            btnPrev.ImageTransparentColor = Color.Magenta;
-            btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(23, 22);
-            btnPrev.Text = "Emisor anterior";
-            // 
-            // btnNext
-            // 
-            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
-            btnNext.ImageTransparentColor = Color.Magenta;
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(23, 22);
-            btnNext.Text = "Emisor siguiente";
-            // 
-            // btnLast
-            // 
-            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
-            btnLast.ImageTransparentColor = Color.Magenta;
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(23, 22);
-            btnLast.Text = "Último Emisor";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 25);
-            // 
-            // btnExportCSV
-            // 
-            btnExportCSV.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnExportCSV.Image = (Image)resources.GetObject("btnExportCSV.Image");
-            btnExportCSV.ImageTransparentColor = Color.Magenta;
-            btnExportCSV.Name = "btnExportCSV";
-            btnExportCSV.Size = new Size(23, 22);
-            btnExportCSV.Text = "btnExportCSV";
-            btnExportCSV.ToolTipText = "Exportar a CSV";
-            // 
-            // btnExportXML
-            // 
-            btnExportXML.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnExportXML.Image = (Image)resources.GetObject("btnExportXML.Image");
-            btnExportXML.ImageTransparentColor = Color.Magenta;
-            btnExportXML.Name = "btnExportXML";
-            btnExportXML.Size = new Size(23, 22);
-            btnExportXML.Text = "btnExportXML";
-            btnExportXML.ToolTipText = "Exportar a XML";
-            // 
-            // pnStatus
-            // 
-            pnStatus.Controls.Add(StatusStrip);
-            pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(0, 151);
-            pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(829, 22);
-            pnStatus.TabIndex = 2;
-            // 
-            // StatusStrip
-            // 
-            StatusStrip.AutoSize = false;
-            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
-            StatusStrip.Location = new Point(0, 0);
-            StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(829, 22);
-            StatusStrip.TabIndex = 0;
-            StatusStrip.Text = "statusStrip1";
-            // 
-            // tsStatusLabel
-            // 
-            tsStatusLabel.Name = "tsStatusLabel";
-            tsStatusLabel.Size = new Size(91, 17);
-            tsStatusLabel.Text = "Nº de Registros:";
-            // 
-            // pnData
-            // 
-            pnData.Controls.Add(dgTabla);
-            pnData.Dock = DockStyle.Fill;
-            pnData.Location = new Point(0, 25);
-            pnData.Name = "pnData";
-            pnData.Size = new Size(829, 126);
-            pnData.TabIndex = 3;
-            // 
-            // dgTabla
-            // 
-            dgTabla.AllowUserToAddRows = false;
-            dgTabla.AllowUserToDeleteRows = false;
-            dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgTabla.Dock = DockStyle.Fill;
-            dgTabla.Location = new Point(0, 0);
-            dgTabla.Name = "dgTabla";
-            dgTabla.ReadOnly = true;
-            dgTabla.Size = new Size(829, 126);
-            dgTabla.TabIndex = 0;
+            txtNotas.Dock = DockStyle.Fill;
+            txtNotas.Location = new Point(3, 3);
+            txtNotas.Name = "txtNotas";
+            txtNotas.Size = new Size(829, 506);
+            txtNotas.TabIndex = 0;
+            txtNotas.Text = "";
             // 
             // FrmFacemi
             // 
@@ -705,10 +705,19 @@
             Controls.Add(pnButtons);
             Name = "FrmFacemi";
             Text = "Factura Emitida";
+            Load += FrmFacemi_Load;
             pnButtons.ResumeLayout(false);
             tbControl.ResumeLayout(false);
             tabData.ResumeLayout(false);
-            tabNotas.ResumeLayout(false);
+            pnFacemiLin.ResumeLayout(false);
+            pnData.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgTabla).EndInit();
+            pnStatus.ResumeLayout(false);
+            StatusStrip.ResumeLayout(false);
+            StatusStrip.PerformLayout();
+            pnTools.ResumeLayout(false);
+            tsHerramientas.ResumeLayout(false);
+            tsHerramientas.PerformLayout();
             pnFacemi.ResumeLayout(false);
             gbTotales.ResumeLayout(false);
             gbTotales.PerformLayout();
@@ -717,15 +726,7 @@
             gbFacemi.ResumeLayout(false);
             gbFacemi.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tipoRetencion).EndInit();
-            pnFacemiLin.ResumeLayout(false);
-            pnTools.ResumeLayout(false);
-            tsHerramientas.ResumeLayout(false);
-            tsHerramientas.PerformLayout();
-            pnStatus.ResumeLayout(false);
-            StatusStrip.ResumeLayout(false);
-            StatusStrip.PerformLayout();
-            pnData.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgTabla).EndInit();
+            tabNotas.ResumeLayout(false);
             ResumeLayout(false);
         }
 
