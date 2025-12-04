@@ -36,7 +36,7 @@
             tabData = new TabPage();
             pnFacemiLin = new Panel();
             pnData = new Panel();
-            dgTabla = new DataGridView();
+            dgLineasFactura = new DataGridView();
             pnStatus = new Panel();
             StatusStrip = new StatusStrip();
             tsStatusLabel = new ToolStripStatusLabel();
@@ -76,7 +76,7 @@
             gbFacemi = new GroupBox();
             tipoRetencion = new NumericUpDown();
             label8 = new Label();
-            checkBox1 = new CheckBox();
+            chkRetencion = new CheckBox();
             chkPagada = new CheckBox();
             fechaFactura = new DateTimePicker();
             label7 = new Label();
@@ -93,7 +93,7 @@
             tabData.SuspendLayout();
             pnFacemiLin.SuspendLayout();
             pnData.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgTabla).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgLineasFactura).BeginInit();
             pnStatus.SuspendLayout();
             StatusStrip.SuspendLayout();
             pnTools.SuspendLayout();
@@ -177,24 +177,24 @@
             // 
             // pnData
             // 
-            pnData.Controls.Add(dgTabla);
+            pnData.Controls.Add(dgLineasFactura);
             pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 25);
             pnData.Name = "pnData";
             pnData.Size = new Size(829, 126);
             pnData.TabIndex = 3;
             // 
-            // dgTabla
+            // dgLineasFactura
             // 
-            dgTabla.AllowUserToAddRows = false;
-            dgTabla.AllowUserToDeleteRows = false;
-            dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgTabla.Dock = DockStyle.Fill;
-            dgTabla.Location = new Point(0, 0);
-            dgTabla.Name = "dgTabla";
-            dgTabla.ReadOnly = true;
-            dgTabla.Size = new Size(829, 126);
-            dgTabla.TabIndex = 0;
+            dgLineasFactura.AllowUserToAddRows = false;
+            dgLineasFactura.AllowUserToDeleteRows = false;
+            dgLineasFactura.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgLineasFactura.Dock = DockStyle.Fill;
+            dgLineasFactura.Location = new Point(0, 0);
+            dgLineasFactura.Name = "dgLineasFactura";
+            dgLineasFactura.ReadOnly = true;
+            dgLineasFactura.Size = new Size(829, 126);
+            dgLineasFactura.TabIndex = 0;
             // 
             // pnStatus
             // 
@@ -552,7 +552,7 @@
             gbFacemi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             gbFacemi.Controls.Add(tipoRetencion);
             gbFacemi.Controls.Add(label8);
-            gbFacemi.Controls.Add(checkBox1);
+            gbFacemi.Controls.Add(chkRetencion);
             gbFacemi.Controls.Add(chkPagada);
             gbFacemi.Controls.Add(fechaFactura);
             gbFacemi.Controls.Add(label7);
@@ -588,15 +588,15 @@
             label8.TabIndex = 11;
             label8.Text = "Tipo de retención:";
             // 
-            // checkBox1
+            // chkRetencion
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(192, 106);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(135, 19);
-            checkBox1.TabIndex = 10;
-            checkBox1.Text = "¿Se aplica retención?";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkRetencion.AutoSize = true;
+            chkRetencion.Location = new Point(192, 106);
+            chkRetencion.Name = "chkRetencion";
+            chkRetencion.Size = new Size(135, 19);
+            chkRetencion.TabIndex = 10;
+            chkRetencion.Text = "¿Se aplica retención?";
+            chkRetencion.UseVisualStyleBackColor = true;
             // 
             // chkPagada
             // 
@@ -711,7 +711,7 @@
             tabData.ResumeLayout(false);
             pnFacemiLin.ResumeLayout(false);
             pnData.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgTabla).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgLineasFactura).EndInit();
             pnStatus.ResumeLayout(false);
             StatusStrip.ResumeLayout(false);
             StatusStrip.PerformLayout();
@@ -762,7 +762,7 @@
         private GroupBox gbFacemi;
         private NumericUpDown tipoRetencion;
         private Label label8;
-        private CheckBox checkBox1;
+        private CheckBox chkRetencion;
         private CheckBox chkPagada;
         private DateTimePicker fechaFactura;
         private Label label7;
@@ -790,6 +790,6 @@
         private StatusStrip StatusStrip;
         private ToolStripStatusLabel tsStatusLabel;
         private Panel pnData;
-        private DataGridView dgTabla;
+        private DataGridView dgLineasFactura;
     }
 }

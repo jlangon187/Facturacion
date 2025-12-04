@@ -76,6 +76,21 @@ namespace FacturacionDAM.Modelos
         }
 
         /// <summary>
+        /// Ejercuta un comando SQL con parámetros y devuelve el número de filas afectadas.
+        /// </summary>
+        /// <param name="aSql">La sentencia SQL a ejecutar</param>
+        /// <param name="aParameters">El diccionario de parámetros</param>
+        /// <returns>Devuelve el resultado de la ejecicion de la sentencia</returns>
+        public int EjecutarComando(string aSql, Dictionary<string, object> aParameters)
+        {
+            using var cmd = new MySqlCommand(aSql, _conexion);
+            foreach (var param in aParameters)
+                cmd.Parameters.AddWithValue(param.Key, param.Value);
+            
+            return cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
         /// Acceso al DataTable que contiene los datos de la tabla.
         /// </summary>
         public DataTable LaTabla => _tabla;

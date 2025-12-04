@@ -57,7 +57,8 @@ namespace FacturacionDAM.Formularios
                     nifcif = row["nifcif"].ToString(),
                     nombre = row["nombre"].ToString(),
                     apellidos = row["apellidos"].ToString(),
-                    nombreComercial = row["nombrecomercial"].ToString()
+                    nombreComercial = row["nombrecomercial"].ToString(),
+                    nextNumFac = Convert.ToInt32(row["nextnumfac"])
                 };
 
                 Program.appDAM.emisor = emisorSeleccionado;

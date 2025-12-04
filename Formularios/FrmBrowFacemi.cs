@@ -14,22 +14,31 @@ namespace FacturacionDAM.Formularios
 {
     public partial class FrmBrowFacemi : Form
     {
-        private Tabla _tablaClientes;
-        private BindingSource _bsClientes;
+        private Tabla _tablaClientes;                   // Tabla de clientes
+        private BindingSource _bsClientes;              // BindingSource de clientes
+        private Tabla _tablaFacturas;                   // Tabla de facturas emitidas
+        private BindingSource _bsFacturas;              // BindingSource de facturas emitidas
+        private YearManager _year;                      // Gestor de años
+        private int _idClienteSeleccionado = -1;        // Id del cliente seleccionado
 
-        private Tabla _tablaFacturas;
-        private BindingSource _bsFacturas;
-
-        private YearManager _year;
-
-        private int _idClienteSeleccionado = -1;
-
+        #region Constructores
+        /// <summary>
+        /// Constructor generico
+        /// </summary>
         public FrmBrowFacemi()
         {
             InitializeComponent();
             _year = new YearManager(DateTime.Now.Year, 2000, DateTime.Now.Year + 1);
         }
+        #endregion
 
+        #region Eventos del Formulario
+
+        /// <summary>
+        /// Metodo Load del formulario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmBrowFacemi_Load(object sender, EventArgs e)
         {
             if (!CargarClientes())
@@ -92,19 +101,26 @@ namespace FacturacionDAM.Formularios
             ConfiguracionVentana.Restaurar(this, "BrowFacemi");
         }
 
-        private void btnFirst_Click(object sender, EventArgs e) => _bsFacturas.MoveFirst();
+        /// <summary>
+        /// Evento al cambiar la seleccion del cliente en el datagrid.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgClientes_SelectionChanged(object sender, EventArgs e)
+        {
+            CargarFacturasClienteYAnho(_year.CurrentYear);
+        }
 
-        private void btnPrev_Click(object sender, EventArgs e) => _bsFacturas.MovePrevious();
+        #endregion
 
-        private void btnNext_Click(object sender, EventArgs e) => _bsFacturas.MoveNext();
-
-        private void btnLast_Click(object sender, EventArgs e) => _bsFacturas.MoveLast();
-
+        #region Botones y Controles
         private void btnNew_Click(object sender, EventArgs e)
         {
             _bsFacturas.AddNew();
             FrmFacemi frm = new FrmFacemi(_bsFacturas, _tablaFacturas, Program.appDAM.emisor.id,
                 _idClienteSeleccionado, _year.CurrentYear);
+
+            frm.Text = "Nueva Factura Emitida";
 
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
@@ -127,6 +143,8 @@ namespace FacturacionDAM.Formularios
                 FrmFacemi frm = new FrmFacemi(_bsFacturas, _tablaFacturas, Program.appDAM.emisor.id,
                     _idClienteSeleccionado, _year.CurrentYear, idFactura);
 
+                frm.Text = "Editar Factura Emitida";
+
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _tablaFacturas.Refrescar();
@@ -135,17 +153,17 @@ namespace FacturacionDAM.Formularios
             }
         }
 
-        /// <summary>
-        /// Evento al cambiar la seleccion del cliente en el datagrid.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dgClientes_SelectionChanged(object sender, EventArgs e)
-        {
-            CargarFacturasClienteYAnho(_year.CurrentYear);
-        }
+        private void btnFirst_Click(object sender, EventArgs e) => _bsFacturas.MoveFirst();
 
-        /************* METODOS PRIVADOS *************/
+        private void btnPrev_Click(object sender, EventArgs e) => _bsFacturas.MovePrevious();
+
+        private void btnNext_Click(object sender, EventArgs e) => _bsFacturas.MoveNext();
+
+        private void btnLast_Click(object sender, EventArgs e) => _bsFacturas.MoveLast();
+
+        #endregion
+
+        #region Metodos Privados
 
         /// <summary>
         /// Metodo para cargar los clientes en el datagrid.
@@ -197,9 +215,12 @@ namespace FacturacionDAM.Formularios
 
             _idClienteSeleccionado = Convert.ToInt32(cli["id"]);
 
-            String mSql = $@"SELECT *
+            String mSql = $@"SELECT id, idemisor, idcliente, idconceptofac, numero, fecha,
+                                    descripcion, base, cuota, total, retencion, pagada, tiporet,
+                                    aplicaret, notas
                             FROM facemi
                             WHERE idcliente = {_idClienteSeleccionado}
+                            AND idemisor = {Program.appDAM.emisor.id}
                             AND YEAR(fecha) = {aAnho}
                             ORDER BY fecha DESC";
             _tablaFacturas = new Tabla(Program.appDAM.LaConexion);
@@ -223,7 +244,7 @@ namespace FacturacionDAM.Formularios
                     dgFacemi.Columns["numero"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgFacemi.Columns["numero"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgFacemi.Columns["fecha"].HeaderText = "Fecha";
-                    dgFacemi.Columns["fecha"].Width = 125;
+                    dgFacemi.Columns["fecha"].Width = 110;
                     dgFacemi.Columns["fecha"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgFacemi.Columns["fecha"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgFacemi.Columns["descripcion"].HeaderText = "Descripción";
@@ -300,5 +321,6 @@ namespace FacturacionDAM.Formularios
                 ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName, "Facturas Emitidas");
         }
 
+        #endregion
     }
 }
