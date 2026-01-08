@@ -128,6 +128,7 @@
             btnCancelar.TabIndex = 1;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnAceptar
             // 
@@ -140,6 +141,7 @@
             btnAceptar.TabIndex = 0;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = true;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // tbControl
             // 
@@ -249,6 +251,7 @@
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(23, 22);
             btnNew.Text = "Nuevo Emisor";
+            btnNew.Click += btnNew_Click;
             // 
             // btnEdit
             // 
@@ -258,6 +261,7 @@
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(23, 22);
             btnEdit.Text = "Editar Emisor";
+            btnEdit.Click += btnEdit_Click;
             // 
             // tsSeparador1
             // 
@@ -273,6 +277,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(23, 22);
             btnDelete.Text = "Borrar Emisor";
+            btnDelete.Click += btnDelete_Click;
             // 
             // tsSeparador2
             // 
@@ -288,6 +293,7 @@
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(23, 22);
             btnFirst.Text = "Primer Emisor";
+            btnFirst.Click += btnFirst_Click;
             // 
             // btnPrev
             // 
@@ -297,6 +303,7 @@
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(23, 22);
             btnPrev.Text = "Emisor anterior";
+            btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
             // 
@@ -306,6 +313,7 @@
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(23, 22);
             btnNext.Text = "Emisor siguiente";
+            btnNext.Click += btnNext_Click;
             // 
             // btnLast
             // 
@@ -315,6 +323,7 @@
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(23, 22);
             btnLast.Text = "Último Emisor";
+            btnLast.Click += btnLast_Click;
             // 
             // toolStripSeparator1
             // 
@@ -330,6 +339,7 @@
             btnExportCSV.Size = new Size(23, 22);
             btnExportCSV.Text = "btnExportCSV";
             btnExportCSV.ToolTipText = "Exportar a CSV";
+            btnExportCSV.Click += btnExportCSV_Click;
             // 
             // btnExportXML
             // 
@@ -340,6 +350,7 @@
             btnExportXML.Size = new Size(23, 22);
             btnExportXML.Text = "btnExportXML";
             btnExportXML.ToolTipText = "Exportar a XML";
+            btnExportXML.Click += btnExportXML_Click;
             // 
             // pnFacemi
             // 
@@ -705,6 +716,7 @@
             Controls.Add(pnButtons);
             Name = "FrmFacemi";
             Text = "Factura Emitida";
+            FormClosing += FrmFacemi_FormClosing;
             Load += FrmFacemi_Load;
             pnButtons.ResumeLayout(false);
             tbControl.ResumeLayout(false);

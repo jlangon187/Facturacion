@@ -1,10 +1,13 @@
 ﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,11 +22,12 @@ namespace FacturacionDAM.Formularios
         private Tabla _tablaLineasFacturas;
         private Tabla _tablaConceptos;
 
-        private int _idFactura = -1;
+
         private int _idEmisor = -1;
         private int _idCliente = -1;
         private int _anhoFactura = -1;
 
+        public int idFactura = -1;
         public bool modoEdicion = false;
 
         #region Constructores
@@ -52,7 +56,7 @@ namespace FacturacionDAM.Formularios
             _idEmisor = aIdEmisor;
             _idCliente = aIdCliente;
             _anhoFactura = aYear;
-            _idFactura = aIdFactura;
+            idFactura = aIdFactura;
 
             modoEdicion = (aIdFactura != -1);
 
@@ -93,9 +97,215 @@ namespace FacturacionDAM.Formularios
                 MessageBox.Show("Error al inicializar la factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Evento del formulario cuando se cierra.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmFacemi_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Si se cierra sin aceptar (DialogResult.OK), cancelamos la edicion.
+            if ((this.DialogResult != DialogResult.OK) && _bsFactura != null)
+                _bsFactura.CancelEdit();
+        }
+        #endregion
+
+        #region Botones
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (GuardarFactura())
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void tsBtnNew_Click(object sender, EventArgs e)
+        {
+            bool mCrearNuevaLinea = false;
+            if (!modoEdicion)
+            {
+                if (MessageBox.Show(
+                            "No ha guardado la nueva factura.\n" +
+                            "¿Guardar la nueva factura antes crear la línea de facturación?",
+                            "Confirmación", MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes)
+
+                    mCrearNuevaLinea = GuardarFactura();
+            }
+            else
+                mCrearNuevaLinea = true;
+
+            if (mCrearNuevaLinea)
+            {
+                _bsLineasFacturas.AddNew();
+
+                FrmLineaFacemi frm = new FrmLineaFacemi(_bsLineasFacturas, _tablaLineasFacturas, idFactura);
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    _tablaLineasFacturas.Refrescar();
+                    ActualizarEstado();
+                    RecalcularTotales();
+                }
+                else
+                    _bsLineasFacturas.CancelEdit();
+            }
+        }
+
+        private void tsBtnEdit_Click(object sender, EventArgs e)
+        {
+            if (_bsLineasFacturas.Current is DataRowView)
+            {
+                FrmLineaFacemi frm = new FrmLineaFacemi(_bsLineasFacturas, _tablaLineasFacturas, idFactura, true);
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    _tablaLineasFacturas.Refrescar();
+                    ActualizarEstado();
+                    RecalcularTotales();
+                }
+            }
+        }
+
+        private void tsBtnDelete_Click(object sender, EventArgs e)
+        {
+            if (!(_bsLineasFacturas.Current is DataRowView)) return;
+
+            if (MessageBox.Show("¿Eliminar la línea de factura seleccionada?",
+                "Confirmar", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            _bsLineasFacturas.RemoveCurrent();
+            _tablaLineasFacturas.GuardarDatos();
+
+            ActualizarEstado();
+            RecalcularTotales();
+        }
+
+
+        private void btnFirst_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveFirst();
+        private void btnPrev_Click(object sender, EventArgs e) => _bsLineasFacturas.MovePrevious();
+        private void btnNext_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveNext();
+        private void btnLast_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveLast();
+
+        /// <summary>
+        /// Metodo para exportar los datos de las facturas a CSV.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExportCSV_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                ExportarDatos.ExportarCSV((DataTable)_bsLineasFacturas.DataSource, saveFileDialog.FileName);
+        }
+
+        /// <summary>
+        /// Metodo para exportar los datos de las facturas a XML.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExportXML_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XML files (*.xml)|*.xml";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                ExportarDatos.ExportarXML((DataTable)_bsLineasFacturas.DataSource, saveFileDialog.FileName, "Líneas de Facuras Emitidas");
+        }
+
         #endregion
 
         #region Metodos Personales
+
+        /// <summary>
+        /// Guardar factura
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private bool GuardarFactura()
+        {
+            try
+            {
+                if (!ValidarDatos())
+                    return false;
+                else
+                {
+                    ForzarValoresNoNulos();
+                    _bsFactura.EndEdit();
+                    _tablaFactura.GuardarDatos();
+
+                    if (!modoEdicion)
+                    {
+                        using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion))
+                        {
+                            object res = cmd.ExecuteScalar();
+                            idFactura = Convert.ToInt32(res);
+                        }
+                        ActulizarNumeracionEmisor();
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Guardar una factura", ex.Message);
+                MessageBox.Show("Se ha producido un error al guardar la factura.",
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Actualizamos el siguiente numero de factura (nextnumfac) del emisor actual.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ActulizarNumeracionEmisor()
+        {
+            string mSql = "UPDATE emisores SET nextnumfac + 1 WHERE id=@id";
+            _tablaFactura.EjecutarComando(mSql, new() { { "@id", Program.appDAM.emisor.id } });
+            Program.appDAM.emisor.nextNumFac++;
+        }
+
+        /// <summary>
+        /// Me aseguro que no envia valores nulos a la base de datos para los siguientes campos
+        /// </summary>
+        private void ForzarValoresNoNulos()
+        {
+            if (_bsFactura.Current is DataRowView row)
+            {
+                // Tipo de retencion nunca puede ser nulo
+                if (row["tiporet"] == DBNull.Value)
+                    row["tiporet"] = tipoRetencion.Value;
+
+                // Pagada y AplicaRet nunca puede ser nulo
+                if (row["pagada"] == DBNull.Value)
+                    row["pagada"] = chkPagada.Checked ? 1 : 0;
+
+                if (row["aplicaret"] == DBNull.Value)
+                    row["aplicaret"] = chkRetencion.Checked ? 1 : 0;
+            }
+        }
+
+        private bool ValidarDatos()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Metodo para actualizar el estado del statusbar
+        /// </summary>
+        private void ActualizarEstado()
+        {
+            tsStatusLabel.Text = $"Nº de Registros: {_bsLineasFacturas.Count}";   // Actualiza la barra de estado
+        }
 
         /// <summary>
         /// Creamos e inicializamos los objetos necesarios para la gestion de la factura.
@@ -221,7 +431,7 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void CargarLineasFacturaExistente()
         {
-            string eSql = $"SELECT * FROM facemilin WHERE idfacemi = {_idFactura}";
+            string eSql = $"SELECT * FROM facemilin WHERE idfacemi = {idFactura}";
             if (_tablaLineasFacturas.InicializarDatos(eSql))
                 _bsLineasFacturas.DataSource = _tablaLineasFacturas.LaTabla;
         }

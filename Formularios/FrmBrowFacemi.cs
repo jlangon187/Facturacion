@@ -1,5 +1,6 @@
 ﻿using FacturacionDAM.Modelos;
 using FacturacionDAM.Utils;
+using Mysqlx.Resultset;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -114,9 +115,19 @@ namespace FacturacionDAM.Formularios
         #endregion
 
         #region Botones y Controles
+
+        /// <summary>
+        /// Evento click del boton de nueva factura.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNew_Click(object sender, EventArgs e)
         {
+            if (_bsFacturas == null) return;
             _bsFacturas.AddNew();
+
+            int nuevoIdFactura = -1;
+
             FrmFacemi frm = new FrmFacemi(_bsFacturas, _tablaFacturas, Program.appDAM.emisor.id,
                 _idClienteSeleccionado, _year.CurrentYear);
 
@@ -124,15 +135,25 @@ namespace FacturacionDAM.Formularios
 
             if (frm.ShowDialog(this) == DialogResult.OK)
             {
+                nuevoIdFactura = frm.idFactura;
                 _tablaFacturas.Refrescar();
-                CargarFacturasClienteYAnho(_year.CurrentYear);
             }
-            else
+
+            CargarFacturasClienteYAnho(_year.CurrentYear);
+
+            if (nuevoIdFactura != -1)
             {
-                _bsFacturas.CancelEdit();
+                int idx = _bsFacturas.Find("id", nuevoIdFactura);
+                if (idx >= 0)
+                    _bsFacturas.Position = idx;
             }
         }
 
+        /// <summary>
+        /// Evento click del boton de editar factura.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (!(_bsFacturas.Current is DataRowView))
@@ -148,9 +169,37 @@ namespace FacturacionDAM.Formularios
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _tablaFacturas.Refrescar();
-                    CargarFacturasClienteYAnho(_year.CurrentYear);
                 }
+
+                CargarFacturasClienteYAnho(_year.CurrentYear);
+
+                int idx = _bsFacturas.Find("id", idFactura);
+                if (idx >= 0)
+                    _bsFacturas.Position = idx;
             }
+        }
+
+        /// <summary>
+        /// Evento click del boton de borrar factura.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!(_bsFacturas.Current is DataRowView row)) return;
+
+            if (MessageBox.Show("¿Eliminar la factura seleccionada?\nSe eliminarám también las liíneas de factura",
+                        "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                return;
+
+            int idFactura = Convert.ToInt32(row["id"]);
+
+            // Borramos las líneas de la factura
+            Tabla tFac = new Tabla(Program.appDAM.LaConexion);
+            tFac.EjecutarComando("DELETE FROM facemi WHERE id = @id", new() { { "@id", idFactura } });
+
+            // Refrescamos el DataGridView
+            CargarFacturasClienteYAnho(_year.CurrentYear);
         }
 
         private void btnFirst_Click(object sender, EventArgs e) => _bsFacturas.MoveFirst();
@@ -161,9 +210,35 @@ namespace FacturacionDAM.Formularios
 
         private void btnLast_Click(object sender, EventArgs e) => _bsFacturas.MoveLast();
 
+        /// <summary>
+        /// Metodo para exportar los datos de las facturas a CSV.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExportCSV_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                ExportarDatos.ExportarCSV((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName);
+        }
+
+        /// <summary>
+        /// Metodo para exportar los datos de las facturas a XML.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExportXML_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XML files (*.xml)|*.xml";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName, "Facturas Emitidas");
+        }
+
         #endregion
 
-        #region Metodos Privados
+        #region Metodos Personales
 
         /// <summary>
         /// Metodo para cargar los clientes en el datagrid.
@@ -294,33 +369,6 @@ namespace FacturacionDAM.Formularios
                 }
             }
         }
-
-        /// <summary>
-        /// Metodo para exportar los datos de las facturas a CSV.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnExportCSV_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                ExportarDatos.ExportarCSV((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName);
-        }
-
-        /// <summary>
-        /// Metodo para exportar los datos de las facturas a XML.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnExportXML_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "XML files (*.xml)|*.xml";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName, "Facturas Emitidas");
-        }
-
         #endregion
     }
 }

@@ -250,6 +250,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(23, 22);
             btnDelete.Text = "Borrar Factura";
+            btnDelete.Click += btnDelete_Click;
             // 
             // tsSeparador2
             // 
