@@ -131,7 +131,7 @@ namespace FacturacionDAM.Formularios
             }
 
             // Relación con la factura
-            row["idfactura"] = _idFactura;
+            row["idfacemi"] = _idFactura;
 
             // Bindings principales
             cbProducto.DataBindings.Add("SelectedValue", _bs, "idproducto", true, DataSourceUpdateMode.OnPropertyChanged, DBNull.Value);
@@ -172,7 +172,7 @@ namespace FacturacionDAM.Formularios
             _tablaProductos = new Tabla(Program.appDAM.LaConexion);
             // Sentencia SQL para obtener los productos
             string mSql = @"SELECT p.id, p.descripcion, p.preciounidad, p.activo as producto_activo,
-                            t.porcentaje as iva_porcentaje, t.activo as iva_activo from producto p
+                            t.porcentaje as iva_porcentaje, t.activo as iva_activo from productos p
                             LEFT JOIN tiposiva t ON t.id = p.idtipoiva ORDER BY p.descripcion";
 
             if (!_tablaProductos.InicializarDatos(mSql))

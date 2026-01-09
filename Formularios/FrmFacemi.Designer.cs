@@ -1,4 +1,5 @@
-﻿namespace FacturacionDAM.Formularios
+﻿
+namespace FacturacionDAM.Formularios
 {
     partial class FrmFacemi
     {
@@ -250,7 +251,7 @@
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(23, 22);
-            btnNew.Text = "Nuevo Emisor";
+            btnNew.Text = "Nueva Línea";
             btnNew.Click += btnNew_Click;
             // 
             // btnEdit
@@ -260,7 +261,7 @@
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(23, 22);
-            btnEdit.Text = "Editar Emisor";
+            btnEdit.Text = "Editar Línea";
             btnEdit.Click += btnEdit_Click;
             // 
             // tsSeparador1
@@ -276,7 +277,7 @@
             btnDelete.ImageTransparentColor = Color.Magenta;
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(23, 22);
-            btnDelete.Text = "Borrar Emisor";
+            btnDelete.Text = "Borrar Línea";
             btnDelete.Click += btnDelete_Click;
             // 
             // tsSeparador2

@@ -105,13 +105,26 @@ namespace FacturacionDAM.Formularios
         /// <param name="e"></param>
         private void FrmFacemi_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Si se cierra sin aceptar (DialogResult.OK), cancelamos la edicion.
-            if ((this.DialogResult != DialogResult.OK) && _bsFactura != null)
-                _bsFactura.CancelEdit();
+            if (this.DialogResult == DialogResult.OK ||
+                this.DialogResult == DialogResult.Cancel)
+                return;
+
+            DialogResult res = MessageBox.Show(
+            "Hay cambios sin guardar.\n¿Desea salir sin guardar?",
+            "Confirmación",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+
+            if (res == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
         }
         #endregion
 
         #region Botones
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (GuardarFactura())
@@ -120,14 +133,12 @@ namespace FacturacionDAM.Formularios
                 this.Close();
             }
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
-        private void tsBtnNew_Click(object sender, EventArgs e)
+        private void btnNew_Click(object sender, EventArgs e)
         {
             bool mCrearNuevaLinea = false;
             if (!modoEdicion)
@@ -158,8 +169,7 @@ namespace FacturacionDAM.Formularios
                     _bsLineasFacturas.CancelEdit();
             }
         }
-
-        private void tsBtnEdit_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
             if (_bsLineasFacturas.Current is DataRowView)
             {
@@ -172,8 +182,7 @@ namespace FacturacionDAM.Formularios
                 }
             }
         }
-
-        private void tsBtnDelete_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!(_bsLineasFacturas.Current is DataRowView)) return;
 
@@ -187,13 +196,10 @@ namespace FacturacionDAM.Formularios
             ActualizarEstado();
             RecalcularTotales();
         }
-
-
         private void btnFirst_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveFirst();
         private void btnPrev_Click(object sender, EventArgs e) => _bsLineasFacturas.MovePrevious();
         private void btnNext_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveNext();
         private void btnLast_Click(object sender, EventArgs e) => _bsLineasFacturas.MoveLast();
-
         /// <summary>
         /// Metodo para exportar los datos de las facturas a CSV.
         /// </summary>
@@ -206,7 +212,6 @@ namespace FacturacionDAM.Formularios
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 ExportarDatos.ExportarCSV((DataTable)_bsLineasFacturas.DataSource, saveFileDialog.FileName);
         }
-
         /// <summary>
         /// Metodo para exportar los datos de las facturas a XML.
         /// </summary>
