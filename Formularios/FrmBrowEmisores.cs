@@ -187,6 +187,8 @@ namespace FacturacionDAM.Formularios
 
             // Estilo de los encabezados de las columnas
             dgTabla.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+            dgTabla.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+            dgTabla.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgTabla.ColumnHeadersDefaultCellStyle.ForeColor;
             dgTabla.EnableHeadersVisualStyles = false;
 
             // Tamaño de las letras de los encabezados de las columnas
@@ -195,6 +197,10 @@ namespace FacturacionDAM.Formularios
             // Aumentar altura del encabezado
             dgTabla.ColumnHeadersHeight = 40;
             dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgTabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dgTabla.RowHeadersVisible = false;
+            dgTabla.AllowUserToResizeRows = false;
         }
 
         /// <summary>

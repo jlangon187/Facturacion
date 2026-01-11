@@ -48,17 +48,14 @@ namespace FacturacionDAM.Formularios
                 return;
             }
 
-            // Ajustamos los años disponibles en el combo
-            tsCbYear.Items.Clear();
-            tsCbYear.Items.AddRange(
-                _year.GetYearList().Select(y => y.ToString()).ToArray()
-            );
+            CargarAnhosDisponibles();
 
-            int anho = Properties.Settings.Default.UltimoAnhoSeleccionado;
-            if (anho > 0)
-                _year.CurrentYear = anho;
-
-            tsCbYear.SelectedItem = _year.CurrentYear.ToString();
+            int anhoGuardado = Properties.Settings.Default.UltimoAnhoSeleccionado;
+            if (anhoGuardado > 0 && tsCbYear.Items.Contains(anhoGuardado.ToString()))
+            {
+                tsCbYear.SelectedItem = anhoGuardado.ToString();
+                _year.CurrentYear = anhoGuardado;
+            }
 
             CargarFacturasClienteYAnho(_year.CurrentYear);
         }
@@ -137,6 +134,7 @@ namespace FacturacionDAM.Formularios
             {
                 nuevoIdFactura = frm.idFactura;
                 _tablaFacturas.Refrescar();
+                CargarAnhosDisponibles();
             }
 
             CargarFacturasClienteYAnho(_year.CurrentYear);
@@ -156,7 +154,7 @@ namespace FacturacionDAM.Formularios
         /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (!(_bsFacturas.Current is DataRowView))
+            if (!(_bsFacturas.Current is DataRowView)) return;
             {
                 DataRowView row = (DataRowView)_bsFacturas.Current;
                 int idFactura = Convert.ToInt32(row["id"]);
@@ -169,6 +167,7 @@ namespace FacturacionDAM.Formularios
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     _tablaFacturas.Refrescar();
+                    CargarAnhosDisponibles();
                 }
 
                 CargarFacturasClienteYAnho(_year.CurrentYear);
@@ -188,18 +187,26 @@ namespace FacturacionDAM.Formularios
         {
             if (!(_bsFacturas.Current is DataRowView row)) return;
 
-            if (MessageBox.Show("¿Eliminar la factura seleccionada?\nSe eliminarám también las liíneas de factura",
-                        "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("¿Eliminar la factura seleccionada?\nSe eliminarán también las líneas de factura",
+                    "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
                 return;
+            }
 
-            int idFactura = Convert.ToInt32(row["id"]);
+            try
+            {
+                int idFactura = Convert.ToInt32(row["id"]);
 
-            // Borramos las líneas de la factura
-            Tabla tFac = new Tabla(Program.appDAM.LaConexion);
-            tFac.EjecutarComando("DELETE FROM facemi WHERE id = @id", new() { { "@id", idFactura } });
+                Tabla tFac = new Tabla(Program.appDAM.LaConexion);
 
-            // Refrescamos el DataGridView
-            CargarFacturasClienteYAnho(_year.CurrentYear);
+                tFac.EjecutarComando("DELETE FROM facemi WHERE id = @id", new() { { "@id", idFactura } });
+
+                CargarFacturasClienteYAnho(_year.CurrentYear);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al borrar: " + ex.Message);
+            }
         }
 
         private void btnFirst_Click(object sender, EventArgs e) => _bsFacturas.MoveFirst();
@@ -263,6 +270,22 @@ namespace FacturacionDAM.Formularios
                     dgClientes.Columns["nombrecomercial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dgClientes.MultiSelect = false;
 
+                    dgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                    dgClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+                    dgClientes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(185, 218, 247);
+                    dgClientes.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+                    dgClientes.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgClientes.ColumnHeadersDefaultCellStyle.ForeColor;
+                    dgClientes.EnableHeadersVisualStyles = false;
+
+                    dgClientes.ColumnHeadersDefaultCellStyle.Font = new Font(dgClientes.Font.FontFamily, 10, FontStyle.Bold);
+
+                    dgClientes.ColumnHeadersHeight = 40;
+                    dgClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+                    dgClientes.RowHeadersVisible = false;
+                    dgClientes.AllowUserToResizeRows = false;
+
                     return true;
                 }
                 catch (Exception ex)
@@ -284,6 +307,9 @@ namespace FacturacionDAM.Formularios
             {
                 dgFacemi.DataSource = null;
                 tsStatusLabel.Text = "Facturas: 0";
+                tsLbBaseTotal.Text = "Base Total: 0.00 €";
+                tsLbTotalIVA.Text = "Total IVA: 0.00 €";
+                tsLbTotalFacturas.Text = "Total Facturas: 0.00 €";
                 lbHeadFacemi.Text = "FACTURAS";
                 return;
             }
@@ -297,7 +323,7 @@ namespace FacturacionDAM.Formularios
                             WHERE idcliente = {_idClienteSeleccionado}
                             AND idemisor = {Program.appDAM.emisor.id}
                             AND YEAR(fecha) = {aAnho}
-                            ORDER BY fecha DESC";
+                            ORDER BY fecha DESC, id DESC";
             _tablaFacturas = new Tabla(Program.appDAM.LaConexion);
             if (_tablaFacturas.InicializarDatos(mSql))
             {
@@ -353,10 +379,35 @@ namespace FacturacionDAM.Formularios
                     dgFacemi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dgFacemi.MultiSelect = false;
 
+                    dgFacemi.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+                    dgFacemi.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(185, 218, 247);
+                    dgFacemi.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+                    dgFacemi.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgFacemi.ColumnHeadersDefaultCellStyle.ForeColor;
+                    dgFacemi.EnableHeadersVisualStyles = false;
+                    dgFacemi.ColumnHeadersDefaultCellStyle.Font = new Font(dgFacemi.Font.FontFamily, 10, FontStyle.Bold);
+                    dgFacemi.ColumnHeadersHeight = 40;
+                    dgFacemi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+                    dgFacemi.RowHeadersVisible = false;
+                    dgFacemi.AllowUserToResizeRows = false;
+
                     String nombreCliente = cli["nombrecomercial"].ToString();
 
                     lbHeadFacemi.Text = $"Facturas de {nombreCliente}, en el año {_year.CurrentYear}";
                     tsStatusLabel.Text = $"Facturas: {_bsFacturas.Count}";
+                    // Cálculo de totales
+                    decimal baseTotal = 0;
+                    decimal totalIVA = 0;
+                    decimal totalFacturas = 0;
+                    foreach (DataRow fila in _tablaFacturas.LaTabla.Rows)
+                    {
+                        baseTotal += Convert.ToDecimal(fila["base"]);
+                        totalIVA += Convert.ToDecimal(fila["cuota"]);
+                        totalFacturas += Convert.ToDecimal(fila["total"]);
+                    }
+                    tsLbBaseTotal.Text = $"Base Total: {baseTotal:N2} €";
+                    tsLbTotalIVA.Text = $"Total IVA: {totalIVA:N2} €";
+                    tsLbTotalFacturas.Text = $"Total Facturas: {totalFacturas:N2} €";
                 }
                 catch (Exception ex)
                 {
@@ -369,6 +420,52 @@ namespace FacturacionDAM.Formularios
                 }
             }
         }
+
+        /// <summary>
+        /// Recarga el ComboBox de años buscando en la base de datos.
+        /// Mantiene la selección actual si es posible.
+        /// </summary>
+        private void CargarAnhosDisponibles()
+        {
+            // 1. Guardamos la selección actual para intentar restaurarla luego
+            string seleccionPrevia = tsCbYear.SelectedItem != null ? tsCbYear.SelectedItem.ToString() : null;
+
+            tsCbYear.Items.Clear();
+
+            // 2. Consulta a la base de datos
+            string sqlYears = $@"SELECT DISTINCT YEAR(fecha) as anho 
+                         FROM facemi 
+                         WHERE idemisor = {Program.appDAM.emisor.id} 
+                         ORDER BY anho DESC";
+
+            Tabla tYears = new Tabla(Program.appDAM.LaConexion);
+
+            if (tYears.InicializarDatos(sqlYears) && tYears.LaTabla.Rows.Count > 0)
+            {
+                foreach (DataRow fila in tYears.LaTabla.Rows)
+                {
+                    tsCbYear.Items.Add(fila["anho"].ToString());
+                }
+            }
+            else
+            {
+                // Si no hay facturas, ponemos el año actual
+                tsCbYear.Items.Add(DateTime.Now.Year.ToString());
+            }
+
+            // 3. Restaurar la selección
+            if (seleccionPrevia != null && tsCbYear.Items.Contains(seleccionPrevia))
+            {
+                tsCbYear.SelectedItem = seleccionPrevia;
+            }
+            else if (tsCbYear.Items.Count > 0)
+            {
+                // Si la selección previa ya no existe o es nula, seleccionamos el primero
+                tsCbYear.SelectedIndex = 0;
+                _year.CurrentYear = int.Parse(tsCbYear.SelectedItem.ToString());
+            }
+        }
+
         #endregion
     }
 }

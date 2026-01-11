@@ -169,10 +169,15 @@ namespace FacturacionDAM.Formularios
 
             // Estilo de encabezados
             dgTabla.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+            dgTabla.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(185, 218, 247);
+            dgTabla.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgTabla.ColumnHeadersDefaultCellStyle.ForeColor;
             dgTabla.EnableHeadersVisualStyles = false;
             dgTabla.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font(dgTabla.Font.FontFamily, 10, FontStyle.Bold);
             dgTabla.ColumnHeadersHeight = 40;
             dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgTabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgTabla.RowHeadersVisible = false;
+            dgTabla.AllowUserToResizeRows = false;
         }
 
         private void btnExportCSV_Click(object sender, EventArgs e)

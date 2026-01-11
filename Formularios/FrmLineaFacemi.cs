@@ -40,9 +40,9 @@ namespace FacturacionDAM.Formularios
         {
             CargarProductos();
             PrepararBindings();
-
             SeleccionarProductoSinEdicion();
             IniLineaFactura();
+            ConfigurarEventosCambio();
             RecalcularLinea();
         }
         #endregion
@@ -79,42 +79,61 @@ namespace FacturacionDAM.Formularios
         #region Métodos propios
 
         /// <summary>
+        /// Metodo para configurar los eventos de cambio en los controles
+        /// </summary>
+        private void ConfigurarEventosCambio()
+        {
+            // Cada vez que cambie el valor de estos controles, se llamará a RecalcularLinea
+            numCantidad.ValueChanged += (s, e) => RecalcularLinea();
+            numPrecio.ValueChanged += (s, e) => RecalcularLinea();
+            numTipoIva.ValueChanged += (s, e) => RecalcularLinea();
+        }
+
+        /// <summary>
         /// Metodo para inicializar la línea de factura para que tenga valores por defecto
         /// </summary>
         private void IniLineaFactura()
         {
-            if (!(_bs.Current is DataRowView row))
-                return;
+            if (!(_bs.Current is DataRowView row)) return;
 
-            // Limpiamos las etiquetas de totales
-            lbBase.Text = "";
-            lbCuota.Text = "";
-            lbTotal.Text = "";
+            row["idfacemi"] = _idFactura;
 
-            // Nos aseguramos de que los campos tengan valores por defecto
-            if (row["idfactura"] != DBNull.Value) row["idfactura"] = _idFactura;
             if (row["cantidad"] == DBNull.Value) row["cantidad"] = 1.00m;
             if (row["precio"] == DBNull.Value) row["precio"] = 0.00m;
             if (row["base"] == DBNull.Value) row["base"] = 0.00m;
             if (row["cuota"] == DBNull.Value) row["cuota"] = 0.00m;
             if (row["descripcion"] == DBNull.Value) row["descripcion"] = "";
             if (row["tipoiva"] == DBNull.Value) row["tipoiva"] = 0.00m;
+
+            lbBase.Text = "";
+            lbCuota.Text = "";
+            lbTotal.Text = "";
         }
 
         /// <summary>
         /// Si estamos en modo edición, selecciona el producto correspondiente en el combo
         /// </summary>
+        /// <summary>
+        /// Fuerza la selección del producto en el ComboBox comparando los IDs como texto.
+        /// </summary>
         private void SeleccionarProductoSinEdicion()
         {
-            if (!_modoEdicion)
-                return;
-            if (!(_bs.Current is DataRowView row))
-                return;
-            if (row["idproducto"] == DBNull.Value)
-                return;
+            if (!_modoEdicion) return;
+            if (!(_bs.Current is DataRowView row)) return;
+            if (row["idproducto"] == DBNull.Value) return;
 
-            int idProducto = Convert.ToInt32(row["idproducto"]);
-            cbProducto.SelectedIndex = idProducto;
+            string idBuscado = row["idproducto"].ToString();
+
+            for (int i = 0; i < cbProducto.Items.Count; i++)
+            {
+                DataRowView item = (DataRowView)cbProducto.Items[i];
+
+                if (item["id"].ToString() == idBuscado)
+                {
+                    cbProducto.SelectedIndex = i;
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -139,6 +158,8 @@ namespace FacturacionDAM.Formularios
             numPrecio.DataBindings.Add("Value", _bs, "precio", true, DataSourceUpdateMode.OnPropertyChanged, 0m);
             numTipoIva.DataBindings.Add("Value", _bs, "tipoiva", true, DataSourceUpdateMode.OnPropertyChanged, 0m);
             numCantidad.DataBindings.Add("Value", _bs, "cantidad", true, DataSourceUpdateMode.OnPropertyChanged, 0m);
+
+
         }
 
         /// <summary>
@@ -146,8 +167,8 @@ namespace FacturacionDAM.Formularios
         /// </summary>
         private void RecalcularLinea()
         {
-            if (!(_bs.Current is DataRowView row))
-                return;
+            if (!(_bs.Current is DataRowView row)) return;
+
             decimal unidades = numCantidad.Value;
             decimal precio = numPrecio.Value;
             decimal tipoIva = numTipoIva.Value;
@@ -196,15 +217,25 @@ namespace FacturacionDAM.Formularios
         /// <exception cref="NotImplementedException"></exception>
         private void TrasladarDatosProducto()
         {
-            if (!(_bsProductos.Current is DataRowView row))
-                return;
+            if (!(_bsProductos.Current is DataRowView row)) return;
 
-            // Precio
+            numCantidad.Value = 1;
             numPrecio.Value = Convert.ToDecimal(row["preciounidad"]);
-            // Tipo IVA
             numTipoIva.Value = Convert.ToDecimal(row["iva_porcentaje"]);
-            // Descripción
             txtDescripcion.Text = row["descripcion"].ToString();
+
+            _bs.EndEdit();
+
+            if (_bs.Current is DataRowView rowLinea)
+            {
+                rowLinea["cantidad"] = numCantidad.Value;
+                rowLinea["precio"] = numPrecio.Value;
+                rowLinea["tipoiva"] = numTipoIva.Value;
+                rowLinea["descripcion"] = txtDescripcion.Text;
+                rowLinea["idproducto"] = row["id"];
+            }
+
+            RecalcularLinea();
         }
 
         /// <summary>

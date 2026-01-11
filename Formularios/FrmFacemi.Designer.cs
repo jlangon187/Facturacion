@@ -112,9 +112,9 @@ namespace FacturacionDAM.Formularios
             pnButtons.Controls.Add(btnCancelar);
             pnButtons.Controls.Add(btnAceptar);
             pnButtons.Dock = DockStyle.Bottom;
-            pnButtons.Location = new Point(0, 540);
+            pnButtons.Location = new Point(0, 795);
             pnButtons.Name = "pnButtons";
-            pnButtons.Size = new Size(843, 66);
+            pnButtons.Size = new Size(784, 66);
             pnButtons.TabIndex = 2;
             // 
             // btnCancelar
@@ -152,7 +152,7 @@ namespace FacturacionDAM.Formularios
             tbControl.Location = new Point(0, 0);
             tbControl.Name = "tbControl";
             tbControl.SelectedIndex = 0;
-            tbControl.Size = new Size(843, 540);
+            tbControl.Size = new Size(784, 795);
             tbControl.TabIndex = 3;
             // 
             // tabData
@@ -162,7 +162,7 @@ namespace FacturacionDAM.Formularios
             tabData.Location = new Point(4, 24);
             tabData.Name = "tabData";
             tabData.Padding = new Padding(3);
-            tabData.Size = new Size(835, 512);
+            tabData.Size = new Size(776, 767);
             tabData.TabIndex = 0;
             tabData.Text = "Datos";
             tabData.UseVisualStyleBackColor = true;
@@ -175,7 +175,7 @@ namespace FacturacionDAM.Formularios
             pnFacemiLin.Dock = DockStyle.Fill;
             pnFacemiLin.Location = new Point(3, 336);
             pnFacemiLin.Name = "pnFacemiLin";
-            pnFacemiLin.Size = new Size(829, 173);
+            pnFacemiLin.Size = new Size(770, 428);
             pnFacemiLin.TabIndex = 6;
             // 
             // pnData
@@ -184,7 +184,7 @@ namespace FacturacionDAM.Formularios
             pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 25);
             pnData.Name = "pnData";
-            pnData.Size = new Size(829, 126);
+            pnData.Size = new Size(770, 381);
             pnData.TabIndex = 3;
             // 
             // dgLineasFactura
@@ -196,16 +196,17 @@ namespace FacturacionDAM.Formularios
             dgLineasFactura.Location = new Point(0, 0);
             dgLineasFactura.Name = "dgLineasFactura";
             dgLineasFactura.ReadOnly = true;
-            dgLineasFactura.Size = new Size(829, 126);
+            dgLineasFactura.Size = new Size(770, 381);
             dgLineasFactura.TabIndex = 0;
+            dgLineasFactura.DoubleClick += btnEdit_Click;
             // 
             // pnStatus
             // 
             pnStatus.Controls.Add(StatusStrip);
             pnStatus.Dock = DockStyle.Bottom;
-            pnStatus.Location = new Point(0, 151);
+            pnStatus.Location = new Point(0, 406);
             pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(829, 22);
+            pnStatus.Size = new Size(770, 22);
             pnStatus.TabIndex = 2;
             // 
             // StatusStrip
@@ -214,7 +215,7 @@ namespace FacturacionDAM.Formularios
             StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
             StatusStrip.Location = new Point(0, 0);
             StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(829, 22);
+            StatusStrip.Size = new Size(770, 22);
             StatusStrip.TabIndex = 0;
             StatusStrip.Text = "statusStrip1";
             // 
@@ -230,7 +231,7 @@ namespace FacturacionDAM.Formularios
             pnTools.Dock = DockStyle.Top;
             pnTools.Location = new Point(0, 0);
             pnTools.Name = "pnTools";
-            pnTools.Size = new Size(829, 25);
+            pnTools.Size = new Size(770, 25);
             pnTools.TabIndex = 1;
             // 
             // tsHerramientas
@@ -240,7 +241,7 @@ namespace FacturacionDAM.Formularios
             tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
-            tsHerramientas.Size = new Size(829, 25);
+            tsHerramientas.Size = new Size(770, 25);
             tsHerramientas.TabIndex = 0;
             tsHerramientas.Text = "toolStrip1";
             // 
@@ -293,7 +294,7 @@ namespace FacturacionDAM.Formularios
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
             btnFirst.Size = new Size(23, 22);
-            btnFirst.Text = "Primer Emisor";
+            btnFirst.Text = "Primera Línea";
             btnFirst.Click += btnFirst_Click;
             // 
             // btnPrev
@@ -303,7 +304,7 @@ namespace FacturacionDAM.Formularios
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
             btnPrev.Size = new Size(23, 22);
-            btnPrev.Text = "Emisor anterior";
+            btnPrev.Text = "Línea anterior";
             btnPrev.Click += btnPrev_Click;
             // 
             // btnNext
@@ -313,7 +314,7 @@ namespace FacturacionDAM.Formularios
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(23, 22);
-            btnNext.Text = "Emisor siguiente";
+            btnNext.Text = "Línea siguiente";
             btnNext.Click += btnNext_Click;
             // 
             // btnLast
@@ -323,7 +324,7 @@ namespace FacturacionDAM.Formularios
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
             btnLast.Size = new Size(23, 22);
-            btnLast.Text = "Último Emisor";
+            btnLast.Text = "Última Línea";
             btnLast.Click += btnLast_Click;
             // 
             // toolStripSeparator1
@@ -361,7 +362,7 @@ namespace FacturacionDAM.Formularios
             pnFacemi.Dock = DockStyle.Top;
             pnFacemi.Location = new Point(3, 3);
             pnFacemi.Name = "pnFacemi";
-            pnFacemi.Size = new Size(829, 333);
+            pnFacemi.Size = new Size(770, 333);
             pnFacemi.TabIndex = 5;
             // 
             // gbTotales
@@ -378,13 +379,14 @@ namespace FacturacionDAM.Formularios
             gbTotales.Controls.Add(label9);
             gbTotales.Location = new Point(10, 256);
             gbTotales.Name = "gbTotales";
-            gbTotales.Size = new Size(808, 64);
+            gbTotales.Size = new Size(749, 64);
             gbTotales.TabIndex = 7;
             gbTotales.TabStop = false;
             gbTotales.Text = "Totales";
             // 
             // lbRetencion
             // 
+            lbRetencion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lbRetencion.AutoSize = true;
             lbRetencion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbRetencion.Location = new Point(656, 32);
@@ -395,6 +397,7 @@ namespace FacturacionDAM.Formularios
             // 
             // lbTotal
             // 
+            lbTotal.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lbTotal.AutoSize = true;
             lbTotal.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbTotal.Location = new Point(416, 32);
@@ -405,6 +408,7 @@ namespace FacturacionDAM.Formularios
             // 
             // lbCuota
             // 
+            lbCuota.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lbCuota.AutoSize = true;
             lbCuota.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbCuota.Location = new Point(232, 32);
@@ -425,6 +429,7 @@ namespace FacturacionDAM.Formularios
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label12.AutoSize = true;
             label12.Location = new Point(376, 32);
             label12.Name = "label12";
@@ -434,6 +439,7 @@ namespace FacturacionDAM.Formularios
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label11.AutoSize = true;
             label11.Location = new Point(592, 32);
             label11.Name = "label11";
@@ -443,6 +449,7 @@ namespace FacturacionDAM.Formularios
             // 
             // label10
             // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Location = new Point(192, 32);
             label10.Name = "label10";
@@ -472,7 +479,7 @@ namespace FacturacionDAM.Formularios
             gbEmisorCliente.Controls.Add(label1);
             gbEmisorCliente.Location = new Point(10, 8);
             gbEmisorCliente.Name = "gbEmisorCliente";
-            gbEmisorCliente.Size = new Size(808, 96);
+            gbEmisorCliente.Size = new Size(749, 96);
             gbEmisorCliente.TabIndex = 6;
             gbEmisorCliente.TabStop = false;
             gbEmisorCliente.Text = "Emisor y Cliente";
@@ -484,7 +491,7 @@ namespace FacturacionDAM.Formularios
             lbNombreCliente.ForeColor = Color.DarkGoldenrod;
             lbNombreCliente.Location = new Point(368, 64);
             lbNombreCliente.Name = "lbNombreCliente";
-            lbNombreCliente.Size = new Size(1008, 15);
+            lbNombreCliente.Size = new Size(949, 15);
             lbNombreCliente.TabIndex = 8;
             lbNombreCliente.Text = "Nombre Cliente";
             lbNombreCliente.TextAlign = ContentAlignment.MiddleLeft;
@@ -496,7 +503,7 @@ namespace FacturacionDAM.Formularios
             lbNombreEmisor.ForeColor = Color.RoyalBlue;
             lbNombreEmisor.Location = new Point(368, 32);
             lbNombreEmisor.Name = "lbNombreEmisor";
-            lbNombreEmisor.Size = new Size(1008, 15);
+            lbNombreEmisor.Size = new Size(949, 15);
             lbNombreEmisor.TabIndex = 7;
             lbNombreEmisor.Text = "Nombre Emisor";
             lbNombreEmisor.TextAlign = ContentAlignment.MiddleLeft;
@@ -576,7 +583,7 @@ namespace FacturacionDAM.Formularios
             gbFacemi.Controls.Add(txtNumero);
             gbFacemi.Location = new Point(10, 112);
             gbFacemi.Name = "gbFacemi";
-            gbFacemi.Size = new Size(808, 136);
+            gbFacemi.Size = new Size(749, 136);
             gbFacemi.TabIndex = 5;
             gbFacemi.TabStop = false;
             gbFacemi.Text = "Datos de la Factura";
@@ -670,7 +677,7 @@ namespace FacturacionDAM.Formularios
             cbConceptFac.FormattingEnabled = true;
             cbConceptFac.Location = new Point(424, 36);
             cbConceptFac.Name = "cbConceptFac";
-            cbConceptFac.Size = new Size(376, 23);
+            cbConceptFac.Size = new Size(317, 23);
             cbConceptFac.TabIndex = 7;
             // 
             // txtDescripcion
@@ -678,7 +685,7 @@ namespace FacturacionDAM.Formularios
             txtDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDescripcion.Location = new Point(88, 68);
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(712, 23);
+            txtDescripcion.Size = new Size(653, 23);
             txtDescripcion.TabIndex = 3;
             // 
             // txtNumero
@@ -694,7 +701,7 @@ namespace FacturacionDAM.Formularios
             tabNotas.Location = new Point(4, 24);
             tabNotas.Name = "tabNotas";
             tabNotas.Padding = new Padding(3);
-            tabNotas.Size = new Size(835, 512);
+            tabNotas.Size = new Size(776, 767);
             tabNotas.TabIndex = 1;
             tabNotas.Text = "Notas";
             tabNotas.UseVisualStyleBackColor = true;
@@ -704,7 +711,7 @@ namespace FacturacionDAM.Formularios
             txtNotas.Dock = DockStyle.Fill;
             txtNotas.Location = new Point(3, 3);
             txtNotas.Name = "txtNotas";
-            txtNotas.Size = new Size(829, 506);
+            txtNotas.Size = new Size(770, 761);
             txtNotas.TabIndex = 0;
             txtNotas.Text = "";
             // 
@@ -712,10 +719,12 @@ namespace FacturacionDAM.Formularios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(843, 606);
+            ClientSize = new Size(784, 861);
             Controls.Add(tbControl);
             Controls.Add(pnButtons);
+            MinimumSize = new Size(800, 800);
             Name = "FrmFacemi";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Factura Emitida";
             FormClosing += FrmFacemi_FormClosing;
             Load += FrmFacemi_Load;

@@ -31,6 +31,7 @@ namespace FacturacionDAM.Formularios
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBrowEmisores));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pnTools = new Panel();
             tsHerramientas = new ToolStrip();
             btnNew = new ToolStripButton();
@@ -225,6 +226,14 @@ namespace FacturacionDAM.Formularios
             // 
             dgTabla.AllowUserToAddRows = false;
             dgTabla.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgTabla.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgTabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgTabla.Dock = DockStyle.Fill;
             dgTabla.Location = new Point(0, 0);

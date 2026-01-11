@@ -40,6 +40,9 @@
             pnStatus = new Panel();
             StatusStrip = new StatusStrip();
             tsStatusLabel = new ToolStripStatusLabel();
+            tsLbBaseTotal = new ToolStripStatusLabel();
+            tsLbTotalIVA = new ToolStripStatusLabel();
+            tsLbTotalFacturas = new ToolStripStatusLabel();
             pnTools = new Panel();
             tsHerramientas = new ToolStrip();
             btnNew = new ToolStripButton();
@@ -86,8 +89,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(pnGridClientes);
-            splitContainer1.Size = new Size(943, 668);
-            splitContainer1.SplitterDistance = 293;
+            splitContainer1.Size = new Size(1325, 668);
+            splitContainer1.SplitterDistance = 411;
             splitContainer1.TabIndex = 0;
             // 
             // dgClientes
@@ -100,7 +103,7 @@
             dgClientes.Name = "dgClientes";
             dgClientes.ReadOnly = true;
             dgClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgClientes.Size = new Size(293, 633);
+            dgClientes.Size = new Size(411, 633);
             dgClientes.TabIndex = 1;
             dgClientes.SelectionChanged += dgClientes_SelectionChanged;
             // 
@@ -110,7 +113,7 @@
             pngHeadClientes.Dock = DockStyle.Top;
             pngHeadClientes.Location = new Point(0, 0);
             pngHeadClientes.Name = "pngHeadClientes";
-            pngHeadClientes.Size = new Size(293, 35);
+            pngHeadClientes.Size = new Size(411, 35);
             pngHeadClientes.TabIndex = 0;
             // 
             // label1
@@ -120,7 +123,7 @@
             label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(293, 35);
+            label1.Size = new Size(411, 35);
             label1.TabIndex = 0;
             label1.Text = "CLIENTES";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -134,7 +137,7 @@
             pnGridClientes.Dock = DockStyle.Fill;
             pnGridClientes.Location = new Point(0, 0);
             pnGridClientes.Name = "pnGridClientes";
-            pnGridClientes.Size = new Size(646, 668);
+            pnGridClientes.Size = new Size(910, 668);
             pnGridClientes.TabIndex = 0;
             // 
             // dgFacemi
@@ -147,8 +150,9 @@
             dgFacemi.Name = "dgFacemi";
             dgFacemi.ReadOnly = true;
             dgFacemi.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgFacemi.Size = new Size(646, 574);
+            dgFacemi.Size = new Size(910, 574);
             dgFacemi.TabIndex = 4;
+            dgFacemi.DoubleClick += btnEdit_Click;
             // 
             // pnHeadFacemi
             // 
@@ -156,7 +160,7 @@
             pnHeadFacemi.Dock = DockStyle.Top;
             pnHeadFacemi.Location = new Point(0, 25);
             pnHeadFacemi.Name = "pnHeadFacemi";
-            pnHeadFacemi.Size = new Size(646, 47);
+            pnHeadFacemi.Size = new Size(910, 47);
             pnHeadFacemi.TabIndex = 3;
             // 
             // lbHeadFacemi
@@ -166,7 +170,7 @@
             lbHeadFacemi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbHeadFacemi.Location = new Point(0, 0);
             lbHeadFacemi.Name = "lbHeadFacemi";
-            lbHeadFacemi.Size = new Size(646, 47);
+            lbHeadFacemi.Size = new Size(910, 47);
             lbHeadFacemi.TabIndex = 0;
             lbHeadFacemi.Text = "Facturas Emitidas del cliente, año 2025";
             lbHeadFacemi.TextAlign = ContentAlignment.MiddleCenter;
@@ -177,24 +181,49 @@
             pnStatus.Dock = DockStyle.Bottom;
             pnStatus.Location = new Point(0, 646);
             pnStatus.Name = "pnStatus";
-            pnStatus.Size = new Size(646, 22);
+            pnStatus.Size = new Size(910, 22);
             pnStatus.TabIndex = 2;
             // 
             // StatusStrip
             // 
             StatusStrip.AutoSize = false;
-            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel });
+            StatusStrip.Items.AddRange(new ToolStripItem[] { tsStatusLabel, tsLbBaseTotal, tsLbTotalIVA, tsLbTotalFacturas });
             StatusStrip.Location = new Point(0, 0);
             StatusStrip.Name = "StatusStrip";
-            StatusStrip.Size = new Size(646, 22);
+            StatusStrip.Size = new Size(910, 22);
             StatusStrip.TabIndex = 0;
             StatusStrip.Text = "statusStrip1";
             // 
             // tsStatusLabel
             // 
+            tsStatusLabel.Margin = new Padding(0, 3, 30, 2);
             tsStatusLabel.Name = "tsStatusLabel";
             tsStatusLabel.Size = new Size(91, 17);
             tsStatusLabel.Text = "Nº de Registros:";
+            // 
+            // tsLbBaseTotal
+            // 
+            tsLbBaseTotal.AutoSize = false;
+            tsLbBaseTotal.Margin = new Padding(0, 3, 20, 2);
+            tsLbBaseTotal.Name = "tsLbBaseTotal";
+            tsLbBaseTotal.Size = new Size(622, 17);
+            tsLbBaseTotal.Spring = true;
+            tsLbBaseTotal.Text = "Total base:";
+            tsLbBaseTotal.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // tsLbTotalIVA
+            // 
+            tsLbTotalIVA.Margin = new Padding(0, 3, 20, 2);
+            tsLbTotalIVA.Name = "tsLbTotalIVA";
+            tsLbTotalIVA.Size = new Size(56, 17);
+            tsLbTotalIVA.Text = "Total IVA:";
+            // 
+            // tsLbTotalFacturas
+            // 
+            tsLbTotalFacturas.Margin = new Padding(0, 3, 20, 2);
+            tsLbTotalFacturas.Name = "tsLbTotalFacturas";
+            tsLbTotalFacturas.Size = new Size(36, 17);
+            tsLbTotalFacturas.Text = "Total:";
             // 
             // pnTools
             // 
@@ -202,7 +231,7 @@
             pnTools.Dock = DockStyle.Top;
             pnTools.Location = new Point(0, 0);
             pnTools.Name = "pnTools";
-            pnTools.Size = new Size(646, 25);
+            pnTools.Size = new Size(910, 25);
             pnTools.TabIndex = 1;
             // 
             // tsHerramientas
@@ -212,7 +241,7 @@
             tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML, toolStripSeparator2, tsLbYear, tsCbYear });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
-            tsHerramientas.Size = new Size(646, 25);
+            tsHerramientas.Size = new Size(910, 25);
             tsHerramientas.TabIndex = 0;
             tsHerramientas.Text = "toolStrip1";
             // 
@@ -348,7 +377,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(943, 668);
+            ClientSize = new Size(1325, 668);
             Controls.Add(splitContainer1);
             Name = "FrmBrowFacemi";
             Text = "Gestión de Facturas Emitidas";
@@ -403,5 +432,8 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripLabel tsLbYear;
         private ToolStripComboBox tsCbYear;
+        private ToolStripStatusLabel tsLbBaseTotal;
+        private ToolStripStatusLabel tsLbTotalIVA;
+        private ToolStripStatusLabel tsLbTotalFacturas;
     }
 }

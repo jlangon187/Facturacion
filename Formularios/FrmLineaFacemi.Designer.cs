@@ -71,9 +71,9 @@
             pnBtns.Controls.Add(btnCancelar);
             pnBtns.Controls.Add(btnAceptar);
             pnBtns.Dock = DockStyle.Bottom;
-            pnBtns.Location = new Point(0, 299);
+            pnBtns.Location = new Point(0, 294);
             pnBtns.Name = "pnBtns";
-            pnBtns.Size = new Size(690, 63);
+            pnBtns.Size = new Size(700, 63);
             pnBtns.TabIndex = 1;
             // 
             // btnCancelar
@@ -112,11 +112,12 @@
             pnData.Dock = DockStyle.Fill;
             pnData.Location = new Point(0, 0);
             pnData.Name = "pnData";
-            pnData.Size = new Size(690, 299);
+            pnData.Size = new Size(700, 294);
             pnData.TabIndex = 2;
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.AntiqueWhite;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(lbTotal);
@@ -128,7 +129,7 @@
             panel1.Location = new Point(20, 233);
             panel1.Margin = new Padding(3, 2, 3, 8);
             panel1.Name = "panel1";
-            panel1.Size = new Size(650, 48);
+            panel1.Size = new Size(659, 48);
             panel1.TabIndex = 36;
             // 
             // lbTotal
@@ -193,6 +194,7 @@
             // 
             // gbCalculo
             // 
+            gbCalculo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             gbCalculo.Controls.Add(label6);
             gbCalculo.Controls.Add(numCantidad);
             gbCalculo.Controls.Add(label4);
@@ -207,7 +209,7 @@
             gbCalculo.Margin = new Padding(3, 2, 3, 2);
             gbCalculo.Name = "gbCalculo";
             gbCalculo.Padding = new Padding(3, 2, 3, 2);
-            gbCalculo.Size = new Size(649, 100);
+            gbCalculo.Size = new Size(650, 100);
             gbCalculo.TabIndex = 18;
             gbCalculo.TabStop = false;
             gbCalculo.Text = "Cálculo de la Linea de Factura";
@@ -223,11 +225,11 @@
             // 
             // numCantidad
             // 
+            numCantidad.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             numCantidad.DecimalPlaces = 2;
-            numCantidad.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numCantidad.Location = new Point(524, 65);
+            numCantidad.Location = new Point(525, 65);
             numCantidad.Margin = new Padding(3, 2, 3, 2);
-            numCantidad.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
+            numCantidad.Maximum = new decimal(new int[] { 9999999, 0, 0, 131072 });
             numCantidad.Name = "numCantidad";
             numCantidad.Size = new Size(94, 23);
             numCantidad.TabIndex = 33;
@@ -235,7 +237,8 @@
             // 
             // label4
             // 
-            label4.Location = new Point(449, 64);
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.Location = new Point(450, 64);
             label4.Name = "label4";
             label4.Size = new Size(76, 23);
             label4.TabIndex = 32;
@@ -244,9 +247,10 @@
             // 
             // numTipoIva
             // 
+            numTipoIva.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             numTipoIva.DecimalPlaces = 2;
             numTipoIva.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numTipoIva.Location = new Point(348, 65);
+            numTipoIva.Location = new Point(349, 65);
             numTipoIva.Margin = new Padding(3, 2, 3, 2);
             numTipoIva.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
             numTipoIva.Name = "numTipoIva";
@@ -256,7 +260,8 @@
             // 
             // label5
             // 
-            label5.Location = new Point(414, 64);
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label5.Location = new Point(415, 64);
             label5.Name = "label5";
             label5.Size = new Size(25, 23);
             label5.TabIndex = 30;
@@ -265,7 +270,8 @@
             // 
             // label10
             // 
-            label10.Location = new Point(263, 64);
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label10.Location = new Point(264, 64);
             label10.Name = "label10";
             label10.Size = new Size(86, 23);
             label10.TabIndex = 28;
@@ -278,7 +284,7 @@
             numPrecio.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
             numPrecio.Location = new Point(108, 65);
             numPrecio.Margin = new Padding(3, 2, 3, 2);
-            numPrecio.Maximum = new decimal(new int[] { 9999, 0, 0, 131072 });
+            numPrecio.Maximum = new decimal(new int[] { 9999999, 0, 0, 131072 });
             numPrecio.Name = "numPrecio";
             numPrecio.Size = new Size(95, 23);
             numPrecio.TabIndex = 27;
@@ -286,10 +292,11 @@
             // 
             // txtDescripcion
             // 
+            txtDescripcion.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtDescripcion.Location = new Point(108, 33);
             txtDescripcion.MaxLength = 255;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(511, 23);
+            txtDescripcion.Size = new Size(512, 23);
             txtDescripcion.TabIndex = 26;
             // 
             // label2
@@ -312,22 +319,24 @@
             // 
             // gbProducto
             // 
+            gbProducto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             gbProducto.Controls.Add(BtnProducto);
             gbProducto.Controls.Add(label1);
             gbProducto.Controls.Add(cbProducto);
             gbProducto.Controls.Add(label7);
             gbProducto.Location = new Point(20, 14);
             gbProducto.Name = "gbProducto";
-            gbProducto.Size = new Size(649, 95);
+            gbProducto.Size = new Size(658, 95);
             gbProducto.TabIndex = 5;
             gbProducto.TabStop = false;
             gbProducto.Text = "Producto (opcional)";
             // 
             // BtnProducto
             // 
+            BtnProducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnProducto.Image = (Image)resources.GetObject("BtnProducto.Image");
             BtnProducto.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProducto.Location = new Point(463, 52);
+            BtnProducto.Location = new Point(472, 52);
             BtnProducto.Margin = new Padding(3, 2, 3, 2);
             BtnProducto.Name = "BtnProducto";
             BtnProducto.Padding = new Padding(14, 0, 10, 0);
@@ -350,10 +359,11 @@
             // 
             // cbProducto
             // 
+            cbProducto.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cbProducto.FormattingEnabled = true;
             cbProducto.Location = new Point(116, 58);
             cbProducto.Name = "cbProducto";
-            cbProducto.Size = new Size(334, 23);
+            cbProducto.Size = new Size(343, 23);
             cbProducto.TabIndex = 7;
             // 
             // label7
@@ -371,14 +381,17 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancelar;
-            ClientSize = new Size(690, 362);
+            ClientSize = new Size(700, 357);
             Controls.Add(pnData);
             Controls.Add(pnBtns);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
+            MaximumSize = new Size(720, 400);
             MinimizeBox = false;
+            MinimumSize = new Size(720, 400);
             Name = "FrmLineaFacemi";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Linea de Factura Emitida";
             Load += FrmLineaFacemi_Load;
             pnBtns.ResumeLayout(false);
