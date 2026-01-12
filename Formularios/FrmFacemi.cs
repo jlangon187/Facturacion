@@ -368,6 +368,15 @@ namespace FacturacionDAM.Formularios
                     txtDescripcion.Focus();
                     return false;
                 }
+
+                DateTime fecha = Convert.ToDateTime(row["fecha"]);
+                if (fecha.Year < 2000)
+                {
+                    MessageBox.Show("La fecha de la factura no puede ser anterior al año 2000.",
+                                    "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    fechaFactura.Focus();
+                    return false;
+                }
             }
 
             return true;

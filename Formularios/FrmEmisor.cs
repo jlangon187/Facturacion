@@ -34,6 +34,9 @@ namespace FacturacionDAM.Formularios
             }
             _bs.EndEdit();                      // Termina la edición en el BindingSource
             _tabla.GuardarDatos();              // Guarda los datos en la tabla
+
+            Program.appDAM.emisor.ActualizarEmisor(_bs); // Actualiza el emisor en la aplicación
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

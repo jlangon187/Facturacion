@@ -14,8 +14,10 @@ namespace FacturacionDAM
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            FrmMain fr = new FrmMain();
             appDAM = new AppDAM();
-            Application.Run(new FrmMain());
+            appDAM.frmMain = fr;
+            Application.Run(fr);
         }
     }
 }

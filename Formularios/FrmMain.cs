@@ -239,7 +239,7 @@ namespace FacturacionDAM.Formularios
             }
             else
             {
-                tsLbEmisor.Text = $"{Program.appDAM.emisor.nombre} - NIF: {Program.appDAM.emisor.nifcif}";
+                tsLbEmisor.Text = $"{Program.appDAM.emisor.nombre} {Program.appDAM.emisor.apellidos} - NIF: {Program.appDAM.emisor.nifcif}";
             }
             switch (Program.appDAM.estadoApp)
             {

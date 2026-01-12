@@ -332,9 +332,9 @@
             // statusBar
             // 
             statusBar.Items.AddRange(new ToolStripItem[] { tsLbEmisorTitle, tsLbEmisor, tbLbEstadoTitle, tsLbEstado });
-            statusBar.Location = new Point(0, 0);
+            statusBar.Location = new Point(0, 5);
             statusBar.Name = "statusBar";
-            statusBar.Size = new Size(836, 27);
+            statusBar.Size = new Size(836, 22);
             statusBar.TabIndex = 0;
             statusBar.Text = "statusStrip1";
             // 
@@ -342,15 +342,15 @@
             // 
             tsLbEmisorTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tsLbEmisorTitle.Name = "tsLbEmisorTitle";
-            tsLbEmisorTitle.Size = new Size(47, 22);
+            tsLbEmisorTitle.Size = new Size(47, 17);
             tsLbEmisorTitle.Text = "Emisor:";
             tsLbEmisorTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tsLbEmisor
             // 
-            tsLbEmisor.AutoSize = false;
+            tsLbEmisor.Margin = new Padding(0, 3, 15, 2);
             tsLbEmisor.Name = "tsLbEmisor";
-            tsLbEmisor.Size = new Size(200, 22);
+            tsLbEmisor.Size = new Size(126, 17);
             tsLbEmisor.Text = "Aquí la info del emisor";
             tsLbEmisor.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -358,14 +358,14 @@
             // 
             tbLbEstadoTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             tbLbEstadoTitle.Name = "tbLbEstadoTitle";
-            tbLbEstadoTitle.Size = new Size(46, 22);
+            tbLbEstadoTitle.Size = new Size(46, 17);
             tbLbEstadoTitle.Text = "Estado:";
             tbLbEstadoTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tsLbEstado
             // 
             tsLbEstado.Name = "tsLbEstado";
-            tsLbEstado.Size = new Size(125, 22);
+            tsLbEstado.Size = new Size(125, 17);
             tsLbEstado.Text = "Aquí la info del estado";
             tsLbEstado.TextAlign = ContentAlignment.MiddleLeft;
             // 

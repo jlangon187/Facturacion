@@ -10,6 +10,7 @@ namespace FacturacionDAM.Modelos {
         public ConfiguracionConexion configConexion;        // Objeto con la configuración de la conexión a la BD.
         public EstadoApp estadoApp;                         // Estado de la aplicación en el momento actual.
         public Emisor emisor;                               // Emisor de las facturas.
+        public FrmMain frmMain;                           // Ventana principal de la aplicación.
         public string rutaBase { get; private set; }        // Ruta base de la aplicación.
         public string rutaConfigDB;                         // Ruta al archivo de configuración de la base de datos.
 
