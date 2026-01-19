@@ -323,10 +323,6 @@ namespace FacturacionDAM.Formularios
             }
         }
 
-        /// <summary>
-        /// Metodo para validar los datos de la factura antes de guardarla
-        /// </summary>
-        /// <returns></returns>
         private bool ValidarDatos()
         {
             _bsFactura.EndEdit();
@@ -336,26 +332,29 @@ namespace FacturacionDAM.Formularios
 
                 if (row["fecha"] == DBNull.Value)
                 {
-                    MessageBox.Show("La fecha de la factura no es válida o está vacía.",
-                                    "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La fecha de la factura no es válida o está vacía.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     fechaFactura.Focus();
                     return false;
                 }
 
-                if (row["numero"] == DBNull.Value ||
-                    !int.TryParse(row["numero"].ToString(), out int numFactura) ||
-                    numFactura <= 0)
+                if (row["numero"] == DBNull.Value || !int.TryParse(row["numero"].ToString(), out int numFactura) || numFactura <= 0)
                 {
-                    MessageBox.Show("El número de factura es obligatorio y debe ser mayor que 0.",
-                                    "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El número de factura es obligatorio y debe ser mayor que 0.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNumero.Focus();
+                    return false;
+                }
+
+                if (ExisteNumeroFactura(numFactura))
+                {
+                    MessageBox.Show($"El número de factura {numFactura} ya existe para este emisor.\nPor favor, indique otro número.",
+                                    "Número Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     txtNumero.Focus();
                     return false;
                 }
 
                 if (row["idconceptofac"] == DBNull.Value)
                 {
-                    MessageBox.Show("Debe seleccionar un Concepto de facturación.",
-                                    "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Debe seleccionar un Concepto de facturación.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cbConceptFac.Focus();
                     return false;
                 }
@@ -363,8 +362,7 @@ namespace FacturacionDAM.Formularios
                 string desc = row["descripcion"] != DBNull.Value ? row["descripcion"].ToString() : "";
                 if (string.IsNullOrWhiteSpace(desc))
                 {
-                    MessageBox.Show("La descripción es obligatoria y no puede estar vacía.",
-                                    "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La descripción es obligatoria y no puede estar vacía.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtDescripcion.Focus();
                     return false;
                 }
@@ -372,14 +370,44 @@ namespace FacturacionDAM.Formularios
                 DateTime fecha = Convert.ToDateTime(row["fecha"]);
                 if (fecha.Year < 2000)
                 {
-                    MessageBox.Show("La fecha de la factura no puede ser anterior al año 2000.",
-                                    "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("La fecha de la factura no puede ser anterior al año 2000.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     fechaFactura.Focus();
                     return false;
                 }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Comprueba en la BD si existe una factura con el mismo número y emisor.
+        /// Ignora la factura actual si estamos editando.
+        /// </summary>
+        private bool ExisteNumeroFactura(int numero)
+        {
+            // Consulta para contar cuántas facturas hay con ese número y ese emisor
+            string sql = "SELECT COUNT(*) FROM facemi WHERE numero = @numero AND idemisor = @idemisor";
+
+            // Si estamos editando, excluimos la factura actual de la búsqueda (id != @id)
+            if (modoEdicion)
+            {
+                sql += " AND id != @id";
+            }
+
+            using (var cmd = new MySqlCommand(sql, Program.appDAM.LaConexion))
+            {
+                cmd.Parameters.AddWithValue("@numero", numero);
+                cmd.Parameters.AddWithValue("@idemisor", _idEmisor); // Usamos la variable global _idEmisor
+
+                if (modoEdicion)
+                {
+                    cmd.Parameters.AddWithValue("@id", idFactura);
+                }
+
+                // Si devuelve > 0 es que ya existe otra igual
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
         }
 
         /// <summary>
