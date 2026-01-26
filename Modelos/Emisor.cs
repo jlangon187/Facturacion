@@ -24,13 +24,27 @@ public class Emisor
 
         if (row == null) return;
 
-        if (Convert.ToInt32(row["id"]) == id)
+        int rowId = 0;
+        if (!row.Row.IsNull("id"))
+        {
+            rowId = Convert.ToInt32(row["id"]);
+        }
+
+        if (rowId == id)
         {
             nombre = row["nombre"].ToString();
             apellidos = row["apellidos"].ToString();
             nifcif = row["nifcif"].ToString();
             nombreComercial = row["nombrecomercial"].ToString();
-            nextNumFac = Convert.ToInt32(row["nextnumfac"]);
+
+            if (row.Row.IsNull("nextnumfac"))
+            {
+                nextNumFac = 0;
+            }
+            else
+            {
+                nextNumFac = Convert.ToInt32(row["nextnumfac"]);
+            }
 
             Program.appDAM.frmMain.RefreshStatusBar();
         }

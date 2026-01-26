@@ -132,14 +132,18 @@ namespace FacturacionDAM.Formularios
                 }
             }
 
+            int? idParaValidar = null;
+            if (edicion && _bs.Current is DataRowView currentRow)
+            {
+                // Si es DBNull, se queda en null. Si tiene valor, lo convertimos.
+                idParaValidar = (currentRow["id"] == DBNull.Value) ? (int?)null : Convert.ToInt32(currentRow["id"]);
+            }
+
             // Validar que nif/cif sea único
-            if (Validaciones.EsValorCampoUnico("emisores", "nifcif", txtNifCif.Text.Trim(),
-                edicion && _bs.Current is DataRowView currentRow ? (int?)currentRow["id"] : null) == false)
+            if (Validaciones.EsValorCampoUnico("emisores", "nifcif", txtNifCif.Text.Trim(), idParaValidar) == false)
             {
                 MessageBox.Show("El NIF/CIF ya existe en otro emisor. Debe ser único.",
-                    "Error de validación",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtNifCif.Focus();
                 return false;
             }
@@ -154,7 +158,20 @@ namespace FacturacionDAM.Formularios
                 txtCodigoPostal.Focus();
                 return false;
             }
-            
+
+            // Validar que el nextnumfac no esté vacío y sea un número entero positivo
+            if (string.IsNullOrWhiteSpace(txtSiguientenumero.Text) ||
+                !int.TryParse(txtSiguientenumero.Text.Trim(), out int nextNum) ||
+                nextNum < 0)
+            {
+                MessageBox.Show("El campo Siguiente Número de Factura debe ser un número entero positivo.",
+                    "Error de validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtSiguientenumero.Focus();
+                return false;
+            }
+
             return true; // Todos los datos son válidos
         }
     }
