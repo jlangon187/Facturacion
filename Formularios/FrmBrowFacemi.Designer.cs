@@ -57,6 +57,8 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnExportCSV = new ToolStripButton();
             btnExportXML = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
+            btnInforme = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             tsLbYear = new ToolStripLabel();
             tsCbYear = new ToolStripComboBox();
@@ -238,7 +240,7 @@
             // 
             tsHerramientas.AutoSize = false;
             tsHerramientas.GripStyle = ToolStripGripStyle.Hidden;
-            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML, toolStripSeparator2, tsLbYear, tsCbYear });
+            tsHerramientas.Items.AddRange(new ToolStripItem[] { btnNew, btnEdit, tsSeparador1, btnDelete, tsSeparador2, btnFirst, btnPrev, btnNext, btnLast, toolStripSeparator1, btnExportCSV, btnExportXML, toolStripSeparator4, btnInforme, toolStripSeparator2, tsLbYear, tsCbYear });
             tsHerramientas.Location = new Point(0, 0);
             tsHerramientas.Name = "tsHerramientas";
             tsHerramientas.Size = new Size(910, 25);
@@ -354,9 +356,25 @@
             btnExportXML.ToolTipText = "Exportar a XML";
             btnExportXML.Click += btnExportXML_Click;
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Margin = new Padding(5, 0, 10, 0);
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 25);
+            // 
+            // btnInforme
+            // 
+            btnInforme.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnInforme.Image = (Image)resources.GetObject("btnInforme.Image");
+            btnInforme.ImageTransparentColor = Color.Magenta;
+            btnInforme.Name = "btnInforme";
+            btnInforme.Size = new Size(23, 22);
+            btnInforme.Text = "Generar informe";
+            btnInforme.Click += btnInforme_Click;
+            // 
             // toolStripSeparator2
             // 
-            toolStripSeparator2.Margin = new Padding(10, 0, 20, 0);
+            toolStripSeparator2.Margin = new Padding(5, 0, 20, 0);
             toolStripSeparator2.Name = "toolStripSeparator2";
             toolStripSeparator2.Size = new Size(6, 25);
             // 
@@ -435,5 +453,7 @@
         private ToolStripStatusLabel tsLbBaseTotal;
         private ToolStripStatusLabel tsLbTotalIVA;
         private ToolStripStatusLabel tsLbTotalFacturas;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripButton btnInforme;
     }
 }
