@@ -10,30 +10,7 @@
         <Name>MySQL</Name>
       </MySQL>
     </Databases>
-    <DataSources isList="true" count="1">
-      <vista_facturas_emitidas Ref="3" type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true">
-        <Alias>vista_facturas_emitidas</Alias>
-        <Columns isList="true" count="10">
-          <value>Numero,System.String</value>
-          <value>Fecha,System.DateTime</value>
-          <value>Emisor,System.Int32</value>
-          <value>Cliente,System.String</value>
-          <value>Base,System.Decimal</value>
-          <value>Cuota,System.Decimal</value>
-          <value>Total,System.Decimal</value>
-          <value>Retencion,System.Decimal</value>
-          <value>Pagada,System.SByte</value>
-          <value>Descripcion,System.String</value>
-        </Columns>
-        <CommandTimeout>30</CommandTimeout>
-        <Dictionary isRef="1" />
-        <Key>2c32d8602e744d3084e15c9a5904a73e</Key>
-        <Name>vista_facturas_emitidas</Name>
-        <NameInSource>MySQL</NameInSource>
-        <Parameters isList="true" count="0" />
-        <SqlCommand>select * from vista_facturas_emitidas</SqlCommand>
-      </vista_facturas_emitidas>
-    </DataSources>
+    <DataSources isList="true" count="0" />
     <Relations isList="true" count="0" />
     <Report isRef="0" />
     <Resources isList="true" count="0" />
@@ -48,23 +25,23 @@
   <Key>508307e5da514a3b9b1923f81b94c145</Key>
   <MetaTags isList="true" count="0" />
   <Pages isList="true" count="1">
-    <Page1 Ref="4" type="Page" isKey="true">
+    <Page1 Ref="3" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="6">
-        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+      <Components isList="true" count="7">
+        <PageHeaderBand1 Ref="4" type="PageHeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.4,19,0.4</ClientRectangle>
           <Components isList="true" count="1">
-            <Text2 Ref="6" type="Text" isKey="true">
+            <Text2 Ref="5" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,0.2,4.8,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,8</Font>
               <Name>Text2</Name>
-              <Page isRef="4" />
-              <Parent isRef="5" />
+              <Page isRef="3" />
+              <Parent isRef="4" />
               <Text>Informe de facturas emitidas</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -73,14 +50,63 @@
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>PageHeaderBand1</Name>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
         </PageHeaderBand1>
-        <ReportTitle Ref="7" type="ReportTitleBand" isKey="true">
+        <PageFooterBand1 Ref="6" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.9,19,0.8</ClientRectangle>
+          <Components isList="true" count="3">
+            <Text3 Ref="7" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>15.8,0.1,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text3</Name>
+              <Page isRef="3" />
+              <Parent isRef="6" />
+              <Text>{PageNumber}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text3>
+            <Text4 Ref="8" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>18,0.1,0.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Name>Text4</Name>
+              <Page isRef="3" />
+              <Parent isRef="6" />
+              <Text>/</Text>
+              <TextBrush>Black</TextBrush>
+              <Type>Expression</Type>
+            </Text4>
+            <Text5 Ref="9" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <ClientRectangle>18.2,0.1,2.2,0.6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Arial,8</Font>
+              <Name>Text5</Name>
+              <Page isRef="3" />
+              <Parent isRef="6" />
+              <Text>{TotalPageCount}</Text>
+              <TextBrush>Black</TextBrush>
+            </Text5>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="3" />
+          <Parent isRef="3" />
+        </PageFooterBand1>
+        <ReportTitle Ref="10" type="ReportTitleBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,1.6,19,1.4</ClientRectangle>
           <Components isList="true" count="1">
-            <ReportTitleText Ref="8" type="Text" isKey="true">
+            <ReportTitleText Ref="11" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0,19,1.8</ClientRectangle>
@@ -91,8 +117,8 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>ReportTitleText</Name>
-              <Page isRef="4" />
-              <Parent isRef="7" />
+              <Page isRef="3" />
+              <Parent isRef="10" />
               <Text>Facturas Emitidas
 {nombreEmisor}</Text>
               <TextBrush>[52:141:165]</TextBrush>
@@ -103,14 +129,14 @@
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>ReportTitle</Name>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
         </ReportTitle>
-        <HeaderBand1 Ref="9" type="HeaderBand" isKey="true">
+        <HeaderBand1 Ref="12" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,3.8,19,0.6</ClientRectangle>
           <Components isList="true" count="2">
-            <Text1 Ref="10" type="Text" isKey="true">
+            <Text1 Ref="13" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.4,0,2.8,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -118,22 +144,22 @@
               <Font>Arial,8</Font>
               <HorAlignment>Right</HorAlignment>
               <Name>Text1</Name>
-              <Page isRef="4" />
-              <Parent isRef="9" />
+              <Page isRef="3" />
+              <Parent isRef="12" />
               <Text>Rango de fechas: </Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text1>
-            <txtRangoFechas Ref="11" type="Text" isKey="true">
+            <txtRangoFechas Ref="14" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>3.2,0,6.4,0.4</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Expressions isList="true" count="0" />
               <Font>Arial,8</Font>
               <Name>txtRangoFechas</Name>
-              <Page isRef="4" />
-              <Parent isRef="9" />
+              <Page isRef="3" />
+              <Parent isRef="12" />
               <Text>{rangoFechas}</Text>
               <TextBrush>Black</TextBrush>
             </txtRangoFechas>
@@ -141,14 +167,14 @@
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>HeaderBand1</Name>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
         </HeaderBand1>
-        <Header Ref="12" type="HeaderBand" isKey="true">
+        <Header Ref="15" type="HeaderBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,5.2,19,0.6</ClientRectangle>
           <Components isList="true" count="9">
-            <HeaderText1 Ref="13" type="Text" isKey="true">
+            <HeaderText1 Ref="16" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -160,15 +186,15 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>HeaderText1</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Nº</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </HeaderText1>
-            <HeaderText2 Ref="14" type="Text" isKey="true">
+            <HeaderText2 Ref="17" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -180,14 +206,14 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>HeaderText2</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Fecha</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText2>
-            <HeaderText3 Ref="15" type="Text" isKey="true">
+            <HeaderText3 Ref="18" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -198,14 +224,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText3</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Cliente</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText3>
-            <HeaderText4 Ref="16" type="Text" isKey="true">
+            <HeaderText4 Ref="19" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -216,14 +242,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText4</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Base</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText4>
-            <HeaderText5 Ref="17" type="Text" isKey="true">
+            <HeaderText5 Ref="20" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -234,14 +260,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText5</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Cuota</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText5>
-            <HeaderText6 Ref="18" type="Text" isKey="true">
+            <HeaderText6 Ref="21" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -252,14 +278,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText6</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Total</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText6>
-            <HeaderText7 Ref="19" type="Text" isKey="true">
+            <HeaderText7 Ref="22" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -270,14 +296,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText7</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Retencion</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText7>
-            <HeaderText8 Ref="20" type="Text" isKey="true">
+            <HeaderText8 Ref="23" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -288,14 +314,14 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText8</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Pagada</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <VertAlignment>Center</VertAlignment>
             </HeaderText8>
-            <HeaderText9 Ref="21" type="Text" isKey="true">
+            <HeaderText9 Ref="24" type="Text" isKey="true">
               <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
               <Brush>[52:141:165]</Brush>
               <CanGrow>True</CanGrow>
@@ -306,8 +332,8 @@
               <Font>Arial,8,Bold</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>HeaderText9</Name>
-              <Page isRef="4" />
-              <Parent isRef="12" />
+              <Page isRef="3" />
+              <Parent isRef="15" />
               <Text>Descripcion</Text>
               <TextBrush>White</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
@@ -317,15 +343,15 @@
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>Header</Name>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
         </Header>
-        <Data Ref="22" type="DataBand" isKey="true">
+        <Data Ref="25" type="DataBand" isKey="true">
           <Brush>Transparent</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,6.6,19,0.6</ClientRectangle>
           <Components isList="true" count="9">
-            <DataText1 Ref="23" type="Text" isKey="true">
+            <DataText1 Ref="26" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -337,15 +363,15 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>DataText1</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Numero}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText1>
-            <DataText2 Ref="24" type="Text" isKey="true">
+            <DataText2 Ref="27" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -357,16 +383,16 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>DataText2</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Fecha}</Text>
               <TextBrush>[0:0:0]</TextBrush>
-              <TextFormat Ref="25" type="DateFormat" isKey="true" />
+              <TextFormat Ref="28" type="DateFormat" isKey="true" />
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText2>
-            <DataText3 Ref="26" type="Text" isKey="true">
+            <DataText3 Ref="29" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -377,15 +403,15 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText3</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Cliente}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText3>
-            <DataText4 Ref="27" type="Text" isKey="true">
+            <DataText4 Ref="30" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -396,15 +422,15 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText4</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Base}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText4>
-            <DataText5 Ref="28" type="Text" isKey="true">
+            <DataText5 Ref="31" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -415,15 +441,15 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText5</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Cuota}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText5>
-            <DataText6 Ref="29" type="Text" isKey="true">
+            <DataText6 Ref="32" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -434,15 +460,15 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText6</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Total}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText6>
-            <DataText7 Ref="30" type="Text" isKey="true">
+            <DataText7 Ref="33" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -453,15 +479,15 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText7</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Retencion}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText7>
-            <DataText8 Ref="31" type="Text" isKey="true">
+            <DataText8 Ref="34" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -473,15 +499,15 @@
               <GrowToHeight>True</GrowToHeight>
               <HorAlignment>Center</HorAlignment>
               <Name>DataText8</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Pagada}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
               <TextQuality>Wysiwyg</TextQuality>
               <VertAlignment>Center</VertAlignment>
             </DataText8>
-            <DataText9 Ref="32" type="Text" isKey="true">
+            <DataText9 Ref="35" type="Text" isKey="true">
               <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <CanGrow>True</CanGrow>
@@ -492,8 +518,8 @@
               <Font>Arial,8</Font>
               <GrowToHeight>True</GrowToHeight>
               <Name>DataText9</Name>
-              <Page isRef="4" />
-              <Parent isRef="22" />
+              <Page isRef="3" />
+              <Parent isRef="25" />
               <Text>{vista_facturas_emitidas.Descripcion}</Text>
               <TextBrush>[0:0:0]</TextBrush>
               <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
@@ -509,19 +535,19 @@
           <Filters isList="true" count="0" />
           <Name>Data</Name>
           <OddStyle>Sea Foam_Data1_Odd Style</OddStyle>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
           <Sort isList="true" count="0" />
         </Data>
-        <Footer Ref="33" type="FooterBand" isKey="true">
+        <Footer Ref="36" type="FooterBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,8,19,0.6</ClientRectangle>
           <Components isList="true" count="0" />
           <Conditions isList="true" count="0" />
           <Expressions isList="true" count="0" />
           <Name>Footer</Name>
-          <Page isRef="4" />
-          <Parent isRef="4" />
+          <Page isRef="3" />
+          <Parent isRef="3" />
         </Footer>
       </Components>
       <Conditions isList="true" count="0" />
@@ -546,10 +572,10 @@
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
   <ReportAuthor>Javier Lanzas González</ReportAuthor>
-  <ReportChanged>1/29/2026 8:32:18 PM</ReportChanged>
+  <ReportChanged>1/29/2026 9:12:41 PM</ReportChanged>
   <ReportCreated>1/29/2026 8:11:22 PM</ReportCreated>
-  <ReportFile>D:\Users\jlangon187\Desktop\Facturacion\Report.mrt</ReportFile>
-  <ReportGuid>e7296a7692284a4fb517d9004bbaa02d</ReportGuid>
+  <ReportFile>D:\Users\jlangon187\Desktop\Facturacion\bin\Debug\net8.0-windows\informes\InformeFacemiList1.mrt</ReportFile>
+  <ReportGuid>95077cf48a83427a9caecbcf4ca34e72</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2026.1.2.0</ReportVersion>
@@ -578,197 +604,197 @@ namespace Reports
 </Script>
   <ScriptLanguage>CSharp</ScriptLanguage>
   <Styles isList="true" count="12">
-    <Sea_x0020_Foam_Report_Title1 Ref="34" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Report_Title1 Ref="37" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item33 Ref="35" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item36 Ref="38" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>ReportTitle</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item33>
+        </Item36>
       </Conditions>
       <Font>Arial,14,Bold</Font>
       <Name>Sea Foam_Report_Title1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Report_Title1>
-    <Sea_x0020_Foam_Report_Title2 Ref="36" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Report_Title2 Ref="39" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item35 Ref="37" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item38 Ref="40" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>ReportTitle</Placement>
           <PlacementNestedLevel>2</PlacementNestedLevel>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item35>
+        </Item38>
       </Conditions>
       <Font>Arial,10,Bold</Font>
       <Name>Sea Foam_Report_Title2</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Report_Title2>
-    <Sea_x0020_Foam_Report_Summary Ref="38" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Report_Summary Ref="41" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item37 Ref="39" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item40 Ref="42" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>ReportSummary</Placement>
           <Type>ComponentType, Placement</Type>
-        </Item37>
+        </Item40>
       </Conditions>
       <Font>Arial,10,Bold</Font>
       <Name>Sea Foam_Report_Summary</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Report_Summary>
-    <Sea_x0020_Foam_Page_Header Ref="40" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Page_Header Ref="43" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item39 Ref="41" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item42 Ref="44" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>PageHeader</Placement>
           <Type>ComponentType, Placement</Type>
-        </Item39>
+        </Item42>
       </Conditions>
       <Font>Arial,10</Font>
       <Name>Sea Foam_Page_Header</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Page_Header>
-    <Sea_x0020_Foam_Page_Footer Ref="42" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Page_Footer Ref="45" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item41 Ref="43" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item44 Ref="46" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>PageFooter</Placement>
           <Type>ComponentType, Placement</Type>
-        </Item41>
+        </Item44>
       </Conditions>
       <Font>Arial,10</Font>
       <Name>Sea Foam_Page_Footer</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Page_Footer>
-    <Sea_x0020_Foam_Group_Header1 Ref="44" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Group_Header1 Ref="47" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item43 Ref="45" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item46 Ref="48" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>GroupHeader</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item43>
+        </Item46>
       </Conditions>
       <Font>Arial,13,Bold</Font>
       <Name>Sea Foam_Group_Header1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Group_Header1>
-    <Sea_x0020_Foam_Group_Footer1 Ref="46" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Group_Footer1 Ref="49" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item45 Ref="47" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item48 Ref="50" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>GroupFooter</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item45>
+        </Item48>
       </Conditions>
       <Font>Arial,9.75,Bold,Point,False,204</Font>
       <Name>Sea Foam_Group_Footer1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[52:141:165]</TextBrush>
     </Sea_x0020_Foam_Group_Footer1>
-    <Sea_x0020_Foam_Header1 Ref="48" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Header1 Ref="51" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>Bottom;White;3;Solid;False;4;Black;True</Border>
       <Brush>[52:141:165]</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item47 Ref="49" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item50 Ref="52" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>Header</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item47>
+        </Item50>
       </Conditions>
       <Font>Arial,8,Bold</Font>
       <Name>Sea Foam_Header1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>White</TextBrush>
     </Sea_x0020_Foam_Header1>
-    <Sea_x0020_Foam_Data1 Ref="50" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Data1 Ref="53" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item49 Ref="51" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item52 Ref="54" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image, CheckBox</ComponentType>
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>Data</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item49>
+        </Item52>
       </Conditions>
       <Font>Arial,8</Font>
       <Name>Sea Foam_Data1</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[0:0:0]</TextBrush>
     </Sea_x0020_Foam_Data1>
-    <Sea_x0020_Foam_Data1_Odd_x0020_Style Ref="52" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Data1_Odd_x0020_Style Ref="55" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>[253:233:217]</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item51 Ref="53" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item54 Ref="56" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>DataOddStyle</Placement>
           <Type>Placement, PlacementNestedLevel</Type>
-        </Item51>
+        </Item54>
       </Conditions>
       <Font>Arial,8</Font>
       <Name>Sea Foam_Data1_Odd Style</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[0:0:0]</TextBrush>
     </Sea_x0020_Foam_Data1_Odd_x0020_Style>
-    <Sea_x0020_Foam_Data1_Even_x0020_Style Ref="54" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Data1_Even_x0020_Style Ref="57" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>None;[2:91:115];1;Solid;False;4;Black</Border>
       <Brush>[254:244:236]</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item53 Ref="55" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item56 Ref="58" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <OperationPlacementNestedLevel>GreaterThanOrEqualTo</OperationPlacementNestedLevel>
           <Placement>DataEvenStyle</Placement>
           <Type>Placement, PlacementNestedLevel</Type>
-        </Item53>
+        </Item56>
       </Conditions>
       <Font>Arial,8</Font>
       <Name>Sea Foam_Data1_Even Style</Name>
       <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[0:0:0]</TextBrush>
     </Sea_x0020_Foam_Data1_Even_x0020_Style>
-    <Sea_x0020_Foam_Footer1 Ref="56" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Sea_x0020_Foam_Footer1 Ref="59" type="Stimulsoft.Report.StiStyle" isKey="true">
       <Border>Top;[52:141:165];3;Solid;False;4;Black</Border>
       <Brush>White</Brush>
       <CollectionName>Sea Foam</CollectionName>
       <Conditions isList="true" count="1">
-        <Item55 Ref="57" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
+        <Item58 Ref="60" type="Stimulsoft.Report.StiStyleCondition" isKey="true">
           <ComponentType>Text, Primitive, Image</ComponentType>
           <Placement>Footer</Placement>
           <Type>ComponentType, Placement, PlacementNestedLevel</Type>
-        </Item55>
+        </Item58>
       </Conditions>
       <Font>Arial,8</Font>
       <Name>Sea Foam_Footer1</Name>
