@@ -86,6 +86,16 @@ namespace FacturacionDAM.Formularios
             AbrirFormularioHijo<FrmBrowClientes>();
         }
 
+        private void tsBtnProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowProveedores>();
+        }
+
+        private void tsBtnCompras_Click(object sender, EventArgs e)
+        {
+            AbrirFormularioHijo<FrmBrowFacrec>();
+        }
+
         private void tsMenuConsola_Click(object sender, EventArgs e)
         {
 #if DEBUG
@@ -290,5 +300,6 @@ namespace FacturacionDAM.Formularios
                 }
             }
         }
+
     }
 }

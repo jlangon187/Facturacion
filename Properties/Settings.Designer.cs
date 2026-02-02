@@ -250,5 +250,77 @@ namespace FacturacionDAM.Properties {
                 this["UltimoAnhoSeleccionado"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size BrowProveedoresSize {
+            get {
+                return ((global::System.Drawing.Size)(this["BrowProveedoresSize"]));
+            }
+            set {
+                this["BrowProveedoresSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point BrowProveedoresLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["BrowProveedoresLocation"]));
+            }
+            set {
+                this["BrowProveedoresLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public string BrowProveedoresState {
+            get {
+                return ((string)(this["BrowProveedoresState"]));
+            }
+            set {
+                this["BrowProveedoresState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size BrowFacrecSize {
+            get {
+                return ((global::System.Drawing.Size)(this["BrowFacrecSize"]));
+            }
+            set {
+                this["BrowFacrecSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point BrowFacrecLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["BrowFacrecLocation"]));
+            }
+            set {
+                this["BrowFacrecLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public string BrowFacrecState {
+            get {
+                return ((string)(this["BrowFacrecState"]));
+            }
+            set {
+                this["BrowFacrecState"] = value;
+            }
+        }
     }
 }
