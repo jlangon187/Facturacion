@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Stimulsoft.Report;
+using System.IO;
 
 namespace FacturacionDAM.Formularios
 {
@@ -242,22 +244,65 @@ namespace FacturacionDAM.Formularios
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 ExportarDatos.ExportarXML((DataTable)_bsFacturas.DataSource, saveFileDialog.FileName, "Facturas Emitidas");
         }
-        private void btnInforme_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Informe de listado de facturas emitidas con totales
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void itemListadoTotales_Click(object sender, EventArgs e)
         {
-            DateTime fechaInicial = new DateTime(_year.CurrentYear, 1, 1);
-            DateTime fechaFinal = new DateTime(_year.CurrentYear, 12, 31);
-            
-            FrmInformeFacemiAnual frm = new FrmInformeFacemiAnual();
+            if (ObtenerFechasInforme(out DateTime desde, out DateTime hasta))
+            {
+                string sql = $@"SELECT * FROM vista_listado_facturas 
+                        WHERE IdEmisor = {Program.appDAM.emisor.id}
+                        AND Fecha >= '{desde:yyyy-MM-dd}' AND Fecha <= '{hasta:yyyy-MM-dd}'
+                        ORDER BY Fecha, Numero";
 
-            frm.dTPAnoInicio.MinDate = fechaInicial;
-            frm.dTPAnoInicio.MaxDate = fechaFinal;
-            frm.dTPAnoInicio.Value = fechaInicial;
+                GenerarInformeListado(sql, "InformeFacturasTotales.mrt", "vista_listado_facturas", desde, hasta);
+            }
+        }
 
-            frm.dTPAnoFin.MinDate = fechaInicial;
-            frm.dTPAnoFin.MaxDate = fechaFinal;
-            frm.dTPAnoFin.Value = fechaFinal;
+        /// <summary>
+        /// Informe de listado de facturas emitidas agrupado por cliente, con totales por cliente y totales generales.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void itemListadoClientes_Click(object sender, EventArgs e)
+        {
+            if (ObtenerFechasInforme(out DateTime desde, out DateTime hasta))
+            {
+                string sql = $@"SELECT * FROM vista_listado_facturas 
+                        WHERE IdEmisor = {Program.appDAM.emisor.id}
+                        AND Fecha >= '{desde:yyyy-MM-dd}' AND Fecha <= '{hasta:yyyy-MM-dd}'
+                        ORDER BY ClienteNombre, Fecha";
 
-            frm.ShowDialog(this);
+                GenerarInformeListado(sql, "InformeFacturasClientes.mrt", "vista_listado_facturas", desde, hasta);
+            }
+        }
+
+        /// <summary>
+        /// Metodo para imprimir la factura seleccionada utilizando Stimulsoft. Elige el diseño con o sin retención según corresponda.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnImprimirFactura_Click(object sender, EventArgs e)
+        {
+            if (!(_bsFacturas.Current is DataRowView row)) return;
+
+            bool tieneRetencion = false;
+
+            if (row["retencion"] != DBNull.Value)
+            {
+                decimal importeRetencion = Convert.ToDecimal(row["retencion"]);
+
+                if (Math.Abs(importeRetencion) > 0)
+                {
+                    tieneRetencion = true;
+                }
+            }
+
+            ImprimirFacturaIndividual(tieneRetencion);
         }
 
         #endregion
@@ -438,6 +483,7 @@ namespace FacturacionDAM.Formularios
             }
         }
 
+
         /// <summary>
         /// Recarga el ComboBox de años buscando en la base de datos.
         /// Mantiene la selección actual si es posible.
@@ -480,6 +526,161 @@ namespace FacturacionDAM.Formularios
                 // Si la selección previa ya no existe o es nula, seleccionamos el primero
                 tsCbYear.SelectedIndex = 0;
                 _year.CurrentYear = int.Parse(tsCbYear.SelectedItem.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Metodo para mostrar el formulario de selección de fechas para el informe anual.
+        /// </summary>
+        /// <param name="fechaInicio"></param>
+        /// <param name="fechaFin"></param>
+        /// <returns>Retorna true si el usuario aceptó las fechas, false si canceló.</returns>
+        private bool ObtenerFechasInforme(out DateTime fechaInicio, out DateTime fechaFin)
+        {
+            fechaInicio = DateTime.Now;
+            fechaFin = DateTime.Now;
+
+            // Creamos una instancia del formulario de selección de fechas
+            FrmInformeFacemiAnual frm = new FrmInformeFacemiAnual();
+
+            DateTime fechaMin = new DateTime(_year.CurrentYear, 1, 1);
+            DateTime fechaMax = new DateTime(_year.CurrentYear, 12, 31);
+
+            frm.dTPAnoInicio.MinDate = fechaMin;
+            frm.dTPAnoInicio.MaxDate = fechaMax;
+            frm.dTPAnoInicio.Value = fechaMin;
+
+            frm.dTPAnoFin.MinDate = fechaMin;
+            frm.dTPAnoFin.MaxDate = fechaMax;
+            frm.dTPAnoFin.Value = fechaMax;
+
+            // Mostramos el formulario y esperamos la respuesta del usuario
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                fechaInicio = frm.dTPAnoInicio.Value;
+                fechaFin = frm.dTPAnoFin.Value;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Metodo para generar un informe de listado de facturas utilizando Stimulsoft.
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="nombreArchivoMrt"></param>
+        /// <param name="desde"></param>
+        /// <param name="hasta"></param>
+        private void GenerarInformeListado(string sql, string nombreArchivoMrt, string nombreOrigenDatos, DateTime desde, DateTime hasta)
+        {
+            Tabla tDatos = new Tabla(Program.appDAM.LaConexion);
+
+            if (!tDatos.InicializarDatos(sql) || tDatos.LaTabla.Rows.Count == 0)
+            {
+                MessageBox.Show("No se encontraron datos para el rango seleccionado.");
+                return;
+            }
+
+            string rutaInforme = Path.Combine(Program.appDAM.rutaBase, "Informes", nombreArchivoMrt);
+            if (!File.Exists(rutaInforme))
+            {
+                MessageBox.Show($"No se encuentra el archivo: {rutaInforme}");
+                return;
+            }
+
+            try
+            {
+                StiReport report = new StiReport();
+                report.Load(rutaInforme);
+
+                report.Dictionary.Databases.Clear();
+                report.Dictionary.DataSources.Clear();
+                report.Dictionary.DataStore.Clear();
+                report.BusinessObjectsStore.Clear();
+
+                DataSet ds = new DataSet("Datos");
+                DataTable dt = tDatos.LaTabla.Copy();
+                dt.TableName = nombreOrigenDatos;
+                ds.Tables.Add(dt);
+
+                report.RegData(ds.DataSetName, ds);
+                report.Dictionary.Synchronize();
+
+                var band = report.Pages[0].GetComponentByName("DetalleProductos") as Stimulsoft.Report.Components.StiDataBand;
+                if (band != null)
+                    band.DataSourceName = "vista_impresion_factura";
+
+                if (report.Dictionary.Variables.Contains("nombreEmisor"))
+                    report.Dictionary.Variables["nombreEmisor"].Value = Program.appDAM.emisor.nombreComercial;
+
+                if (report.Dictionary.Variables.Contains("rangoFechas"))
+                    report.Dictionary.Variables["rangoFechas"].Value = $"Desde {desde:dd/MM/yyyy} hasta {hasta:dd/MM/yyyy}";
+
+                report.Render(false);
+                report.Show();
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("GenerarInformeListado", ex.Message);
+                MessageBox.Show("Error generando informe: " + ex.Message);
+            }
+        }
+
+
+        private void ImprimirFacturaIndividual(bool conRetencion)
+        {
+            if (!(_bsFacturas.Current is DataRowView row)) return;
+            int idFactura = Convert.ToInt32(row["id"]);
+
+            string sql = $"SELECT * FROM vista_impresion_factura WHERE IdFactura = {idFactura}";
+
+            Tabla tDatos = new Tabla(Program.appDAM.LaConexion);
+
+            if (tDatos.InicializarDatos(sql))
+            {
+                if (tDatos.LaTabla.Rows.Count == 0)
+                {
+                    MessageBox.Show("No se han encontrado datos para esta factura.");
+                    return;
+                }
+
+                string nombreArchivo = conRetencion ? "FacturaConRetencion.mrt" : "FacturaSinRetencion.mrt";
+                string rutaInforme = Path.Combine(Program.appDAM.rutaBase, "Informes", nombreArchivo);
+
+                if (!File.Exists(rutaInforme))
+                {
+                    MessageBox.Show("Falta el archivo de informe: " + rutaInforme);
+                    return;
+                }
+
+                try
+                {
+                    StiReport report = new StiReport();
+                    report.Load(rutaInforme);
+
+                    report.Dictionary.Databases.Clear();
+                    report.Dictionary.DataSources.Clear();
+                    report.Dictionary.DataStore.Clear();
+                    report.BusinessObjectsStore.Clear();
+
+                    DataSet ds = new DataSet("DatosFactura");
+                    DataTable dt = tDatos.LaTabla.Copy();
+                    dt.TableName = "vista_impresion_factura";
+                    ds.Tables.Add(dt);
+
+                    report.RegData(ds.DataSetName, ds);
+
+                    report.Dictionary.Synchronize();
+                    report.Render(false);
+
+                    report.Show();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al generar la factura: " + ex.Message);
+                }
             }
         }
 

@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <CalculationMode>Interpretation</CalculationMode>
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MySQL Ref="2" type="Stimulsoft.Report.Dictionary.StiMySqlDatabase" isKey="true">
+        <Alias>MySQL</Alias>
+        <ConnectionStringEncrypted>49ZlCU9V64VhS6HMxEmgbotWaaHnXNPd8xWhzOENoCOLdIHrzTJLiMdd4X3oGOMv1t7Pwk0WEfDCGpzM8Uzie4Z4actVWdOZwF/tgeF89Q==</ConnectionStringEncrypted>
+        <Key>9d16e5f497504a6a807bed033c307656</Key>
+        <Name>MySQL</Name>
+      </MySQL>
+    </Databases>
+    <DataSources isList="true" count="1">
+      <vista_impresion_factura Ref="3" type="Stimulsoft.Report.Dictionary.StiMySqlSource" isKey="true">
+        <Alias>vista_impresion_factura</Alias>
+        <Columns isList="true" count="31">
+          <value>IdFactura,System.Int32</value>
+          <value>Numero,System.String</value>
+          <value>Fecha,System.DateTime</value>
+          <value>DescripcionGeneral,System.String</value>
+          <value>BaseFactura,System.Decimal</value>
+          <value>CuotaFactura,System.Decimal</value>
+          <value>TotalFactura,System.Decimal</value>
+          <value>RetencionFactura,System.Decimal</value>
+          <value>PorcenRetencion,System.Decimal</value>
+          <value>AplicaRetencion,System.SByte</value>
+          <value>EmisorNombre,System.String</value>
+          <value>EmisorNif,System.String</value>
+          <value>EmisorDireccion,System.String</value>
+          <value>EmisorCP,System.String</value>
+          <value>EmisorPoblacion,System.String</value>
+          <value>EmisorProvincia,System.String</value>
+          <value>EmisorTelefono,System.String</value>
+          <value>EmisorEmail,System.String</value>
+          <value>ClienteNombre,System.String</value>
+          <value>ClienteNif,System.String</value>
+          <value>ClienteDireccion,System.String</value>
+          <value>ClientePoblacion,System.String</value>
+          <value>ClienteCP,System.String</value>
+          <value>ClienteProvincia,System.String</value>
+          <value>ClienteTelefono,System.String</value>
+          <value>LineaDescrip,System.String</value>
+          <value>LineaCant,System.Decimal</value>
+          <value>LineaPrecio,System.Decimal</value>
+          <value>LineaTipoIVA,System.Decimal</value>
+          <value>LineaCuota,System.Decimal</value>
+          <value>LineaTotal,System.Decimal</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>dde6f498b9f8483db23d3dfab3bccaef</Key>
+        <Name>vista_impresion_factura</Name>
+        <NameInSource>MySQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from vista_impresion_factura</SqlCommand>
+      </vista_impresion_factura>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <UserFunctions isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>2807731cc2584708a024e8a869a986f5</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="4" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="6">
+        <PageHeaderBand1 Ref="5" type="PageHeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,4,190,66</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text1 Ref="6" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,50,14</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,28,Bold</Font>
+              <Name>Text1</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>FACTURA</Text>
+              <TextBrush>[54:96:146]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text1>
+            <Text2 Ref="7" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,14,50,6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,11</Font>
+              <Name>Text2</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>Fecha: {vista_impresion_factura.Fecha.ToString("dd.MM.yyyy")}         
+Nº Factura: {vista_impresion_factura.Numero}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text2>
+            <Text27 Ref="8" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;None;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,22,18,4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,11,Bold</Font>
+              <Name>Text27</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>CLIENTE:</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text27>
+            <Text28 Ref="9" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;None;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>110,0,18,4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,11,Bold</Font>
+              <Name>Text28</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>EMISOR:</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text28>
+            <Text3 Ref="10" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[245:245:245]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>110,4,80,26</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,11</Font>
+              <Name>Text3</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{vista_impresion_factura.EmisorNombre}
+NIF/CIF: {vista_impresion_factura.EmisorNif}
+{vista_impresion_factura.EmisorDireccion}
+{vista_impresion_factura.EmisorCP} - {vista_impresion_factura.EmisorPoblacion}
+{vista_impresion_factura.EmisorProvincia}
+Teléfono: {vista_impresion_factura.EmisorTelefono}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text3>
+            <Text4 Ref="11" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[245:245:245]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,26,80,26</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,11</Font>
+              <Name>Text4</Name>
+              <Page isRef="4" />
+              <Parent isRef="5" />
+              <Text>{vista_impresion_factura.ClienteNombre}
+NIF/CIF: {vista_impresion_factura.ClienteNif}
+{vista_impresion_factura.ClienteDireccion}
+{vista_impresion_factura.ClienteCP} - {vista_impresion_factura.ClientePoblacion}
+{vista_impresion_factura.ClienteProvincia}
+Teléfono: {vista_impresion_factura.ClienteTelefono}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text4>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>PageHeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageHeaderBand1>
+        <PageFooterBand1 Ref="12" type="PageFooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,271,190,6</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text21 Ref="13" type="Text" isKey="true">
+              <Brush>Transparent</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,190,6</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,8,Italic</Font>
+              <HorAlignment>Center</HorAlignment>
+              <Name>Text21</Name>
+              <Page isRef="4" />
+              <Parent isRef="12" />
+              <Text>{PageNofM}</Text>
+              <TextBrush>[136:136:136]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text21>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>PageFooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </PageFooterBand1>
+        <HeaderBand1 Ref="14" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,78,190,10</ClientRectangle>
+          <Components isList="true" count="1">
+            <Text5 Ref="15" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.5;Solid;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,190,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Italic</Font>
+              <Name>Text5</Name>
+              <Page isRef="4" />
+              <Parent isRef="14" />
+              <Text>Descripción: {vista_impresion_factura.DescripcionGeneral}</Text>
+              <TextBrush>[68:68:68]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text5>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>HeaderBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </HeaderBand1>
+        <HeaderBand2 Ref="16" type="HeaderBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,96,190,10</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text6 Ref="17" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,92,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <Name>Text6</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>Descripción</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text6>
+            <Text7 Ref="18" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>92,0,22,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text7</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>Precio</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="19" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text7>
+            <Text8 Ref="20" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>114,0,14,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text8</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>Unid.</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="21" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text8>
+            <Text9 Ref="22" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>128,0,16,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text9</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>IVA (%)</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="23" type="PercentageFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <PositivePattern>1</PositivePattern>
+                <Symbol>%</Symbol>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text9>
+            <Text10 Ref="24" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>144,0,22,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text10</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>Cuota IVA</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="25" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <VertAlignment>Center</VertAlignment>
+            </Text10>
+            <Text11 Ref="26" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.600000023841858;Solid;False;4;Black</Border>
+              <Brush>[184:204:228]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>166,0,24,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text11</Name>
+              <Page isRef="4" />
+              <Parent isRef="16" />
+              <Text>Total</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="27" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text11>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>HeaderBand2</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </HeaderBand2>
+        <DetalleProductos Ref="28" type="DataBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <BusinessObjectGuid isNull="true" />
+          <ClientRectangle>0,114,190,8</ClientRectangle>
+          <Components isList="true" count="6">
+            <Text12 Ref="29" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,0,92,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <Name>Text12</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaDescrip}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text12>
+            <Text13 Ref="30" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>92,0,22,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text13</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaPrecio}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="31" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text13>
+            <Text14 Ref="32" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>114,0,14,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text14</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaCant}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="33" type="NumberFormat" isKey="true">
+                <DecimalDigits>0</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+                <UseLocalSetting>False</UseLocalSetting>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text14>
+            <Text15 Ref="34" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>128,0,16,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text15</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaTipoIVA}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="35" type="NumberFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <DecimalSeparator>,</DecimalSeparator>
+                <GroupSeparator>.</GroupSeparator>
+                <NegativePattern>1</NegativePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text15>
+            <Text16 Ref="36" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>144,0,22,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text16</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaCuota}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="37" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text16>
+            <Text17 Ref="38" type="Text" isKey="true">
+              <Border>All;[204:204:204];0.400000005960464;Solid;False;4;Black</Border>
+              <Brush>[242:242:242]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>166,0,24,8</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,10</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text17</Name>
+              <Page isRef="4" />
+              <Parent isRef="28" />
+              <Text>{vista_impresion_factura.LineaTotal}</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextFormat Ref="39" type="CurrencyFormat" isKey="true">
+                <DecimalDigits>2</DecimalDigits>
+                <GroupSeparator>,</GroupSeparator>
+                <NegativePattern>0</NegativePattern>
+                <PositivePattern>0</PositivePattern>
+              </TextFormat>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>DataColumn</Type>
+              <VertAlignment>Center</VertAlignment>
+            </Text17>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <DataRelationName isNull="true" />
+          <DataSourceName>vista_impresion_factura</DataSourceName>
+          <Expressions isList="true" count="0" />
+          <Filters isList="true" count="0" />
+          <Name>DetalleProductos</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+          <Sort isList="true" count="0" />
+        </DetalleProductos>
+        <FooterBand1 Ref="40" type="FooterBand" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,130,190,54</ClientRectangle>
+          <Components isList="true" count="8">
+            <Text18 Ref="41" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,28,92,24</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Italic</Font>
+              <Name>Text18</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>Observaciones:
+                </Text>
+              <TextBrush>[136:136:136]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text18>
+            <Text19 Ref="42" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.899999976158142;None;False;4;Transparent</Border>
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>166,4,24,26</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text19</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{vista_impresion_factura.BaseFactura} €
+{vista_impresion_factura.CuotaFactura} €
+-{vista_impresion_factura.RetencionFactura} €</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text19>
+            <Text20 Ref="43" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.899999976158142;None;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>118,4,46,26</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI Semibold,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text20</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>Base Imponible:
+Total Cuota IVA:
+Retención IRPF ({vista_impresion_factura.PorcenRetencion}%)</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text20>
+            <Text22 Ref="44" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>98,36,92,16</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10</Font>
+              <Name>Text22</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <TextBrush>[0:0:0]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text22>
+            <Text23 Ref="45" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;None;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <ClientRectangle>98,30,42,4</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10</Font>
+              <Name>Text23</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>Cuenta Bancaria:</Text>
+              <TextBrush>[0:0:0]</TextBrush>
+              <Type>Expression</Type>
+            </Text23>
+            <Text24 Ref="46" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.699999988079071;Solid;False;4;Black</Border>
+              <Brush>[250:250:250]</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>0,2,92,24</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,10,Italic</Font>
+              <Name>Text24</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>Firma electrónica:</Text>
+              <TextBrush>[136:136:136]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text24>
+            <Text25 Ref="47" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.899999976158142;None;False;4;Transparent</Border>
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>166,22,24,12</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text25</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>{vista_impresion_factura.TotalFactura} €</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text25>
+            <Text26 Ref="48" type="Text" isKey="true">
+              <Border>All;[34:34:34];0.899999976158142;None;False;4;Black</Border>
+              <Brush>EmptyBrush</Brush>
+              <CanGrow>True</CanGrow>
+              <ClientRectangle>132,22,32,12</ClientRectangle>
+              <Conditions isList="true" count="0" />
+              <Expressions isList="true" count="0" />
+              <Font>Segoe UI,11,Bold</Font>
+              <HorAlignment>Right</HorAlignment>
+              <Name>Text26</Name>
+              <Page isRef="4" />
+              <Parent isRef="40" />
+              <Text>Total:</Text>
+              <TextBrush>[34:34:34]</TextBrush>
+              <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+              <Type>Expression</Type>
+            </Text26>
+          </Components>
+          <Conditions isList="true" count="0" />
+          <Expressions isList="true" count="0" />
+          <Name>FooterBand1</Name>
+          <Page isRef="4" />
+          <Parent isRef="4" />
+        </FooterBand1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Expressions isList="true" count="0" />
+      <Guid>0b8397e3fe2b4c6492d9a26d465db67d</Guid>
+      <Margins>10,10,10,10</Margins>
+      <Name>Page1</Name>
+      <PageHeight>297</PageHeight>
+      <PageWidth>210</PageWidth>
+      <PaperSize>A4</PaperSize>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>FacturaProfesional</ReportAlias>
+  <ReportAuthor>Javier Lanzas González</ReportAuthor>
+  <ReportChanged>2/14/2026 7:46:18 PM</ReportChanged>
+  <ReportCreated>2/14/2026 12:33:23 PM</ReportCreated>
+  <ReportFile>C:\Users\Javil\Desktop\Facturacion\bin\Debug\net8.0-windows\Informes\FacturaConRetencion.mrt</ReportFile>
+  <ReportGuid>3ade459e644241a58a255634dc394bd4</ReportGuid>
+  <ReportName>FacturaProfesional</ReportName>
+  <ReportUnit>Millimeters</ReportUnit>
+  <ReportVersion>2026.1.3.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class FacturaProfesional : Stimulsoft.Report.StiReport
+    {
+        public FacturaProfesional()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+  <UsePlatformDependentScript>False</UsePlatformDependentScript>
+</StiSerializer>

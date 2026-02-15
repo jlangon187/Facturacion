@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiStylesSheet">
+  <Styles isList="true" count="2">
+    <DetalleFacturasEvenStyle Ref="1" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>[255:255:255]</Brush>
+      <Conditions isList="true" count="0" />
+      <Font>Arial,8</Font>
+      <Name>DetalleFacturasEvenStyle</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
+      <TextBrush>Black</TextBrush>
+    </DetalleFacturasEvenStyle>
+    <DetalleFacturasOddStyle Ref="2" type="Stimulsoft.Report.StiStyle" isKey="true">
+      <Brush>[242:244:248]</Brush>
+      <Conditions isList="true" count="0" />
+      <Font>Arial,8</Font>
+      <Name>DetalleFacturasOddStyle</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
+      <TextBrush>Black</TextBrush>
+    </DetalleFacturasOddStyle>
+  </Styles>
+</StiSerializer>
