@@ -1,0 +1,142 @@
+﻿using FacturacionDAM.Modelos;
+using FacturacionDAM.Utils;
+using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+
+namespace FacturacionDAM.Formularios
+{
+    public partial class FrmProveedor : Form
+    {
+        private Tabla _tabla;       // Tabla de proveedors
+        private BindingSource _bs;  // Para comunicación con los controles
+        public bool edicion = false;
+
+        public FrmProveedor(BindingSource bs, Tabla tabla)
+        {
+            InitializeComponent();
+            _bs = bs;
+            _tabla = tabla;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (!ValidarDatos())
+                return;
+
+            _bs.EndEdit();             // Termina la edición en el BindingSource
+            _tabla.GuardarDatos();     // Guarda los datos en la tabla
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            _bs.CancelEdit();
+            this.Close();
+        }
+
+        private void FrmProveedor_Load(object sender, EventArgs e)
+        {
+            txtNifCif.DataBindings.Add("Text", _bs, "nifcif");
+            txtNombre.DataBindings.Add("Text", _bs, "nombre");
+            txtApellidos.DataBindings.Add("Text", _bs, "apellidos");
+            txtRazonSocial.DataBindings.Add("Text", _bs, "nombrecomercial");
+            txtDomicilio.DataBindings.Add("Text", _bs, "direccion");
+            txtPoblacion.DataBindings.Add("Text", _bs, "poblacion");
+            txtCodigoPostal.DataBindings.Add("Text", _bs, "cpostal");
+            txtTelefono1.DataBindings.Add("Text", _bs, "telefono1");
+            txtTelefono2.DataBindings.Add("Text", _bs, "telefono2");
+            txtEmail.DataBindings.Add("Text", _bs, "email");
+
+            // Cargar provincias en el ComboBox
+            cbProvincia.DataSource = _tabla.ObtenerTablaProvincias();
+            cbProvincia.DisplayMember = "nombreprovincia";
+            cbProvincia.ValueMember = "id";
+            cbProvincia.SelectedIndex = 0;
+            cbProvincia.DataBindings.Add("SelectedValue", _bs, "idprovincia");
+        }
+
+        private void FrmProveedor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _bs.CancelEdit(); // Cancelar cambios si se cierra con la X
+        }
+
+        private bool ValidarDatos()
+        {
+            // Validar que NIF/CIF no esté vacío
+            if (string.IsNullOrWhiteSpace(txtNifCif.Text))
+            {
+                MessageBox.Show("El campo NIF/CIF no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNifCif.Focus();
+                return false;
+            }
+
+            // Validar que el nombre comercial no esté vacío
+            if (string.IsNullOrWhiteSpace(txtRazonSocial.Text))
+            {
+                MessageBox.Show("El campo Nombre Comercial no puede estar vacío.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtRazonSocial.Focus();
+                return false;
+            }
+
+            // Validar formato del email (si no está vacío)
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                try
+                {
+                    var addr = new System.Net.Mail.MailAddress(txtEmail.Text);
+                    if (addr.Address != txtEmail.Text)
+                        throw new FormatException();
+                }
+                catch
+                {
+                    MessageBox.Show("El correo electrónico no tiene un formato válido.",
+                        "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtEmail.Focus();
+                    return false;
+                }
+            }
+
+            // Comprobar duplicado del NIF/CIF
+            if (NifDuplicado(txtNifCif.Text.Trim()))
+            {
+                MessageBox.Show("El NIF/CIF ya existe en otro proveedor. Debe ser único.",
+                    "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNifCif.Focus();
+                return false;
+            }
+
+            // Validar código postal es correcto sin comprobar si está vacío
+            if (!Validaciones.CodigoPostalValido(txtCodigoPostal.Text.Trim()))
+            {
+                MessageBox.Show("El código postal no es válido.",
+                    "Error de validación",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                txtCodigoPostal.Focus();
+                return false;
+            }
+            
+            return true; // Todos los datos son válidos
+        }
+
+        private bool NifDuplicado(string aNifCif)
+        {
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(*) FROM proveedores WHERE nifcif = @nifcif", Program.appDAM.LaConexion);
+            cmd.Parameters.AddWithValue("@nifcif", aNifCif);
+
+            if (edicion && _bs.Current is DataRowView currentRow)
+            {
+                int id = (int)currentRow["id"];
+                cmd.CommandText += " AND id <> @id";
+                cmd.Parameters.AddWithValue("@id", id);
+            }
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            return count > 0;
+        }
+    }
+}

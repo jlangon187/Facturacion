@@ -246,28 +246,31 @@ namespace FacturacionDAM.Formularios
         #region Metodos Personales
 
         /// <summary>
-        /// Guardar factura
+        /// Metodo para guardar la factura en la base de datos. Si es nueva, inserta y recupera el ID generado.
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         private bool GuardarFactura()
         {
+            MySqlTransaction transaccion = null;
             try
             {
-                if (!ValidarDatos())
-                    return false;
+                if (!ValidarDatos()) return false;
 
                 ForzarValoresNoNulos();
                 _bsFactura.EndEdit();
 
-                _tablaFactura.GuardarDatos();
+                if (Program.appDAM.LaConexion.State != ConnectionState.Open)
+                    Program.appDAM.LaConexion.Open();
+
+                transaccion = Program.appDAM.LaConexion.BeginTransaction();
+
+                _tablaFactura.GuardarDatos(transaccion);
 
                 if (!modoEdicion)
                 {
-                    using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion))
+                    using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion, transaccion))
                     {
-                        object res = cmd.ExecuteScalar();
-                        idFactura = Convert.ToInt32(res);
+                        idFactura = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
                     if (_bsFactura.Current is DataRowView row)
@@ -275,19 +278,32 @@ namespace FacturacionDAM.Formularios
                         row.BeginEdit();
                         row["id"] = idFactura;
                         row.EndEdit();
-
-                        _tablaFactura.LaTabla.AcceptChanges();
                     }
 
-                    ActulizarNumeracionEmisor();
+                    foreach (DataRow linea in _tablaLineasFacturas.LaTabla.Rows)
+                    {
+                        if (linea.RowState != DataRowState.Deleted)
+                            linea["idfacrec"] = idFactura; // OJO: Campo 'idfacrec'
+                    }
+
+                    modoEdicion = true;
                 }
+
+                _bsLineasFacturas.EndEdit();
+                _tablaLineasFacturas.GuardarDatos(transaccion);
+
+                transaccion.Commit();
+
+                _tablaFactura.LaTabla.AcceptChanges();
+                _tablaLineasFacturas.LaTabla.AcceptChanges();
+
                 return true;
             }
             catch (Exception ex)
             {
-                Program.appDAM.RegistrarLog("Guardar una factura", ex.Message);
-                MessageBox.Show("Se ha producido un error al guardar la factura: " + ex.Message,
-                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (transaccion != null) transaccion.Rollback();
+                Program.appDAM.RegistrarLog("Guardar Factura Recibida", ex.Message);
+                MessageBox.Show("Error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -337,17 +353,19 @@ namespace FacturacionDAM.Formularios
                     return false;
                 }
 
-                if (row["numero"] == DBNull.Value || !int.TryParse(row["numero"].ToString(), out int numFactura) || numFactura <= 0)
+                string numFactura = row["numero"] != DBNull.Value ? row["numero"].ToString().Trim() : "";
+
+                if (string.IsNullOrWhiteSpace(numFactura))
                 {
-                    MessageBox.Show("El número de factura es obligatorio y debe ser mayor que 0.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El número de factura es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNumero.Focus();
                     return false;
                 }
 
                 if (ExisteNumeroFactura(numFactura))
                 {
-                    MessageBox.Show($"El número de factura {numFactura} ya existe para este emisor.\nPor favor, indique otro número.",
-                                    "Número Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show($"Este proveedor ya tiene una factura registrada con el número '{numFactura}'.",
+                                    "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     txtNumero.Focus();
                     return false;
                 }
@@ -383,12 +401,10 @@ namespace FacturacionDAM.Formularios
         /// Comprueba en la BD si existe una factura con el mismo número y emisor.
         /// Ignora la factura actual si estamos editando.
         /// </summary>
-        private bool ExisteNumeroFactura(int numero)
+        private bool ExisteNumeroFactura(string numero)
         {
-            // Consulta para contar cuántas facturas hay con ese número y ese emisor
-            string sql = "SELECT COUNT(*) FROM facrec WHERE numero = @numero AND idemisor = @idemisor";
+            string sql = "SELECT COUNT(*) FROM facrec WHERE numero = @numero AND idproveedor = @idproveedor";
 
-            // Si estamos editando, excluimos la factura actual de la búsqueda (id != @id)
             if (modoEdicion)
             {
                 sql += " AND id != @id";
@@ -397,14 +413,13 @@ namespace FacturacionDAM.Formularios
             using (var cmd = new MySqlCommand(sql, Program.appDAM.LaConexion))
             {
                 cmd.Parameters.AddWithValue("@numero", numero);
-                cmd.Parameters.AddWithValue("@idemisor", _idEmisor); // Usamos la variable global _idEmisor
+                cmd.Parameters.AddWithValue("@idproveedor", _idProveedor);
 
                 if (modoEdicion)
                 {
                     cmd.Parameters.AddWithValue("@id", idFactura);
                 }
 
-                // Si devuelve > 0 es que ya existe otra igual
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
                 return count > 0;
             }
@@ -505,19 +520,6 @@ namespace FacturacionDAM.Formularios
             {
                 if (row["fecha"] == DBNull.Value)
                     row["fecha"] = new DateTime(_anhoFactura, DateTime.Today.Month, DateTime.Today.Day);
-
-                if (!modoEdicion)
-                {
-                    if (row["numero"] == DBNull.Value || Convert.ToInt32(row["numero"]) == 0)
-                    {
-                        using (var cmd = new MySqlCommand("SELECT nextnumfac FROM emisores WHERE id = @id", Program.appDAM.LaConexion))
-                        {
-                            cmd.Parameters.AddWithValue("@id", _idEmisor);
-                            object result = cmd.ExecuteScalar();
-                            row["numero"] = result != null ? Convert.ToInt32(result) : 1;
-                        }
-                    }
-                }
             }
 
             txtNumero.DataBindings.Add("Text", _bsFactura, "numero");

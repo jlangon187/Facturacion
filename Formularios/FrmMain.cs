@@ -78,6 +78,12 @@ namespace FacturacionDAM.Formularios
 
         private void tsBtnEmisores_Click(object sender, EventArgs e)
         {
+            // Si hay ventanas abiertas, mostramos un mensaje de advertencia antes de cerrar todo
+            if (this.MdiChildren.Length > 0)
+            {
+                MessageBox.Show("Si accedes a los Emisores, se cerrarán todas las ventanas abiertas. \n¿Deseas continuar?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                CerrarFormulariosHijos();
+            }
             AbrirFormularioHijo<FrmBrowEmisores>();
         }
 

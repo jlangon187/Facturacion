@@ -1,17 +1,18 @@
 ﻿using FacturacionDAM.Modelos;
 using FacturacionDAM.Utils;
+using MySql.Data.MySqlClient;
 using Mysqlx.Resultset;
+using Stimulsoft.Report;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Stimulsoft.Report;
-using System.IO;
 
 namespace FacturacionDAM.Formularios
 {
@@ -189,8 +190,8 @@ namespace FacturacionDAM.Formularios
         {
             if (!(_bsFacturas.Current is DataRowView row)) return;
 
-            if (MessageBox.Show("¿Eliminar la factura seleccionada?\nSe eliminarán también las líneas de factura",
-                    "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            if (MessageBox.Show("¿Eliminar la factura seleccionada?\nSe eliminarán también las líneas de factura.\n\nAtención: Si es la última factura, el contador del emisor se corregirá.",
+                    "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
             {
                 return;
             }
@@ -198,16 +199,21 @@ namespace FacturacionDAM.Formularios
             try
             {
                 int idFactura = Convert.ToInt32(row["id"]);
+                int idEmisor = Convert.ToInt32(row["idemisor"]);
+                int numeroFactura = Convert.ToInt32(row["numero"]);
 
                 Tabla tFac = new Tabla(Program.appDAM.LaConexion);
 
                 tFac.EjecutarComando("DELETE FROM facemi WHERE id = @id", new() { { "@id", idFactura } });
 
+                CorregirContadorEmisor(tFac, idEmisor);
+
                 CargarFacturasClienteYAnho(_year.CurrentYear);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al borrar: " + ex.Message);
+                Program.appDAM.RegistrarLog("Borrar Factura", ex.Message);
+                MessageBox.Show("Error al borrar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -526,6 +532,45 @@ namespace FacturacionDAM.Formularios
                 // Si la selección previa ya no existe o es nula, seleccionamos el primero
                 tsCbYear.SelectedIndex = 0;
                 _year.CurrentYear = int.Parse(tsCbYear.SelectedItem.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Metodo para corregir el contador de facturas del emisor tras eliminar una factura.
+        /// Si la factura eliminada era la última emitida, se ajusta el contador al número correcto.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="idEmisor"></param>
+        private void CorregirContadorEmisor(Tabla t, int idEmisor)
+        {
+            try
+            {
+                string sqlMax = $"SELECT MAX(numero) FROM facemi WHERE idemisor = {idEmisor}";
+
+                object resultado = null;
+                using (var cmd = new MySqlCommand(sqlMax, Program.appDAM.LaConexion))
+                {
+                    resultado = cmd.ExecuteScalar();
+                }
+
+                int maximoActual = 0;
+
+                if (resultado != null && resultado != DBNull.Value)
+                {
+                    maximoActual = Convert.ToInt32(resultado);
+                }
+
+                string sqlUpdate = "UPDATE emisores SET nextnumfac = @nuevoContador WHERE id = @id";
+
+                t.EjecutarComando(sqlUpdate, new() {
+            { "@nuevoContador", maximoActual + 1 },
+            { "@id", idEmisor }
+        });
+
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Error Corregir Contador", ex.Message);
             }
         }
 

@@ -82,7 +82,22 @@ namespace FacturacionDAM.Formularios
             {
                 if (!CargarConceptos() || !CargarDatosEmisorYCliente())
                     return;
+                if (!modoEdicion)
+                {
+                    int hueco = BuscarPrimerHueco(_idEmisor);
 
+                    if (hueco != -1)
+                    {
+                        if (MessageBox.Show($"Se ha detectado que el número de factura {hueco} está libre.\n¿Desea usarlo para rellenar el hueco?",
+                            "Hueco detectado", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            if (_bsFactura.Current is DataRowView row)
+                            {
+                                row["numero"] = hueco;
+                            }
+                        }
+                    }
+                }
                 PrepararBindingFactura();
 
                 if (modoEdicion)
@@ -252,42 +267,65 @@ namespace FacturacionDAM.Formularios
         /// <exception cref="NotImplementedException"></exception>
         private bool GuardarFactura()
         {
+            MySqlTransaction transaccion = null;
             try
             {
-                if (!ValidarDatos())
-                    return false;
-
+                if (!ValidarDatos()) return false;
                 ForzarValoresNoNulos();
                 _bsFactura.EndEdit();
 
-                _tablaFactura.GuardarDatos();
+                if (Program.appDAM.LaConexion.State != ConnectionState.Open)
+                    Program.appDAM.LaConexion.Open();
+
+                transaccion = Program.appDAM.LaConexion.BeginTransaction();
+
+                _tablaFactura.GuardarDatos(transaccion);
 
                 if (!modoEdicion)
                 {
-                    using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion))
+                    // Usar comando con la transacción activa
+                    using (var cmd = new MySqlCommand("SELECT LAST_INSERT_ID()", Program.appDAM.LaConexion, transaccion))
                     {
-                        object res = cmd.ExecuteScalar();
-                        idFactura = Convert.ToInt32(res);
+                        idFactura = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
+                    // Actualiza el ID en memoria
                     if (_bsFactura.Current is DataRowView row)
                     {
                         row.BeginEdit();
                         row["id"] = idFactura;
                         row.EndEdit();
-
-                        _tablaFactura.LaTabla.AcceptChanges();
                     }
 
-                    ActulizarNumeracionEmisor();
+                    foreach (DataRow linea in _tablaLineasFacturas.LaTabla.Rows)
+                    {
+                        if (linea.RowState != DataRowState.Deleted)
+                            linea["idfacemi"] = idFactura;
+                    }
+
+                    // Actualizar contador emisor
+                    string sqlUpdate = "UPDATE emisores SET nextnumfac = nextnumfac + 1 WHERE id=@id";
+                    _tablaFactura.EjecutarComando(sqlUpdate, new() { { "@id", _idEmisor } }, transaccion);
+
+                    modoEdicion = true;
                 }
+
+                _bsLineasFacturas.EndEdit();
+                _tablaLineasFacturas.GuardarDatos(transaccion);
+
+                transaccion.Commit();
+
+                _tablaFactura.LaTabla.AcceptChanges();
+                _tablaLineasFacturas.LaTabla.AcceptChanges();
+
                 return true;
             }
             catch (Exception ex)
             {
-                Program.appDAM.RegistrarLog("Guardar una factura", ex.Message);
-                MessageBox.Show("Se ha producido un error al guardar la factura: " + ex.Message,
-                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Si hay algún error, revertimos la transacción para no dejar datos a medias
+                if (transaccion != null) transaccion.Rollback();
+
+                MessageBox.Show("Error crítico al guardar: " + ex.Message);
                 return false;
             }
         }
@@ -510,12 +548,8 @@ namespace FacturacionDAM.Formularios
                 {
                     if (row["numero"] == DBNull.Value || Convert.ToInt32(row["numero"]) == 0)
                     {
-                        using (var cmd = new MySqlCommand("SELECT nextnumfac FROM emisores WHERE id = @id", Program.appDAM.LaConexion))
-                        {
-                            cmd.Parameters.AddWithValue("@id", _idEmisor);
-                            object result = cmd.ExecuteScalar();
-                            row["numero"] = result != null ? Convert.ToInt32(result) : 1;
-                        }
+                        int numSeguro = ObtenerSiguienteNumeroSeguro(_idEmisor);
+                        row["numero"] = numSeguro;
                     }
                 }
             }
@@ -842,6 +876,100 @@ namespace FacturacionDAM.Formularios
             }
 
             gbTotales.Controls.Add(tlpTotales);
+        }
+
+        /// <summary>
+        /// Busca el primer número libre, ya sea un hueco intermedio o un desajuste con el contador.
+        /// </summary>
+        private int BuscarPrimerHueco(int idEmisor)
+        {
+            // Primero buscamos huecos intermedios en las facturas existentes (ej: 1, 2, 4, 5 -> devuelve 3)
+            string sqlFacturas = $"SELECT numero FROM facemi WHERE idemisor = {idEmisor} ORDER BY numero ASC";
+
+            Tabla tAux = new Tabla(Program.appDAM.LaConexion);
+            int maximoEncontrado = 0;
+
+            if (tAux.InicializarDatos(sqlFacturas))
+            {
+                int esperado = 1;
+
+                foreach (DataRow fila in tAux.LaTabla.Rows)
+                {
+                    if (int.TryParse(fila["numero"].ToString(), out int actual))
+                    {
+                        if (actual > esperado)
+                        {
+                            return esperado;
+                        }
+
+                        esperado = actual + 1;
+                        maximoEncontrado = actual;
+                    }
+                }
+            }
+
+            // Buscamos desajustes con el contador del emisor (nextnumfac)
+            string sqlEmisor = $"SELECT nextnumfac FROM emisores WHERE id = {idEmisor}";
+            Tabla tEmisor = new Tabla(Program.appDAM.LaConexion);
+
+            if (tEmisor.InicializarDatos(sqlEmisor) && tEmisor.LaTabla.Rows.Count > 0)
+            {
+                int contadorActual = Convert.ToInt32(tEmisor.LaTabla.Rows[0]["nextnumfac"]);
+
+                int siguienteLogico = maximoEncontrado + 1;
+
+                if (siguienteLogico < contadorActual)
+                {
+                    return siguienteLogico;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Calcula el siguiente número disponible asegurándose de que no exista ya.
+        /// Si el contador del emisor está retrasado, lo corrige automáticamente.
+        /// </summary>
+        private int ObtenerSiguienteNumeroSeguro(int idEmisor)
+        {
+            // Obtenemos el contador teórico del emisor (nextnumfac)
+            string sqlEmisor = $"SELECT nextnumfac FROM emisores WHERE id = {idEmisor}";
+            int contadorTeorico = 1;
+
+            Tabla t = new Tabla(Program.appDAM.LaConexion);
+            if (t.InicializarDatos(sqlEmisor) && t.LaTabla.Rows.Count > 0)
+            {
+                contadorTeorico = Convert.ToInt32(t.LaTabla.Rows[0]["nextnumfac"]);
+            }
+
+            // Obtenemos el máximo número real que existe en la base de datos para ese emisor
+            string sqlMax = $"SELECT MAX(numero) FROM facemi WHERE idemisor = {idEmisor}";
+            int maximoReal = 0;
+
+            // Usamos una conexión rápida para el escalar
+            using (var cmd = new MySqlCommand(sqlMax, Program.appDAM.LaConexion))
+            {
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    maximoReal = Convert.ToInt32(result);
+                }
+            }
+
+            // El siguiente número seguro es el máximo real + 1 (el siguiente lógico después de lo que ya existe)
+            int siguienteSeguro = maximoReal + 1;
+
+            // Si el contador es menor que el siguiente seguro, es que hay una colisión y el contador está retrasado.
+            if (contadorTeorico < siguienteSeguro)
+            {
+                t.EjecutarComando("UPDATE emisores SET nextnumfac = @nuevo WHERE id = @id",
+                    new() { { "@nuevo", siguienteSeguro }, { "@id", idEmisor } });
+
+                return siguienteSeguro;
+            }
+
+            return contadorTeorico;
         }
 
         #endregion

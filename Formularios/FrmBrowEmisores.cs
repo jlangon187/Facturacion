@@ -82,28 +82,28 @@ namespace FacturacionDAM.Formularios
                 if (MessageBox.Show("¿Estás seguro de que deseas eliminar este emisor?", "Confirmar eliminación",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    // Si el emisor está en uso, no se puede eliminar
                     try
                     {
-                        if (_tabla.EmisorEnUso("emisores", "emisor_id", (int)row["id"]))
+                        int idEmisor = Convert.ToInt32(row["id"]);
+
+                        if (_tabla.EmisorEnUso(idEmisor))
                         {
-                            MessageBox.Show("No se puede eliminar este emisor porque está en uso.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede eliminar este emisor porque es el que está ACTIVO en la aplicación.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
-                        else
-                        {
-                            _bs.RemoveCurrent();
-                            _tabla.GuardarDatos();
-                            ActualizarEstado();
-                        }
+
+                        _bs.RemoveCurrent();
+                        _tabla.GuardarDatos();
+                        ActualizarEstado();
                     }
                     catch (Exception ex)
                     {
-                        Program.appDAM.RegistrarLog("Error al comprobar si el emisor está en uso", ex.Message);
-                        return;
-                    }
+                        Program.appDAM.RegistrarLog("Borrar Emisor", ex.Message);
+                        MessageBox.Show("No se puede eliminar el emisor.\nProbablemente tenga facturas asociadas.", "Error Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        _tabla.Refrescar();
+                    }
                 }
             }
         }

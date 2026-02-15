@@ -35,8 +35,11 @@ namespace FacturacionDAM.Modelos
         {
             try
             {
+                if (_dataAdapter.SelectCommand != null) _dataAdapter.SelectCommand.Dispose();
+
                 _dataAdapter.SelectCommand = new MySqlCommand(sql, _conexion);
                 _commandBuilder = new MySqlCommandBuilder(_dataAdapter);
+
                 _tabla = new DataTable();
                 _dataAdapter.Fill(_tabla);
                 return true;
@@ -53,20 +56,54 @@ namespace FacturacionDAM.Modelos
         /// </summary>
         public void Refrescar()
         {
-            _tabla.Clear();
-            _dataAdapter.Fill(_tabla);
+            if (_tabla != null)
+            {
+                _tabla.Clear();
+                _dataAdapter.Fill(_tabla);
+            }
         }
 
         /// <summary>
-        /// Guarda los cambios realizados en la tabla de datos de vuelta a la base de datos.
+        /// Metodo que guarda los cambios realizados en el DataTable de la tabla en la base de datos. Si se le pasa una transacción, se asignará a los comandos generados para asegurar que las operaciones se realicen dentro de esa transacción.
         /// </summary>
-        public void GuardarDatos()
+        /// <param name="transaccion"></param>
+        /// <returns></returns>
+        public bool GuardarDatos(MySqlTransaction transaccion = null)
         {
-            _dataAdapter.Update(_tabla);
+            try
+            {
+                // Si nos pasan una transacción, asignarla a los comandos generados
+                if (transaccion != null && _dataAdapter.SelectCommand != null)
+                {
+                    _dataAdapter.SelectCommand.Transaction = transaccion;
+
+                    // Generamos los comandos de inserción, actualización y eliminación utilizando el CommandBuilder
+                    var ins = _commandBuilder.GetInsertCommand();
+                    var upd = _commandBuilder.GetUpdateCommand();
+                    var del = _commandBuilder.GetDeleteCommand();
+
+                    ins.Transaction = transaccion;
+                    upd.Transaction = transaccion;
+                    del.Transaction = transaccion;
+
+                    _dataAdapter.InsertCommand = ins;
+                    _dataAdapter.UpdateCommand = upd;
+                    _dataAdapter.DeleteCommand = del;
+                }
+
+                _dataAdapter.Update(_tabla);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.GuardarDatos", ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Libera los recursos utilizados por la tabla.
+        /// Metodo que libera los recursos utilizados por la tabla, como el DataTable, el DataAdapter y el CommandBuilder.
+        /// Es importante llamar a este método cuando ya no se necesite la tabla para liberar memoria y evitar posibles fugas de memoria.
         /// </summary>
         public void Liberar()
         {
@@ -76,18 +113,34 @@ namespace FacturacionDAM.Modelos
         }
 
         /// <summary>
-        /// Ejercuta un comando SQL con parámetros y devuelve el número de filas afectadas.
+        /// Metodo que ejecuta un comando SQL de tipo INSERT, UPDATE o DELETE con parámetros. Si se le pasa una transacción, el comando se ejecut
         /// </summary>
-        /// <param name="aSql">La sentencia SQL a ejecutar</param>
-        /// <param name="aParameters">El diccionario de parámetros</param>
-        /// <returns>Devuelve el resultado de la ejecicion de la sentencia</returns>
-        public int EjecutarComando(string aSql, Dictionary<string, object> aParameters)
+        /// <param name="aSql"></param>
+        /// <param name="aParameters"></param>
+        /// <param name="transaccion"></param>
+        /// <returns></returns>
+        public int EjecutarComando(string aSql, Dictionary<string, object> aParameters, MySqlTransaction transaccion = null)
         {
-            using var cmd = new MySqlCommand(aSql, _conexion);
-            foreach (var param in aParameters)
-                cmd.Parameters.AddWithValue(param.Key, param.Value);
-            
-            return cmd.ExecuteNonQuery();
+            try
+            {
+                using var cmd = new MySqlCommand(aSql, _conexion);
+
+                // Asignar transacción si existe
+                if (transaccion != null) cmd.Transaction = transaccion;
+
+                if (aParameters != null)
+                {
+                    foreach (var param in aParameters)
+                        cmd.Parameters.AddWithValue(param.Key, param.Value);
+                }
+
+                return cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.EjecutarComando", ex.Message + " SQL: " + aSql);
+                throw;
+            }
         }
 
         /// <summary>
@@ -95,31 +148,33 @@ namespace FacturacionDAM.Modelos
         /// </summary>
         public DataTable LaTabla => _tabla;
 
-        // Emisor que esta en uso
-        public bool EmisorEnUso(string v, string v1, int idEmisor)
+        /// <summary>
+        /// Comprueba si un emisor está en uso en la aplicación (es el activo).
+        /// </summary>
+        /// <param name="idEmisor">ID del emisor a comprobar</param>
+        public bool EmisorEnUso(int idEmisor)
         {
             try
             {
-                // Comprueba si el emisor activo en la aplicación es el mismo que intentas borrar
                 if (Program.appDAM.emisor != null && Program.appDAM.emisor.id == idEmisor)
                 {
-                    return true; // Está en uso (activo en la aplicación)
+                    return true;
                 }
-
-                return false; // No está en uso
+                return false;
             }
             catch (Exception ex)
             {
                 Program.appDAM.RegistrarLog("Tabla.EmisorEnUso", ex.Message);
-                return true; // Por seguridad, asumimos que está en uso si hay error
+                return true;
             }
         }
 
         /// <summary>
-        /// Metodo que devuelve una tabla con las provincias.
+        /// Metodo que devuelve una tabla con las provincias. Se implementa un sistema de cache para evitar ir a la base de datos cada vez que se necesitan las provincias, ya que estas no cambian frecuentemente.
+        /// Si el cache está vacío o no existe, se carga desde la base de datos y se almacena en el cache para futuras consultas.
         /// </summary>
-        /// <returns></returns>
-        internal object ObtenerTablaProvincias()
+        /// <returns>Retorna un DataTable con las provincias</returns>
+        internal DataTable ObtenerTablaProvincias()
         {
             try
             {
@@ -127,34 +182,53 @@ namespace FacturacionDAM.Modelos
                 {
                     return _cacheProvincias;
                 }
-                MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, nombreprovincia FROM provincias ORDER BY nombreprovincia;", _conexion);
-                DataTable provinciasTable = new DataTable();
-                _cacheProvincias = new DataTable();
-                da.Fill(_cacheProvincias);
+
+                using (var da = new MySqlDataAdapter("SELECT id, nombreprovincia FROM provincias ORDER BY nombreprovincia;", _conexion))
+                {
+                    _cacheProvincias = new DataTable();
+                    da.Fill(_cacheProvincias);
+                }
 
                 return _cacheProvincias;
             }
             catch (Exception ex)
             {
                 Program.appDAM.RegistrarLog("Tabla.ObtenerTablaProvincias", ex.Message);
-                return new DataTable();
+                return new DataTable(); // Devuelve tabla vacía para no romper el programa
             }
         }
 
-        internal object ObtenerTablaTiposDeIVA()
+        /// <summary>
+        /// Metodo que devuelve una tabla con los tipos de IVA. Se ordenan por porcentaje para facilitar su uso en la aplicación.
+        /// No se implementa cache porque los tipos de IVA pueden cambiar más frecuentemente que las provincias, aunque si se quisiera se podría implementar un sistema de cache similar al de las provincias.
+        /// </summary>
+        /// <returns>Retorna un DataTable con los tipos de IVA</returns>
+        internal DataTable ObtenerTablaTiposDeIVA()
         {
             try
             {
-                MySqlDataAdapter da = new MySqlDataAdapter("SELECT id, descripcion, porcentaje FROM tiposiva ORDER BY porcentaje;", _conexion);
-                DataTable tiposIVATable = new DataTable();
-                da.Fill(tiposIVATable);
-                return tiposIVATable;
+                using (var da = new MySqlDataAdapter("SELECT id, descripcion, porcentaje FROM tiposiva ORDER BY porcentaje;", _conexion))
+                {
+                    DataTable tiposIVATable = new DataTable();
+                    da.Fill(tiposIVATable);
+                    return tiposIVATable;
+                }
             }
             catch (Exception ex)
             {
                 Program.appDAM.RegistrarLog("Tabla.ObtenerTablaTiposDeIVA", ex.Message);
                 return new DataTable();
             }
+        }
+
+        /// <summary>
+        /// Metodo que devuelve una tabla con los tipos de factura. Se ordenan por descripción para facilitar su uso en la aplicación.
+        /// </summary>
+        public void Dispose()
+        {
+            _tabla?.Dispose();
+            _dataAdapter?.Dispose();
+            _commandBuilder?.Dispose();
         }
     }
 }

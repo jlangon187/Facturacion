@@ -224,8 +224,6 @@ namespace FacturacionDAM.Formularios
             numTipoIva.Value = Convert.ToDecimal(row["iva_porcentaje"]);
             txtDescripcion.Text = row["descripcion"].ToString();
 
-            _bs.EndEdit();
-
             if (_bs.Current is DataRowView rowLinea)
             {
                 rowLinea["cantidad"] = numCantidad.Value;

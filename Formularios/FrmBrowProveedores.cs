@@ -52,7 +52,7 @@ namespace FacturacionDAM.Formularios
         {
             _bs.AddNew();
 
-            FrmCliente frm = new FrmCliente(_bs, _tabla);
+            FrmProveedor frm = new FrmProveedor(_bs, _tabla);
             frm.edicion = false;
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -65,7 +65,7 @@ namespace FacturacionDAM.Formularios
         {
             if (_bs.Current is DataRowView row)
             {
-                FrmCliente frm = new FrmCliente(_bs, _tabla);
+                FrmProveedor frm = new FrmProveedor(_bs, _tabla);
                 frm.edicion = true;
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
