@@ -84,6 +84,14 @@ namespace FacturacionDAM.Formularios
                 {
                     try
                     {
+                        // Si el cliente tiene facturas, no se puede eliminar
+                        int idCliente = Convert.ToInt32(row["id"]);
+                        if (_tabla.TieneFacturas(idCliente, Tabla.TipoEntidad.Cliente))
+                        {
+                            MessageBox.Show("No se puede eliminar el cliente porque tiene facturas asociadas.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         _bs.RemoveCurrent();
                         _tabla.GuardarDatos();
                         ActualizarEstado();

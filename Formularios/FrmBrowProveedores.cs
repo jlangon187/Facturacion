@@ -84,6 +84,14 @@ namespace FacturacionDAM.Formularios
                 {
                     try
                     {
+                        // Si el proveedor tiene facturas, no se puede eliminar
+                        int idProveedor = Convert.ToInt32(row["id"]);
+                        if (_tabla.TieneFacturas(idProveedor, Tabla.TipoEntidad.Proveedor))
+                        {
+                            MessageBox.Show("No se puede eliminar el proveedor porque tiene facturas asociadas.", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         _bs.RemoveCurrent();
                         _tabla.GuardarDatos();
                         ActualizarEstado();

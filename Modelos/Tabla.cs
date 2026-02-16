@@ -16,6 +16,12 @@ namespace FacturacionDAM.Modelos
         private DataTable _tabla;                    // Objeto DataTable que contiene los datos de la tabla
         private static DataTable _cacheProvincias;   // Cache estático para las provincias
 
+        public enum TipoEntidad
+        {
+            Cliente,
+            Proveedor
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -229,6 +235,45 @@ namespace FacturacionDAM.Modelos
             _tabla?.Dispose();
             _dataAdapter?.Dispose();
             _commandBuilder?.Dispose();
+        }
+
+        /// <summary>
+        /// Metodo que comprueba si una entidad (cliente o proveedor) tiene facturas asociadas. Esto es importante para evitar eliminar un cliente o proveedor que tenga facturas relacionadas, lo que podría causar inconsistencias en la base de datos.
+        /// </summary>
+        /// <param name="idEntidad"></param>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
+        public bool TieneFacturas(int idEntidad, TipoEntidad tipo)
+        {
+            try
+            {
+                string sql = "";
+
+                // Seleccionamos la consulta dependiendo del tipo
+                if (tipo == TipoEntidad.Cliente)
+                {
+                    // Busca en facturas emitidas por idcliente
+                    sql = "SELECT COUNT(*) FROM facemi WHERE idcliente = @idEntidad;";
+                }
+                else
+                {
+                    // Busca en facturas recibidas por idproveedor
+                    sql = "SELECT COUNT(*) FROM facrec WHERE idproveedor = @idEntidad;";
+                }
+
+                using var cmd = new MySqlCommand(sql, _conexion);
+                cmd.Parameters.AddWithValue("@idEntidad", idEntidad);
+
+                object result = cmd.ExecuteScalar();
+                int count = result != null ? Convert.ToInt32(result) : 0;
+
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                Program.appDAM.RegistrarLog("Tabla.TieneFacturas", ex.Message);
+                return true;
+            }
         }
     }
 }
